@@ -226,8 +226,8 @@ body_loop {i  : int | 0 <= i}
 
       val m : uint64 = get64bits (pf_head | p)
       val v3 = bitwise_xor (v3, m)
-      val @(v0, v1, v2, v3) = siprounds (siphash$crounds (),
-                                         v0, v1, v2, v3)
+      val @(v0, v1, v2, v3) =
+        siprounds (siphash$crounds (), v0, v1, v2, v3)
       val v0 = bitwise_xor (v0, m)
 
       val p = ptr_add<byte> (p, 8)
@@ -347,8 +347,8 @@ siphash_vtuple {inlen  : int}
 
     val v3 = bitwise_xor (v3, b)
 
-    val @(v0, v1, v2, v3) = siprounds (siphash$crounds (),
-                                       v0, v1, v2, v3)
+    val @(v0, v1, v2, v3) =
+      siprounds (siphash$crounds (), v0, v1, v2, v3)
 
     val v0 = bitwise_xor (v0, b)
 
@@ -357,8 +357,8 @@ siphash_vtuple {inlen  : int}
                                else
                                  u2u64 0xffU))
         
-    val @(v0, v1, v2, v3) = siprounds (siphash$drounds (),
-                                       v0, v1, v2, v3)
+    val @(v0, v1, v2, v3) =
+      siprounds (siphash$drounds (), v0, v1, v2, v3)
   in
     @(v0, v1, v2, v3)
   end
@@ -381,8 +381,8 @@ siphash_128 (input, inlen, key) =
       bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
 
     val v1 = bitwise_xor (v1, u2u64 0xddU)
-    val @(v0, v1, v2, v3) = siprounds (siphash$drounds (),
-                                       v0, v1, v2, v3)
+    val @(v0, v1, v2, v3) =
+      siprounds (siphash$drounds (), v0, v1, v2, v3)
 
     val hashval2 =
       bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
