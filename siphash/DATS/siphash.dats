@@ -35,18 +35,6 @@ staload "siphash/SATS/siphash.sats"
 
 (********************************************************************)
 
-(*
-prfn
-mul_compare_lte {i, j, n : nat | i <= j} () :<prf>
-    [i * n <= j * n] void =
-  mul_gte_gte_gte {j - i, n} ()
-
-prfn
-lemma_mul_is_associative {x, y, z : int} () :<prf>
-    [(x * y) * z == x * (y * z)] void =
-  ()
-*)
-
 prfn
 lemma_mul_isfun {m1, n1 : int}
                 {m2, n2 : int | m1 == m2; n1 == n2}
@@ -57,21 +45,6 @@ lemma_mul_isfun {m1, n1 : int}
     prval pf2 = mul_make {m2, n2} ()
     prval _ = mul_isfun {m1, n1} {m1 * n1, m2 * n2} (pf1, pf2)
   }
-
-(*
-prfn
-lemma_indexing_by_group {t : vt@ype}
-                        {i, group_size : int}
-                        () :<prf>
-    [(i * group_size) * sizeof (t) == i * sizeof (@[t][group_size])]
-    void =
-  {
-    prval _ = lemma_sizeof_array {t} {group_size} ()
-    prval _ = lemma_mul_is_associative {i, group_size, sizeof (t)} ()
-    prval _ = lemma_mul_isfun {i, sizeof (@[t][group_size])}
-                              {i, group_size * sizeof (t)} ()
-  }
-*)
 
 (********************************************************************)
 
@@ -154,11 +127,13 @@ overload fix_byte_order with fix_byte_order_uint64
 
 (********************************************************************)
 
+(*
 implement {}
 siphash$crounds () = 2U
 
 implement {}
 siphash$drounds () = 4U
+*)
 
 (********************************************************************)
 
@@ -407,5 +382,61 @@ siphash (input, inlen, key, output, outlen) =
                                hashval2)
       prval _ = view@ output := array_v_unsplit (pf1, pf2)
     }
+
+(********************************************************************)
+
+local
+  implement {} siphash$crounds () = 2U
+  implement {} siphash$drounds () = 4U
+in
+  implement
+  siphash_2_4_64 (input, inlen, key) =
+    siphash_64<> (input, inlen, key)
+end
+
+local
+  implement {} siphash$crounds () = 4U
+  implement {} siphash$drounds () = 8U
+in
+  implement
+  siphash_4_8_64 (input, inlen, key) =
+    siphash_64<> (input, inlen, key)
+end
+
+local
+  implement {} siphash$crounds () = 2U
+  implement {} siphash$drounds () = 4U
+in
+  implement
+  siphash_2_4_128 (input, inlen, key) =
+    siphash_128<> (input, inlen, key)
+end
+
+local
+  implement {} siphash$crounds () = 4U
+  implement {} siphash$drounds () = 8U
+in
+  implement
+  siphash_4_8_128 (input, inlen, key) =
+    siphash_128<> (input, inlen, key)
+end
+
+local
+  implement {} siphash$crounds () = 2U
+  implement {} siphash$drounds () = 4U
+in
+  implement
+  siphash_2_4_output (input, inlen, key, output, outlen) =
+    siphash<> (input, inlen, key, output, outlen)
+end
+
+local
+  implement {} siphash$crounds () = 4U
+  implement {} siphash$drounds () = 8U
+in
+  implement
+  siphash_4_8_output (input, inlen, key, output, outlen) =
+    siphash<> (input, inlen, key, output, outlen)
+end
 
 (********************************************************************)

@@ -29,11 +29,11 @@ along with this program. If not, see
   https://en.wikipedia.org/w/index.php?title=SipHash&oldid=1032799115
 *)
 
-(* Use this to change the crounds. Defaults to 2U. *)
+(* Use this to set the crounds. *)
 fun {}
 siphash$crounds () :<> [crounds : pos] uint crounds
 
-(* Use this to change the drounds. Defaults to 4U. *)
+(* Use this to set the drounds. *)
 fun {}
 siphash$drounds () :<> [drounds : pos] uint drounds
 
@@ -62,3 +62,56 @@ siphash {inlen  : int}
          outlen : size_t outlen) :<!refwrt> void
 
 (********************************************************************)
+
+fun
+siphash_2_4_64 {inlen  : int}
+               (input  : &RD(@[byte][inlen]),
+                inlen  : size_t inlen,
+                key    : &RD(@[byte][16])) :<!ref> uint64
+
+fun
+siphash_4_8_64 {inlen  : int}
+               (input  : &RD(@[byte][inlen]),
+                inlen  : size_t inlen,
+                key    : &RD(@[byte][16])) :<!ref> uint64
+
+fun
+siphash_2_4_128 {inlen  : int}
+                (input  : &RD(@[byte][inlen]),
+                 inlen  : size_t inlen,
+                 key    : &RD(@[byte][16])) :<!ref> @(uint64, uint64)
+
+fun
+siphash_4_8_128 {inlen  : int}
+                (input  : &RD(@[byte][inlen]),
+                 inlen  : size_t inlen,
+                 key    : &RD(@[byte][16])) :<!ref> @(uint64, uint64)
+
+fun
+siphash_2_4_output
+        {inlen  : int}
+        {outlen : int | outlen == 8 || outlen == 16}
+        (input  : &RD(@[byte][inlen]),
+         inlen  : size_t inlen,
+         key    : &RD(@[byte][16]),
+         output : &(@[byte?][outlen]) >> @[byte][outlen],
+         outlen : size_t outlen) :<!refwrt> void
+
+fun
+siphash_4_8_output
+        {inlen  : int}
+        {outlen : int | outlen == 8 || outlen == 16}
+        (input  : &RD(@[byte][inlen]),
+         inlen  : size_t inlen,
+         key    : &RD(@[byte][16]),
+         output : &(@[byte?][outlen]) >> @[byte][outlen],
+         outlen : size_t outlen) :<!refwrt> void
+
+overload siphash_2_4 with siphash_2_4_64
+overload siphash_2_4 with siphash_2_4_output
+
+overload siphash_4_8 with siphash_4_8_64
+overload siphash_4_8 with siphash_4_8_output
+
+(********************************************************************)
+
