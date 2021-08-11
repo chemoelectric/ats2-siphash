@@ -364,6 +364,33 @@ siphash_vtuple {inlen  : int}
   end
 
 implement {}
+siphash_64 (input, inlen, key) =
+  let
+    val @(v0, v1, v2, v3) = siphash_vtuple (input, inlen, key, i2sz 8)
+  in
+    bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
+  end
+
+implement {}
+siphash_128 (input, inlen, key) =
+  let
+    val @(v0, v1, v2, v3) =
+      siphash_vtuple (input, inlen, key, i2sz 16)
+
+    val hashval1 =
+      bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
+
+    val v1 = bitwise_xor (v1, u2u64 0xddU)
+    val @(v0, v1, v2, v3) = siprounds (siphash$drounds (),
+                                       v0, v1, v2, v3)
+
+    val hashval2 =
+      bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
+  in
+    @(hashval1, hashval2)
+  end
+
+implement {}
 siphash (input, inlen, key, output, outlen) =
   if outlen = i2sz 8 then
     {
