@@ -21,6 +21,11 @@
 #ifndef ATS2_SIPHASH_CATS_HEADER_GUARD__
 #define ATS2_SIPHASH_CATS_HEADER_GUARD__
 
+_Static_assert (sizeof (atstype_uint32) == 4,
+                "uint32 is not 4 bytes");
+_Static_assert (sizeof (atstype_uint64) == 8,
+                "uint32 is not 8 bytes");
+
 #define ats2_siphash_inline ATSinline()
 
 #ifdef __GNUC__
@@ -78,6 +83,22 @@ ats2_siphash_always_inline atstype_size
 ats2_siphash_natmod_size (atstype_size x, atstype_size y)
 {
   return (x % y);
+}
+
+/* Bitwise inclusive or. */
+ats2_siphash_always_inline atstype_uint32
+ats2_siphash_bitwise_ior_uint32 (atstype_uint32 x,
+                                 atstype_uint32 y)
+{
+  return (x | y);
+}
+
+/* Bitwise inclusive or. */
+ats2_siphash_always_inline atstype_uint64
+ats2_siphash_bitwise_ior_uint64 (atstype_uint64 x,
+                                 atstype_uint64 y)
+{
+  return (x | y);
 }
 
 /* Bitwise exclusive or. */

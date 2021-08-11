@@ -29,9 +29,11 @@ along with this program. If not, see
   https://en.wikipedia.org/w/index.php?title=SipHash&oldid=1032799115
 *)
 
+(* Use this to change the crounds. Defaults to 2U. *)
 fun {}
 siphash$crounds () :<> [crounds : pos] uint crounds
 
+(* Use this to change the drounds. Defaults to 4U. *)
 fun {}
 siphash$drounds () :<> [drounds : pos] uint drounds
 
@@ -47,6 +49,9 @@ siphash_128 {inlen  : int}
              inlen  : size_t inlen,
              key    : &RD(@[byte][16])) :<!ref> @(uint64, uint64)
 
+(* The following template reproduces the "siphash" function of
+   the reference implementation, except that it returns no value
+   and can have its crounds and drounds tailored. *)
 fun {}
 siphash {inlen  : int}
         {outlen : int | outlen == 8 || outlen == 16}

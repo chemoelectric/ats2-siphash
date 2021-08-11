@@ -104,6 +104,16 @@ TOTAL_PATSOPTFLAGS += $(XPATSOPTFLAGS)
 
 lib_LTLIBRARIES += libats2-siphash.la
 
+ARRAY_PRF_SATS = siphash/SATS/array_prf.sats
+ARRAY_PRF_SATS_C = siphash/SATS/array_prf_sats.c
+EXTRA_DIST += $(ARRAY_PRF_SATS)
+CLEANFILES += $(ARRAY_PRF_SATS_C)
+
+ARRAY_PRF_DATS = siphash/DATS/array_prf.dats
+ARRAY_PRF_DATS_C = siphash/DATS/array_prf_dats.c
+EXTRA_DIST += $(ARRAY_PRF_DATS)
+CLEANFILES += $(ARRAY_PRF_DATS_C)
+
 SIPHASH_SATS = siphash/SATS/siphash.sats
 SIPHASH_SATS_C = siphash/SATS/siphash_sats.c
 EXTRA_DIST += $(SIPHASH_SATS)
@@ -118,12 +128,19 @@ SIPHASH_CATS = siphash/CATS/siphash.cats
 EXTRA_DIST += $(SIPHASH_CATS)
 
 nodist_libats2_siphash_la_SOURCES =
+nodist_libats2_siphash_la_SOURCES += $(ARRAY_PRF_SATS_C)
+nodist_libats2_siphash_la_SOURCES += $(ARRAY_PRF_DATS_C)
 nodist_libats2_siphash_la_SOURCES += $(SIPHASH_SATS_C)
 nodist_libats2_siphash_la_SOURCES += $(SIPHASH_DATS_C)
 
+$(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
+$(ARRAY_PRF_DATS_C): $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS)
 $(SIPHASH_SATS_C): $(SIPHASH_SATS)
-$(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS)
+$(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS) \
+					$(ARRAY_PRF_SATS)
 
+nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_SATS)
+nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_DATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_CATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_SATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_DATS)

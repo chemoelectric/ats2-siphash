@@ -169,9 +169,12 @@ am__uninstall_files_from_dir = { \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libats2_siphash_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am__objects_1 = siphash/SATS/siphash_sats.lo
-am__objects_2 = siphash/DATS/siphash_dats.lo
-nodist_libats2_siphash_la_OBJECTS = $(am__objects_1) $(am__objects_2)
+am__objects_1 = siphash/SATS/array_prf_sats.lo
+am__objects_2 = siphash/DATS/array_prf_dats.lo
+am__objects_3 = siphash/SATS/siphash_sats.lo
+am__objects_4 = siphash/DATS/siphash_dats.lo
+nodist_libats2_siphash_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
+	$(am__objects_3) $(am__objects_4)
 libats2_siphash_la_OBJECTS = $(nodist_libats2_siphash_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -192,7 +195,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = siphash/DATS/$(DEPDIR)/siphash_dats.Plo \
+am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
+	siphash/DATS/$(DEPDIR)/siphash_dats.Plo \
+	siphash/SATS/$(DEPDIR)/array_prf_sats.Plo \
 	siphash/SATS/$(DEPDIR)/siphash_sats.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -427,9 +432,11 @@ AUTOMAKE_OPTIONS = foreign subdir-objects -Wno-portability
 @CODE_COVERAGE_ENABLED_TRUE@code_coverage_sanitize = $(subst -,_,$(subst .,_,$(1)))
 @CODE_COVERAGE_ENABLED_TRUE@AM_DISTCHECK_CONFIGURE_FLAGS := $(AM_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
 EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
-	$(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS)
+	$(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) $(SIPHASH_SATS) \
+	$(SIPHASH_DATS) $(SIPHASH_CATS)
 MOSTLYCLEANFILES = 
-CLEANFILES = $(SIPHASH_SATS_C) $(SIPHASH_DATS_C)
+CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
+	$(SIPHASH_DATS_C)
 DISTCLEANFILES = Makefile
 BUILT_SOURCES = 
 
@@ -442,8 +449,8 @@ LDADD = $(CODE_COVERAGE_LIBS)
 
 #--------------------------------------------------------------------------
 lib_LTLIBRARIES = libats2-siphash.la
-nobase_nodist_pkginclude_HEADERS = $(SIPHASH_CATS) $(SIPHASH_SATS) \
-	$(SIPHASH_DATS)
+nobase_nodist_pkginclude_HEADERS = $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) \
+	$(SIPHASH_CATS) $(SIPHASH_SATS) $(SIPHASH_DATS)
 CODE_COVERAGE_IGNORE_PATTERN = /usr/include/* /usr/include/*/* \
 	$(PATSHOME)/ccomp/runtime/* $(PATSHOME)/prelude/CATS/*
 
@@ -463,13 +470,17 @@ PATSOPT_DEPS =
 AM_PATSOPTFLAGS = -IATS $(builddir) -IATS $(srcdir)
 TOTAL_PATSOPTFLAGS = $(AM_PATSOPTFLAGS) $(PATSOPTFLAGS) \
 	$(XPATSOPTFLAGS)
+ARRAY_PRF_SATS = siphash/SATS/array_prf.sats
+ARRAY_PRF_SATS_C = siphash/SATS/array_prf_sats.c
+ARRAY_PRF_DATS = siphash/DATS/array_prf.dats
+ARRAY_PRF_DATS_C = siphash/DATS/array_prf_dats.c
 SIPHASH_SATS = siphash/SATS/siphash.sats
 SIPHASH_SATS_C = siphash/SATS/siphash_sats.c
 SIPHASH_DATS = siphash/DATS/siphash.dats
 SIPHASH_DATS_C = siphash/DATS/siphash_dats.c
 SIPHASH_CATS = siphash/CATS/siphash.cats
-nodist_libats2_siphash_la_SOURCES = $(SIPHASH_SATS_C) \
-	$(SIPHASH_DATS_C)
+nodist_libats2_siphash_la_SOURCES = $(ARRAY_PRF_SATS_C) \
+	$(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) $(SIPHASH_DATS_C)
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -599,7 +610,7 @@ siphash/SATS/$(am__dirstamp):
 siphash/SATS/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) siphash/SATS/$(DEPDIR)
 	@: > siphash/SATS/$(DEPDIR)/$(am__dirstamp)
-siphash/SATS/siphash_sats.lo: siphash/SATS/$(am__dirstamp) \
+siphash/SATS/array_prf_sats.lo: siphash/SATS/$(am__dirstamp) \
 	siphash/SATS/$(DEPDIR)/$(am__dirstamp)
 siphash/DATS/$(am__dirstamp):
 	@$(MKDIR_P) siphash/DATS
@@ -607,6 +618,10 @@ siphash/DATS/$(am__dirstamp):
 siphash/DATS/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) siphash/DATS/$(DEPDIR)
 	@: > siphash/DATS/$(DEPDIR)/$(am__dirstamp)
+siphash/DATS/array_prf_dats.lo: siphash/DATS/$(am__dirstamp) \
+	siphash/DATS/$(DEPDIR)/$(am__dirstamp)
+siphash/SATS/siphash_sats.lo: siphash/SATS/$(am__dirstamp) \
+	siphash/SATS/$(DEPDIR)/$(am__dirstamp)
 siphash/DATS/siphash_dats.lo: siphash/DATS/$(am__dirstamp) \
 	siphash/DATS/$(DEPDIR)/$(am__dirstamp)
 
@@ -623,7 +638,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/array_prf_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_dats.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/array_prf_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/siphash_sats.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -978,7 +995,9 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
+		-rm -f siphash/DATS/$(DEPDIR)/array_prf_dats.Plo
+	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
+	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
 	-rm -f GNUmakefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -1027,7 +1046,9 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
+		-rm -f siphash/DATS/$(DEPDIR)/array_prf_dats.Plo
+	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
+	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
 	-rm -f GNUmakefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
@@ -1190,8 +1211,11 @@ distclean-local: code-coverage-dist-clean
 	@$(MKDIR_P) $(@D)
 	$(call v,PATSOPT)$(PATSOPT) -o $(@) $(TOTAL_PATSOPTFLAGS) -d $(<)
 
+$(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
+$(ARRAY_PRF_DATS_C): $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS)
 $(SIPHASH_SATS_C): $(SIPHASH_SATS)
-$(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS)
+$(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS) \
+					$(ARRAY_PRF_SATS)
 
 # #--------------------------------------------------------------------------
 # #
