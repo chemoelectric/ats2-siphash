@@ -180,6 +180,10 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+libsiphash_la_DEPENDENCIES = libats2-siphash.la
+am__objects_5 = siphash/DATS/siphash_c_dats.lo
+am_libsiphash_la_OBJECTS = $(am__objects_5)
+libsiphash_la_OBJECTS = $(am_libsiphash_la_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -196,6 +200,7 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
+	siphash/DATS/$(DEPDIR)/siphash_c_dats.Plo \
 	siphash/DATS/$(DEPDIR)/siphash_dats.Plo \
 	siphash/SATS/$(DEPDIR)/array_prf_sats.Plo \
 	siphash/SATS/$(DEPDIR)/siphash_sats.Plo
@@ -218,8 +223,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(nodist_libats2_siphash_la_SOURCES)
-DIST_SOURCES =
+SOURCES = $(nodist_libats2_siphash_la_SOURCES) \
+	$(libsiphash_la_SOURCES)
+DIST_SOURCES = $(libsiphash_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -433,100 +439,6 @@ AUTOMAKE_OPTIONS = foreign subdir-objects -Wno-portability
 @CODE_COVERAGE_ENABLED_TRUE@AM_DISTCHECK_CONFIGURE_FLAGS := $(AM_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
 
 # #--------------------------------------------------------------------------
-# #
-# # The ATS2 library.
-# #
-# 
-# lib_LTLIBRARIES += libats2-murmurhash3.la
-# 
-# ARRAY_PRF_SATS = murmurhash3/SATS/array_prf.sats
-# ARRAY_PRF_SATS_C = murmurhash3/SATS/array_prf_sats.c
-# EXTRA_DIST += $(ARRAY_PRF_SATS)
-# CLEANFILES += $(ARRAY_PRF_SATS_C)
-# 
-# ARRAY_PRF_DATS = murmurhash3/DATS/array_prf.dats
-# ARRAY_PRF_DATS_C = murmurhash3/DATS/array_prf_dats.c
-# EXTRA_DIST += $(ARRAY_PRF_DATS)
-# CLEANFILES += $(ARRAY_PRF_DATS_C)
-# 
-# MURMURHASH3_CATS = murmurhash3/CATS/murmurhash3.cats
-# EXTRA_DIST += $(MURMURHASH3_CATS)
-# 
-# MURMURHASH3_32_SATS = murmurhash3/SATS/murmurhash3_32.sats
-# MURMURHASH3_32_SATS_C = murmurhash3/SATS/murmurhash3_32_sats.c
-# EXTRA_DIST += $(MURMURHASH3_32_SATS)
-# CLEANFILES += $(MURMURHASH3_32_SATS_C)
-# 
-# MURMURHASH3_32_DATS = murmurhash3/DATS/murmurhash3_32.dats
-# MURMURHASH3_32_DATS_C = murmurhash3/DATS/murmurhash3_32_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_DATS)
-# CLEANFILES += $(MURMURHASH3_32_DATS_C)
-# 
-# MURMURHASH3_32_STRING_DATS = murmurhash3/DATS/murmurhash3_32_string.dats
-# MURMURHASH3_32_STRING_DATS_C = murmurhash3/DATS/murmurhash3_32_string_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_STRING_DATS)
-# CLEANFILES += $(MURMURHASH3_32_STRING_DATS_C)
-# 
-# MURMURHASH3_32_LIST_DATS = murmurhash3/DATS/murmurhash3_32_list.dats
-# MURMURHASH3_32_LIST_DATS_C = murmurhash3/DATS/murmurhash3_32_list_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_LIST_DATS)
-# CLEANFILES += $(MURMURHASH3_32_LIST_DATS_C)
-# 
-# MURMURHASH3_32_HATS = murmurhash3/HATS/murmurhash3_32.hats
-# EXTRA_DIST += $(MURMURHASH3_32_HATS)
-# 
-# nodist_libats2_murmurhash3_la_SOURCES =
-# nodist_libats2_murmurhash3_la_SOURCES += $(ARRAY_PRF_SATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(ARRAY_PRF_DATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_SATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_DATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_STRING_DATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_LIST_DATS_C)
-# 
-# $(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
-# $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_DATS) $(ARRAY_PRF_SATS)
-# $(MURMURHASH3_32_SATS_C): $(MURMURHASH3_32_SATS)
-# $(MURMURHASH3_32_DATS_C): $(MURMURHASH3_32_DATS) \
-# 							$(MURMURHASH3_32_SATS) \
-# 							$(MURMURHASH3_CATS) \
-# 						 	$(ARRAY_PRF_SATS)
-# $(MURMURHASH3_32_STRING_DATS_C): $(MURMURHASH3_32_STRING_DATS) \
-# 							$(MURMURHASH3_32_SATS)
-# $(MURMURHASH3_32_LIST_DATS_C): $(MURMURHASH3_32_LIST_DATS) \
-# 							$(MURMURHASH3_32_SATS)
-# 
-# nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_SATS)
-# nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_CATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_SATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_STRING_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_LIST_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_HATS)
-# 
-# #--------------------------------------------------------------------------
-# #
-# # The C library.
-# #
-# 
-# lib_LTLIBRARIES += libmurmurhash3.la
-# 
-# MURMURHASH3_32_C_DATS = murmurhash3/DATS/murmurhash3_32_c.dats
-# MURMURHASH3_32_C_DATS_C = murmurhash3/DATS/murmurhash3_32_c_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_C_DATS)
-# CLEANFILES += $(MURMURHASH3_32_C_DATS_C)
-# 
-# libmurmurhash3_la_SOURCES =
-# libmurmurhash3_la_SOURCES += $(MURMURHASH3_32_C_DATS_C)
-# libmurmurhash3_la_SOURCES += murmurhash3/murmurhash3_32.h
-# 
-# libmurmurhash3_la_LIBADD =
-# libmurmurhash3_la_LIBADD += libats2-murmurhash3.la
-# 
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_C_DATS)
-# nobase_nodist_pkginclude_HEADERS += murmurhash3/murmurhash3_32.h
-# 
-# #--------------------------------------------------------------------------
 # 
 # pkgconfigdir = ${libdir}/pkgconfig
 # nodist_pkgconfig_DATA = ats2-murmurhash3.pc
@@ -571,7 +483,7 @@ AUTOMAKE_OPTIONS = foreign subdir-objects -Wno-portability
 #--------------------------------------------------------------------------
 EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	$(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) $(SIPHASH_SATS) \
-	$(SIPHASH_DATS) $(SIPHASH_CATS) \
+	$(SIPHASH_DATS) $(SIPHASH_CATS) $(SIPHASH_C_DATS) \
 	reference-implementation/halfsiphash.c \
 	reference-implementation/halfsiphash.h \
 	reference-implementation/LICENSE \
@@ -584,7 +496,7 @@ EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	reference-implementation/vectors.h
 MOSTLYCLEANFILES = 
 CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
-	$(SIPHASH_DATS_C)
+	$(SIPHASH_DATS_C) $(SIPHASH_C_DATS_C)
 DISTCLEANFILES = Makefile
 BUILT_SOURCES = 
 
@@ -596,9 +508,18 @@ AM_LDFLAGS =
 LDADD = $(CODE_COVERAGE_LIBS)
 
 #--------------------------------------------------------------------------
-lib_LTLIBRARIES = libats2-siphash.la
+#
+# The ATS2 library.
+#
+
+#--------------------------------------------------------------------------
+#
+# The C library.
+#
+lib_LTLIBRARIES = libats2-siphash.la libsiphash.la
 nobase_nodist_pkginclude_HEADERS = $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) \
-	$(SIPHASH_CATS) $(SIPHASH_SATS) $(SIPHASH_DATS)
+	$(SIPHASH_CATS) $(SIPHASH_SATS) $(SIPHASH_DATS) \
+	$(SIPHASH_32_C_DATS) siphash/siphash.h
 CODE_COVERAGE_IGNORE_PATTERN = /usr/include/* /usr/include/*/* \
 	$(PATSHOME)/ccomp/runtime/* $(PATSHOME)/prelude/CATS/*
 
@@ -629,6 +550,10 @@ SIPHASH_DATS_C = siphash/DATS/siphash_dats.c
 SIPHASH_CATS = siphash/CATS/siphash.cats
 nodist_libats2_siphash_la_SOURCES = $(ARRAY_PRF_SATS_C) \
 	$(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) $(SIPHASH_DATS_C)
+SIPHASH_C_DATS = siphash/DATS/siphash_c.dats
+SIPHASH_C_DATS_C = siphash/DATS/siphash_c_dats.c
+libsiphash_la_SOURCES = $(SIPHASH_C_DATS_C) siphash/siphash.h
+libsiphash_la_LIBADD = libats2-siphash.la
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -775,6 +700,11 @@ siphash/DATS/siphash_dats.lo: siphash/DATS/$(am__dirstamp) \
 
 libats2-siphash.la: $(libats2_siphash_la_OBJECTS) $(libats2_siphash_la_DEPENDENCIES) $(EXTRA_libats2_siphash_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libats2_siphash_la_OBJECTS) $(libats2_siphash_la_LIBADD) $(LIBS)
+siphash/DATS/siphash_c_dats.lo: siphash/DATS/$(am__dirstamp) \
+	siphash/DATS/$(DEPDIR)/$(am__dirstamp)
+
+libsiphash.la: $(libsiphash_la_OBJECTS) $(libsiphash_la_DEPENDENCIES) $(EXTRA_libsiphash_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libsiphash_la_OBJECTS) $(libsiphash_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -787,6 +717,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/array_prf_dats.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_c_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/array_prf_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/siphash_sats.Plo@am__quote@ # am--include-marker
@@ -1144,6 +1075,7 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 		-rm -f siphash/DATS/$(DEPDIR)/array_prf_dats.Plo
+	-rm -f siphash/DATS/$(DEPDIR)/siphash_c_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
@@ -1195,6 +1127,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 		-rm -f siphash/DATS/$(DEPDIR)/array_prf_dats.Plo
+	-rm -f siphash/DATS/$(DEPDIR)/siphash_c_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
