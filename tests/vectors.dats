@@ -85,16 +85,3 @@ vectors_hsip32 () =
 implement
 vectors_hsip64 () =
   make_bytes_view {512} ($extfcall (Ptr, "vectors_hsip64_p"))
-
-
-
-(*
-implement
-main0()=
-{
-  val (pf, consume_pf | p) = vectors_sip64 ()
-  val _ = println! ($UNSAFE.cast{int} ($UNSAFE.ptr0_get_at<byte> (p, 0)))
-  val _ = println! ($UNSAFE.cast{int} ($UNSAFE.ptr0_get_at<byte> (p, 7)))
-  prval _ = consume_pf pf
-}
-*)

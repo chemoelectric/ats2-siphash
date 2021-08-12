@@ -181,7 +181,7 @@ ats2_siphash_always_inline atstype_uint64
 ats2_siphash_get64bits (const atstype_ptr p)
 {
   atstype_uint64 v;
-  ats2_siphash_memcpy (&v, p, 4);
+  ats2_siphash_memcpy (&v, p, 8);
   return v;
 }
 
@@ -198,7 +198,7 @@ ats2_siphash_put32bits (atstype_ptr p, atstype_uint32 v)
 ats2_siphash_always_inline void
 ats2_siphash_put64bits (atstype_ptr p, atstype_uint64 v)
 {
-  ats2_siphash_memcpy (p, &v, 4);
+  ats2_siphash_memcpy (p, &v, 8);
 }
 
 /* On big endian platforms, swap the byte order. On little endian

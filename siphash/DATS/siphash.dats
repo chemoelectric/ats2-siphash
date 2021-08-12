@@ -127,16 +127,6 @@ overload fix_byte_order with fix_byte_order_uint64
 
 (********************************************************************)
 
-(*
-implement {}
-siphash$crounds () = 2U
-
-implement {}
-siphash$drounds () = 4U
-*)
-
-(********************************************************************)
-
 fn {}
 siprounds {num_rounds : int}
           (num_rounds : uint num_rounds,

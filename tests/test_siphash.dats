@@ -74,7 +74,7 @@ test_siphash_2_4_64 () : void =
     loop {i : int | 0 <= i; i <= 64} .<64 - i>.
          (i : size_t i) : void =
       if i < i2sz 64 then
-        {
+        let
           var key : @[byte][16]
           val _ = initialize_bytes (key, i2sz 16)
 
@@ -96,6 +96,12 @@ test_siphash_2_4_64 () : void =
 
           val p_vec = ptr_add<byte> (p_vecs, i * i2sz 8)
 
+          (* The value printed here depends on the endianness
+             of the platform. *)
+          val _ = $extfcall (int, "printf",
+                             "test_siphash_2_4_64 %zu: 0x%.16llx\n",
+                             i, $UNSAFE.cast{ullint} h)
+
           val _ = assertloc (check_bytes (!p_vec, output, i2sz 8))
 
           prval _ =
@@ -103,7 +109,9 @@ test_siphash_2_4_64 () : void =
           prval _ = consume_pf_vecs pf_vecs
 
           prval _ = view@ input := array_v_join2 (pf_inp1, pf_inp2)
-        }
+        in
+          loop (succ i)
+        end
 
     val _ = loop (i2sz 0)
   }
