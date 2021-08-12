@@ -29,6 +29,12 @@ along with this program. If not, see
   https://en.wikipedia.org/w/index.php?title=SipHash&oldid=1032799115
 *)
 
+(*------------------------------------------------------------------*)
+(*
+  Setting crounds and drounds by template rather than passing
+  them as parameters might help the C compiler unroll loops.
+*)
+
 (* Use this to set the crounds. *)
 fun {}
 siphash$crounds () :<> [crounds : pos] uint crounds
@@ -36,6 +42,8 @@ siphash$crounds () :<> [crounds : pos] uint crounds
 (* Use this to set the drounds. *)
 fun {}
 siphash$drounds () :<> [drounds : pos] uint drounds
+
+(*------------------------------------------------------------------*)
 
 fun {}
 siphash_64 {inlen  : int}
@@ -76,6 +84,14 @@ siphash_4_8_64 {inlen  : int}
                 key    : &RD(@[byte][16])) :<!ref> uint64
 
 fun
+siphash_c_d_64 {inlen   : int}
+               (input   : &RD(@[byte][inlen]),
+                inlen   : size_t inlen,
+                key     : &RD(@[byte][16]),
+                crounds : [i : pos] uint i,
+                drounds : [i : pos] uint i) :<!ref> uint64
+
+fun
 siphash_2_4_128 {inlen  : int}
                 (input  : &RD(@[byte][inlen]),
                  inlen  : size_t inlen,
@@ -86,6 +102,14 @@ siphash_4_8_128 {inlen  : int}
                 (input  : &RD(@[byte][inlen]),
                  inlen  : size_t inlen,
                  key    : &RD(@[byte][16])) :<!ref> @(uint64, uint64)
+
+fun
+siphash_c_d_128 {inlen   : int}
+                (input   : &RD(@[byte][inlen]),
+                 inlen   : size_t inlen,
+                 key     : &RD(@[byte][16]),
+                 crounds : [i : pos] uint i,
+                 drounds : [i : pos] uint i) :<!ref> @(uint64, uint64)
 
 fun
 siphash_2_4_output
@@ -107,11 +131,26 @@ siphash_4_8_output
          output : &(@[byte?][outlen]) >> @[byte][outlen],
          outlen : size_t outlen) :<!refwrt> void
 
+fun
+siphash_c_d_output
+        {inlen   : int}
+        {outlen  : int | outlen == 8 || outlen == 16}
+        (input   : &RD(@[byte][inlen]),
+         inlen   : size_t inlen,
+         key     : &RD(@[byte][16]),
+         crounds : [i : pos] uint i,
+         drounds : [i : pos] uint i,
+         output  : &(@[byte?][outlen]) >> @[byte][outlen],
+         outlen  : size_t outlen) :<!refwrt> void
+
 overload siphash_2_4 with siphash_2_4_64
 overload siphash_2_4 with siphash_2_4_output
 
 overload siphash_4_8 with siphash_4_8_64
 overload siphash_4_8 with siphash_4_8_output
+
+overload siphash_c_d with siphash_c_d_64
+overload siphash_c_d with siphash_c_d_output
 
 (********************************************************************)
 

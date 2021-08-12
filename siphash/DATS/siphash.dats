@@ -403,6 +403,15 @@ in
     siphash_64<> (input, inlen, key)
 end
 
+implement
+siphash_c_d_64 (input, inlen, key, crounds, drounds) =
+  let
+    implement {} siphash$crounds () = crounds
+    implement {} siphash$drounds () = drounds
+  in
+    siphash_64<> (input, inlen, key)
+  end
+
 local
   implement {} siphash$crounds () = 2U
   implement {} siphash$drounds () = 4U
@@ -421,6 +430,15 @@ in
     siphash_128<> (input, inlen, key)
 end
 
+implement
+siphash_c_d_128 (input, inlen, key, crounds, drounds) =
+  let
+    implement {} siphash$crounds () = crounds
+    implement {} siphash$drounds () = drounds
+  in
+    siphash_128<> (input, inlen, key)
+  end
+
 local
   implement {} siphash$crounds () = 2U
   implement {} siphash$drounds () = 4U
@@ -438,5 +456,15 @@ in
   siphash_4_8_output (input, inlen, key, output, outlen) =
     siphash<> (input, inlen, key, output, outlen)
 end
+
+implement
+siphash_c_d_output (input, inlen, key, crounds, drounds,
+                    output, outlen) =
+  let
+    implement {} siphash$crounds () = crounds
+    implement {} siphash$drounds () = drounds
+  in
+    siphash<> (input, inlen, key, output, outlen)
+  end
 
 (********************************************************************)
