@@ -431,9 +431,157 @@ AUTOMAKE_OPTIONS = foreign subdir-objects -Wno-portability
 # sanitizes the test-name: replaces with underscores: dashes and dots
 @CODE_COVERAGE_ENABLED_TRUE@code_coverage_sanitize = $(subst -,_,$(subst .,_,$(1)))
 @CODE_COVERAGE_ENABLED_TRUE@AM_DISTCHECK_CONFIGURE_FLAGS := $(AM_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
+
+# #--------------------------------------------------------------------------
+# #
+# # The ATS2 library.
+# #
+# 
+# lib_LTLIBRARIES += libats2-murmurhash3.la
+# 
+# ARRAY_PRF_SATS = murmurhash3/SATS/array_prf.sats
+# ARRAY_PRF_SATS_C = murmurhash3/SATS/array_prf_sats.c
+# EXTRA_DIST += $(ARRAY_PRF_SATS)
+# CLEANFILES += $(ARRAY_PRF_SATS_C)
+# 
+# ARRAY_PRF_DATS = murmurhash3/DATS/array_prf.dats
+# ARRAY_PRF_DATS_C = murmurhash3/DATS/array_prf_dats.c
+# EXTRA_DIST += $(ARRAY_PRF_DATS)
+# CLEANFILES += $(ARRAY_PRF_DATS_C)
+# 
+# MURMURHASH3_CATS = murmurhash3/CATS/murmurhash3.cats
+# EXTRA_DIST += $(MURMURHASH3_CATS)
+# 
+# MURMURHASH3_32_SATS = murmurhash3/SATS/murmurhash3_32.sats
+# MURMURHASH3_32_SATS_C = murmurhash3/SATS/murmurhash3_32_sats.c
+# EXTRA_DIST += $(MURMURHASH3_32_SATS)
+# CLEANFILES += $(MURMURHASH3_32_SATS_C)
+# 
+# MURMURHASH3_32_DATS = murmurhash3/DATS/murmurhash3_32.dats
+# MURMURHASH3_32_DATS_C = murmurhash3/DATS/murmurhash3_32_dats.c
+# EXTRA_DIST += $(MURMURHASH3_32_DATS)
+# CLEANFILES += $(MURMURHASH3_32_DATS_C)
+# 
+# MURMURHASH3_32_STRING_DATS = murmurhash3/DATS/murmurhash3_32_string.dats
+# MURMURHASH3_32_STRING_DATS_C = murmurhash3/DATS/murmurhash3_32_string_dats.c
+# EXTRA_DIST += $(MURMURHASH3_32_STRING_DATS)
+# CLEANFILES += $(MURMURHASH3_32_STRING_DATS_C)
+# 
+# MURMURHASH3_32_LIST_DATS = murmurhash3/DATS/murmurhash3_32_list.dats
+# MURMURHASH3_32_LIST_DATS_C = murmurhash3/DATS/murmurhash3_32_list_dats.c
+# EXTRA_DIST += $(MURMURHASH3_32_LIST_DATS)
+# CLEANFILES += $(MURMURHASH3_32_LIST_DATS_C)
+# 
+# MURMURHASH3_32_HATS = murmurhash3/HATS/murmurhash3_32.hats
+# EXTRA_DIST += $(MURMURHASH3_32_HATS)
+# 
+# nodist_libats2_murmurhash3_la_SOURCES =
+# nodist_libats2_murmurhash3_la_SOURCES += $(ARRAY_PRF_SATS_C)
+# nodist_libats2_murmurhash3_la_SOURCES += $(ARRAY_PRF_DATS_C)
+# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_SATS_C)
+# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_DATS_C)
+# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_STRING_DATS_C)
+# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_LIST_DATS_C)
+# 
+# $(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
+# $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_DATS) $(ARRAY_PRF_SATS)
+# $(MURMURHASH3_32_SATS_C): $(MURMURHASH3_32_SATS)
+# $(MURMURHASH3_32_DATS_C): $(MURMURHASH3_32_DATS) \
+# 							$(MURMURHASH3_32_SATS) \
+# 							$(MURMURHASH3_CATS) \
+# 						 	$(ARRAY_PRF_SATS)
+# $(MURMURHASH3_32_STRING_DATS_C): $(MURMURHASH3_32_STRING_DATS) \
+# 							$(MURMURHASH3_32_SATS)
+# $(MURMURHASH3_32_LIST_DATS_C): $(MURMURHASH3_32_LIST_DATS) \
+# 							$(MURMURHASH3_32_SATS)
+# 
+# nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_SATS)
+# nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_DATS)
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_CATS)
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_SATS)
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_DATS)
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_STRING_DATS)
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_LIST_DATS)
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_HATS)
+# 
+# #--------------------------------------------------------------------------
+# #
+# # The C library.
+# #
+# 
+# lib_LTLIBRARIES += libmurmurhash3.la
+# 
+# MURMURHASH3_32_C_DATS = murmurhash3/DATS/murmurhash3_32_c.dats
+# MURMURHASH3_32_C_DATS_C = murmurhash3/DATS/murmurhash3_32_c_dats.c
+# EXTRA_DIST += $(MURMURHASH3_32_C_DATS)
+# CLEANFILES += $(MURMURHASH3_32_C_DATS_C)
+# 
+# libmurmurhash3_la_SOURCES =
+# libmurmurhash3_la_SOURCES += $(MURMURHASH3_32_C_DATS_C)
+# libmurmurhash3_la_SOURCES += murmurhash3/murmurhash3_32.h
+# 
+# libmurmurhash3_la_LIBADD =
+# libmurmurhash3_la_LIBADD += libats2-murmurhash3.la
+# 
+# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_C_DATS)
+# nobase_nodist_pkginclude_HEADERS += murmurhash3/murmurhash3_32.h
+# 
+# #--------------------------------------------------------------------------
+# 
+# pkgconfigdir = ${libdir}/pkgconfig
+# nodist_pkgconfig_DATA = ats2-murmurhash3.pc
+# nodist_pkgconfig_DATA = murmurhash3.pc
+# 
+# #--------------------------------------------------------------------------
+# 
+# AM_DEFAULT_SOURCE_EXT = _dats.c
+# 
+# TESTS =
+# TESTS += $(check_PROGRAMS)
+# 
+# DISTRIBUTED_ATS2_TESTS =
+# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32
+# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list
+# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list_vt
+# 
+# tests_test_murmurhash3_32_LDADD = libats2-murmurhash3.la
+# 
+# tests_test_murmurhash3_32_list_LDADD = libats2-murmurhash3.la
+# tests_test_murmurhash3_32_list_DEPENDENCIES = $(MURMURHASH3_32_HATS)
+# 
+# tests_test_murmurhash3_32_list_vt_LDADD = libats2-murmurhash3.la
+# tests_test_murmurhash3_32_list_vt_DEPENDENCIES = $(MURMURHASH3_32_HATS)
+# 
+# DISTRIBUTED_C_TESTS =
+# DISTRIBUTED_C_TESTS += tests/test_murmurhash3_32_c
+# 
+# tests_test_murmurhash3_32_c_SOURCES = tests/test_murmurhash3_32_c.c
+# tests_test_murmurhash3_32_c_LDADD = libmurmurhash3.la
+# 
+# DISTRIBUTED_TESTS =
+# DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
+# DISTRIBUTED_TESTS += $(DISTRIBUTED_C_TESTS)
+# 
+# check_PROGRAMS =
+# check_PROGRAMS += $(DISTRIBUTED_TESTS)
+# 
+# EXTRA_DIST += $(DISTRIBUTED_ATS2_TESTS:%=%.dats)
+# CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
+
+#--------------------------------------------------------------------------
 EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	$(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) $(SIPHASH_SATS) \
-	$(SIPHASH_DATS) $(SIPHASH_CATS)
+	$(SIPHASH_DATS) $(SIPHASH_CATS) \
+	reference-implementation/halfsiphash.c \
+	reference-implementation/halfsiphash.h \
+	reference-implementation/LICENSE \
+	reference-implementation/makefile \
+	reference-implementation/README.md \
+	reference-implementation/siphash.c \
+	reference-implementation/siphash.h \
+	reference-implementation/test.c \
+	reference-implementation/testmain.c \
+	reference-implementation/vectors.h
 MOSTLYCLEANFILES = 
 CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
 	$(SIPHASH_DATS_C)
@@ -1216,142 +1364,6 @@ $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS)
 $(SIPHASH_SATS_C): $(SIPHASH_SATS)
 $(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS) \
 					$(ARRAY_PRF_SATS)
-
-# #--------------------------------------------------------------------------
-# #
-# # The ATS2 library.
-# #
-# 
-# lib_LTLIBRARIES += libats2-murmurhash3.la
-# 
-# ARRAY_PRF_SATS = murmurhash3/SATS/array_prf.sats
-# ARRAY_PRF_SATS_C = murmurhash3/SATS/array_prf_sats.c
-# EXTRA_DIST += $(ARRAY_PRF_SATS)
-# CLEANFILES += $(ARRAY_PRF_SATS_C)
-# 
-# ARRAY_PRF_DATS = murmurhash3/DATS/array_prf.dats
-# ARRAY_PRF_DATS_C = murmurhash3/DATS/array_prf_dats.c
-# EXTRA_DIST += $(ARRAY_PRF_DATS)
-# CLEANFILES += $(ARRAY_PRF_DATS_C)
-# 
-# MURMURHASH3_CATS = murmurhash3/CATS/murmurhash3.cats
-# EXTRA_DIST += $(MURMURHASH3_CATS)
-# 
-# MURMURHASH3_32_SATS = murmurhash3/SATS/murmurhash3_32.sats
-# MURMURHASH3_32_SATS_C = murmurhash3/SATS/murmurhash3_32_sats.c
-# EXTRA_DIST += $(MURMURHASH3_32_SATS)
-# CLEANFILES += $(MURMURHASH3_32_SATS_C)
-# 
-# MURMURHASH3_32_DATS = murmurhash3/DATS/murmurhash3_32.dats
-# MURMURHASH3_32_DATS_C = murmurhash3/DATS/murmurhash3_32_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_DATS)
-# CLEANFILES += $(MURMURHASH3_32_DATS_C)
-# 
-# MURMURHASH3_32_STRING_DATS = murmurhash3/DATS/murmurhash3_32_string.dats
-# MURMURHASH3_32_STRING_DATS_C = murmurhash3/DATS/murmurhash3_32_string_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_STRING_DATS)
-# CLEANFILES += $(MURMURHASH3_32_STRING_DATS_C)
-# 
-# MURMURHASH3_32_LIST_DATS = murmurhash3/DATS/murmurhash3_32_list.dats
-# MURMURHASH3_32_LIST_DATS_C = murmurhash3/DATS/murmurhash3_32_list_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_LIST_DATS)
-# CLEANFILES += $(MURMURHASH3_32_LIST_DATS_C)
-# 
-# MURMURHASH3_32_HATS = murmurhash3/HATS/murmurhash3_32.hats
-# EXTRA_DIST += $(MURMURHASH3_32_HATS)
-# 
-# nodist_libats2_murmurhash3_la_SOURCES =
-# nodist_libats2_murmurhash3_la_SOURCES += $(ARRAY_PRF_SATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(ARRAY_PRF_DATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_SATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_DATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_STRING_DATS_C)
-# nodist_libats2_murmurhash3_la_SOURCES += $(MURMURHASH3_32_LIST_DATS_C)
-# 
-# $(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
-# $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_DATS) $(ARRAY_PRF_SATS)
-# $(MURMURHASH3_32_SATS_C): $(MURMURHASH3_32_SATS)
-# $(MURMURHASH3_32_DATS_C): $(MURMURHASH3_32_DATS) \
-# 							$(MURMURHASH3_32_SATS) \
-# 							$(MURMURHASH3_CATS) \
-# 						 	$(ARRAY_PRF_SATS)
-# $(MURMURHASH3_32_STRING_DATS_C): $(MURMURHASH3_32_STRING_DATS) \
-# 							$(MURMURHASH3_32_SATS)
-# $(MURMURHASH3_32_LIST_DATS_C): $(MURMURHASH3_32_LIST_DATS) \
-# 							$(MURMURHASH3_32_SATS)
-# 
-# nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_SATS)
-# nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_CATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_SATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_STRING_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_LIST_DATS)
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_HATS)
-# 
-# #--------------------------------------------------------------------------
-# #
-# # The C library.
-# #
-# 
-# lib_LTLIBRARIES += libmurmurhash3.la
-# 
-# MURMURHASH3_32_C_DATS = murmurhash3/DATS/murmurhash3_32_c.dats
-# MURMURHASH3_32_C_DATS_C = murmurhash3/DATS/murmurhash3_32_c_dats.c
-# EXTRA_DIST += $(MURMURHASH3_32_C_DATS)
-# CLEANFILES += $(MURMURHASH3_32_C_DATS_C)
-# 
-# libmurmurhash3_la_SOURCES =
-# libmurmurhash3_la_SOURCES += $(MURMURHASH3_32_C_DATS_C)
-# libmurmurhash3_la_SOURCES += murmurhash3/murmurhash3_32.h
-# 
-# libmurmurhash3_la_LIBADD =
-# libmurmurhash3_la_LIBADD += libats2-murmurhash3.la
-# 
-# nobase_nodist_pkginclude_HEADERS += $(MURMURHASH3_32_C_DATS)
-# nobase_nodist_pkginclude_HEADERS += murmurhash3/murmurhash3_32.h
-# 
-# #--------------------------------------------------------------------------
-# 
-# pkgconfigdir = ${libdir}/pkgconfig
-# nodist_pkgconfig_DATA = ats2-murmurhash3.pc
-# nodist_pkgconfig_DATA = murmurhash3.pc
-# 
-# #--------------------------------------------------------------------------
-# 
-# AM_DEFAULT_SOURCE_EXT = _dats.c
-# 
-# TESTS =
-# TESTS += $(check_PROGRAMS)
-# 
-# DISTRIBUTED_ATS2_TESTS =
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list_vt
-# 
-# tests_test_murmurhash3_32_LDADD = libats2-murmurhash3.la
-# 
-# tests_test_murmurhash3_32_list_LDADD = libats2-murmurhash3.la
-# tests_test_murmurhash3_32_list_DEPENDENCIES = $(MURMURHASH3_32_HATS)
-# 
-# tests_test_murmurhash3_32_list_vt_LDADD = libats2-murmurhash3.la
-# tests_test_murmurhash3_32_list_vt_DEPENDENCIES = $(MURMURHASH3_32_HATS)
-# 
-# DISTRIBUTED_C_TESTS =
-# DISTRIBUTED_C_TESTS += tests/test_murmurhash3_32_c
-# 
-# tests_test_murmurhash3_32_c_SOURCES = tests/test_murmurhash3_32_c.c
-# tests_test_murmurhash3_32_c_LDADD = libmurmurhash3.la
-# 
-# DISTRIBUTED_TESTS =
-# DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
-# DISTRIBUTED_TESTS += $(DISTRIBUTED_C_TESTS)
-# 
-# check_PROGRAMS =
-# check_PROGRAMS += $(DISTRIBUTED_TESTS)
-# 
-# EXTRA_DIST += $(DISTRIBUTED_ATS2_TESTS:%=%.dats)
-# CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
 
 #--------------------------------------------------------------------------
 # local variables:

@@ -282,6 +282,19 @@ nobase_nodist_pkginclude_HEADERS += $(SIPHASH_DATS)
 # CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
 
 #--------------------------------------------------------------------------
+
+EXTRA_DIST += reference-implementation/halfsiphash.c
+EXTRA_DIST += reference-implementation/halfsiphash.h
+EXTRA_DIST += reference-implementation/LICENSE
+EXTRA_DIST += reference-implementation/makefile
+EXTRA_DIST += reference-implementation/README.md
+EXTRA_DIST += reference-implementation/siphash.c
+EXTRA_DIST += reference-implementation/siphash.h
+EXTRA_DIST += reference-implementation/test.c
+EXTRA_DIST += reference-implementation/testmain.c
+EXTRA_DIST += reference-implementation/vectors.h
+
+#--------------------------------------------------------------------------
 # local variables:
 # coding: utf-8
 # end:
