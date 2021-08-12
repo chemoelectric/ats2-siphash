@@ -177,14 +177,23 @@ nobase_nodist_pkginclude_HEADERS += siphash/siphash.h
 # nodist_pkgconfig_DATA = murmurhash3.pc
 # 
 # #--------------------------------------------------------------------------
-# 
-# AM_DEFAULT_SOURCE_EXT = _dats.c
-# 
-# TESTS =
-# TESTS += $(check_PROGRAMS)
-# 
-# DISTRIBUTED_ATS2_TESTS =
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32
+
+AM_DEFAULT_SOURCE_EXT = _dats.c
+
+TESTS =
+TESTS += $(check_PROGRAMS)
+
+DISTRIBUTED_ATS2_TESTS =
+DISTRIBUTED_ATS2_TESTS += tests/test_siphash
+
+tests_test_siphash_SOURCES =
+tests_test_siphash_SOURCES += tests/test_siphash_dats.c
+tests_test_siphash_SOURCES += tests/vectors_sats.c
+tests_test_siphash_SOURCES += tests/vectors_dats.c
+tests_test_siphash_LDADD = libats2-siphash.la
+tests_test_siphash_DEPENDENCIES = tests/vectors.h
+tests_test_siphash_DEPENDENCIES = siphash/SATS/array_prf.sats
+
 # DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list
 # DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list_vt
 # 
@@ -195,22 +204,27 @@ nobase_nodist_pkginclude_HEADERS += siphash/siphash.h
 # 
 # tests_test_murmurhash3_32_list_vt_LDADD = libats2-murmurhash3.la
 # tests_test_murmurhash3_32_list_vt_DEPENDENCIES = $(MURMURHASH3_32_HATS)
-# 
-# DISTRIBUTED_C_TESTS =
+
+DISTRIBUTED_C_TESTS =
 # DISTRIBUTED_C_TESTS += tests/test_murmurhash3_32_c
 # 
 # tests_test_murmurhash3_32_c_SOURCES = tests/test_murmurhash3_32_c.c
 # tests_test_murmurhash3_32_c_LDADD = libmurmurhash3.la
-# 
-# DISTRIBUTED_TESTS =
-# DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
-# DISTRIBUTED_TESTS += $(DISTRIBUTED_C_TESTS)
-# 
-# check_PROGRAMS =
-# check_PROGRAMS += $(DISTRIBUTED_TESTS)
-# 
-# EXTRA_DIST += $(DISTRIBUTED_ATS2_TESTS:%=%.dats)
-# CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
+
+tests/vectors_sats.c: tests/vectors.sats
+tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
+EXTRA_DIST += tests/vectors.sats tests/vectors.dats
+CLEANFILES += tests/vectors_sats.c tests/vectors_dats.c
+
+DISTRIBUTED_TESTS =
+DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
+DISTRIBUTED_TESTS += $(DISTRIBUTED_C_TESTS)
+
+check_PROGRAMS =
+check_PROGRAMS += $(DISTRIBUTED_TESTS)
+
+EXTRA_DIST += $(DISTRIBUTED_ATS2_TESTS:%=%.dats)
+CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
 
 #--------------------------------------------------------------------------
 

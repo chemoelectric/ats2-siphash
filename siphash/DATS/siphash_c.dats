@@ -51,10 +51,17 @@ extern castfn
 constsize2size :
   {n : int} constsize n -<> size_t n
 
-extern praxi
-make_view :
-  {p : addr; n : int} (ptr p) -<prf>
-    (@[byte][n] @ p, @[byte][n] @ p -<lin,prf> void | ptr p)
+fn {}
+make_bytes_view {n : int} {p : addr} (p : ptr p) :<>
+    (@[byte][n] @ p, @[byte][n] @ p -<lin,prf> void | ptr p) =
+  let
+    extern praxi
+    make_view :
+      () -<prf> (@[byte][n] @ p, @[byte][n] @ p -<lin,prf> void)
+    prval (pf, consume_pf) = make_view ()
+  in
+    (pf, consume_pf | p)
+  end
 
 extern fn
 siphash_2_4 {inlen  : int}
@@ -100,11 +107,11 @@ siphash_2_4 {inlen} {outlen} {pi, pk, po}
     val key = constptr2ptr key
 
     val (pf_input, consume_pf_input | input) =
-      make_view {pi, inlen} (input)
+      make_bytes_view {inlen} {pi} (input)
     val (pf_key, consume_pf_key | key) =
-      make_view {pk, 16} (key)
+      make_bytes_view {16} {pk} (key)
     val (pf_output, consume_pf_output | output) =
-      make_view {po, outlen} (output)
+      make_bytes_view {outlen} {po} (output)
 
     val _ = $SH.siphash_2_4_output (!input, inlen, !key,
                                     !output, outlen)
@@ -126,11 +133,11 @@ siphash_4_8 {inlen} {outlen} {pi, pk, po}
     val key = constptr2ptr key
 
     val (pf_input, consume_pf_input | input) =
-      make_view {pi, inlen} (input)
+      make_bytes_view {inlen} {pi} (input)
     val (pf_key, consume_pf_key | key) =
-      make_view {pk, 16} (key)
+      make_bytes_view {16} {pk} (key)
     val (pf_output, consume_pf_output | output) =
-      make_view {po, outlen} (output)
+      make_bytes_view {outlen} {po} (output)
 
     val _ = $SH.siphash_4_8_output (!input, inlen, !key,
                                     !output, outlen)
@@ -152,11 +159,11 @@ siphash_c_d {inlen} {outlen} {pi, pk, po}
     val key = constptr2ptr key
 
     val (pf_input, consume_pf_input | input) =
-      make_view {pi, inlen} (input)
+      make_bytes_view {inlen} {pi} (input)
     val (pf_key, consume_pf_key | key) =
-      make_view {pk, 16} (key)
+      make_bytes_view {16} {pk} (key)
     val (pf_output, consume_pf_output | output) =
-      make_view {po, outlen} (output)
+      make_bytes_view {outlen} {po} (output)
 
     val crounds = g1ofg0 crounds
     val drounds = g1ofg0 drounds

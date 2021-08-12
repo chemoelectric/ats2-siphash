@@ -96,6 +96,8 @@ AC_SUBST([GNU],[])
 StM_REQUIRE_GNU_MAKE_IN_PATH
 StM_CONFIG_MAKEFILES
 
+AC_CONFIG_FILES([tests/vectors.h:reference-implementation/vectors.h])
+
 #AC_CONFIG_FILES([ats2-siphash.pc])
 #AC_CONFIG_FILES([siphash.pc])
 
