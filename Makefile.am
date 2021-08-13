@@ -81,6 +81,19 @@ escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(su
 
 #--------------------------------------------------------------------------
 
+M4_DEPS =
+
+AM_M4FLAGS =
+
+TOTAL_M4FLAGS =
+TOTAL_M4FLAGS += $(AM_M4FLAGS)
+TOTAL_M4FLAGS += $(M4FLAGS)
+TOTAL_M4FLAGS += $(XM4FLAGS)
+
+%: %.m4 common-macros.m4
+	@$(MKDIR_P) $(@D)
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
 PATSOPT_DEPS =
 
 AM_PATSOPTFLAGS =
@@ -184,7 +197,10 @@ TESTS =
 TESTS += $(check_PROGRAMS)
 
 DISTRIBUTED_ATS2_TESTS =
-DISTRIBUTED_ATS2_TESTS += tests/test_siphash
+DISTRIBUTED_ATS2_TESTS +=
+
+M4_GENERATED_ATS2_TESTS =
+M4_GENERATED_ATS2_TESTS += tests/test_siphash
 
 tests_test_siphash_SOURCES =
 tests_test_siphash_SOURCES += tests/test_siphash_dats.c
@@ -194,22 +210,7 @@ tests_test_siphash_LDADD = libats2-siphash.la
 tests_test_siphash_DEPENDENCIES = tests/vectors.h
 tests_test_siphash_DEPENDENCIES = siphash/SATS/array_prf.sats
 
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list_vt
-# 
-# tests_test_murmurhash3_32_LDADD = libats2-murmurhash3.la
-# 
-# tests_test_murmurhash3_32_list_LDADD = libats2-murmurhash3.la
-# tests_test_murmurhash3_32_list_DEPENDENCIES = $(MURMURHASH3_32_HATS)
-# 
-# tests_test_murmurhash3_32_list_vt_LDADD = libats2-murmurhash3.la
-# tests_test_murmurhash3_32_list_vt_DEPENDENCIES = $(MURMURHASH3_32_HATS)
-
 DISTRIBUTED_C_TESTS =
-# DISTRIBUTED_C_TESTS += tests/test_murmurhash3_32_c
-# 
-# tests_test_murmurhash3_32_c_SOURCES = tests/test_murmurhash3_32_c.c
-# tests_test_murmurhash3_32_c_LDADD = libmurmurhash3.la
 
 tests/vectors_sats.c: tests/vectors.sats
 tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
@@ -220,11 +221,23 @@ DISTRIBUTED_TESTS =
 DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
 DISTRIBUTED_TESTS += $(DISTRIBUTED_C_TESTS)
 
+GENERATED_TESTS =
+GENERATED_TESTS += $(M4_GENERATED_ATS2_TESTS)
+
 check_PROGRAMS =
 check_PROGRAMS += $(DISTRIBUTED_TESTS)
+check_PROGRAMS += $(GENERATED_TESTS)
 
 EXTRA_DIST += $(DISTRIBUTED_ATS2_TESTS:%=%.dats)
+EXTRA_DIST += $(M4_GENERATED_UNIT_TESTS:%=%.dats.m4)
+EXTRA_DIST += $(DISTRIBUTED_C_TESTS:%=%.c)
+
 CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
+CLEANFILES += $(M4_GENERATED_UNIT_TESTS:%=%.dats)
+CLEANFILES += $(M4_GENERATED_UNIT_TESTS:%=%_dats.c)
+
+$(foreach f,$(M4_GENERATED_ATS2_TESTS), \
+	$(eval $(f:%=%.dats) $(f:%=%_dats.c): $(f:%=%.dats.m4)))
 
 #--------------------------------------------------------------------------
 

@@ -33,7 +33,7 @@
 #
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Thu Aug 12 12:29:50 CDT 2021
+# from AX_AM_MACROS_STATIC on Fri Aug 13 09:00:27 CDT 2021
 
 
 
@@ -112,7 +112,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS =
-check_PROGRAMS = $(am__EXEEXT_3)
+check_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_4)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_ac_append_to_file.m4 \
@@ -135,13 +135,14 @@ DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = tests/vectors.h
+CONFIG_CLEAN_FILES = tests/vectors.h common-macros.m4
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(pkgincludedir)"
-am__EXEEXT_1 = tests/test_siphash$(EXEEXT)
-am__EXEEXT_2 =
-am__EXEEXT_3 = $(am__EXEEXT_1) $(am__EXEEXT_2)
+am__EXEEXT_1 =
+am__EXEEXT_2 = $(am__EXEEXT_1) $(am__EXEEXT_1)
+am__EXEEXT_3 = tests/test_siphash$(EXEEXT)
+am__EXEEXT_4 = $(am__EXEEXT_3)
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -437,7 +438,7 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/build-aux/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
-am__DIST_COMMON = $(srcdir)/Makefile.in \
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/common-macros.m4.in \
 	$(top_srcdir)/aminclude_static.am \
 	$(top_srcdir)/build-aux/compile \
 	$(top_srcdir)/build-aux/config.guess \
@@ -522,6 +523,7 @@ LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
+M4 = @M4@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
@@ -633,6 +635,8 @@ EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	$(SIPHASH_DATS) $(SIPHASH_CATS) $(SIPHASH_C_DATS) \
 	tests/vectors.sats tests/vectors.dats \
 	$(DISTRIBUTED_ATS2_TESTS:%=%.dats) \
+	$(M4_GENERATED_UNIT_TESTS:%=%.dats.m4) \
+	$(DISTRIBUTED_C_TESTS:%=%.c) \
 	reference-implementation/halfsiphash.c \
 	reference-implementation/halfsiphash.h \
 	reference-implementation/LICENSE \
@@ -646,7 +650,9 @@ EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 MOSTLYCLEANFILES = 
 CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
 	$(SIPHASH_DATS_C) $(SIPHASH_C_DATS_C) tests/vectors_sats.c \
-	tests/vectors_dats.c $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
+	tests/vectors_dats.c $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c) \
+	$(M4_GENERATED_UNIT_TESTS:%=%.dats) \
+	$(M4_GENERATED_UNIT_TESTS:%=%_dats.c)
 DISTCLEANFILES = Makefile
 BUILT_SOURCES = 
 
@@ -685,6 +691,9 @@ space := $(empty) $(empty)
 escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(subst \,\\,$(1)))))))
 
 #--------------------------------------------------------------------------
+M4_DEPS = 
+AM_M4FLAGS = 
+TOTAL_M4FLAGS = $(AM_M4FLAGS) $(M4FLAGS) $(XM4FLAGS)
 PATSOPT_DEPS = 
 AM_PATSOPTFLAGS = -IATS $(builddir) -IATS $(srcdir)
 TOTAL_PATSOPTFLAGS = $(AM_PATSOPTFLAGS) $(PATSOPTFLAGS) \
@@ -714,24 +723,15 @@ libsiphash_la_LIBADD = libats2-siphash.la
 # #--------------------------------------------------------------------------
 AM_DEFAULT_SOURCE_EXT = _dats.c
 TESTS = $(check_PROGRAMS)
-DISTRIBUTED_ATS2_TESTS = tests/test_siphash
+DISTRIBUTED_ATS2_TESTS =
+M4_GENERATED_ATS2_TESTS = tests/test_siphash
 tests_test_siphash_SOURCES = tests/test_siphash_dats.c \
 	tests/vectors_sats.c tests/vectors_dats.c
 tests_test_siphash_LDADD = libats2-siphash.la
 tests_test_siphash_DEPENDENCIES = siphash/SATS/array_prf.sats
-
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list
-# DISTRIBUTED_ATS2_TESTS += tests/test_murmurhash3_32_list_vt
-# 
-# tests_test_murmurhash3_32_LDADD = libats2-murmurhash3.la
-# 
-# tests_test_murmurhash3_32_list_LDADD = libats2-murmurhash3.la
-# tests_test_murmurhash3_32_list_DEPENDENCIES = $(MURMURHASH3_32_HATS)
-# 
-# tests_test_murmurhash3_32_list_vt_LDADD = libats2-murmurhash3.la
-# tests_test_murmurhash3_32_list_vt_DEPENDENCIES = $(MURMURHASH3_32_HATS)
 DISTRIBUTED_C_TESTS = 
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
+GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS)
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -772,6 +772,8 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
 tests/vectors.h: $(top_builddir)/config.status $(top_srcdir)/reference-implementation/vectors.h
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+common-macros.m4: $(top_builddir)/config.status $(srcdir)/common-macros.m4.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -1672,6 +1674,10 @@ code-coverage-capture-hook:
 clean-local: code-coverage-clean
 distclean-local: code-coverage-dist-clean
 
+%: %.m4 common-macros.m4
+	@$(MKDIR_P) $(@D)
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
 %_sats.c: %.sats $(PATSOPT_DEPS)
 	@$(MKDIR_P) $(@D)
 	$(call v,PATSOPT)$(PATSOPT) -o $(@) $(TOTAL_PATSOPTFLAGS) -s $(<)
@@ -1685,13 +1691,12 @@ $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS)
 $(SIPHASH_SATS_C): $(SIPHASH_SATS)
 $(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS) \
 					$(ARRAY_PRF_SATS)
-# DISTRIBUTED_C_TESTS += tests/test_murmurhash3_32_c
-# 
-# tests_test_murmurhash3_32_c_SOURCES = tests/test_murmurhash3_32_c.c
-# tests_test_murmurhash3_32_c_LDADD = libmurmurhash3.la
 
 tests/vectors_sats.c: tests/vectors.sats
 tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
+
+$(foreach f,$(M4_GENERATED_ATS2_TESTS), \
+	$(eval $(f:%=%.dats) $(f:%=%_dats.c): $(f:%=%.dats.m4)))
 
 #--------------------------------------------------------------------------
 # local variables:

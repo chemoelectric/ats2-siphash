@@ -60,6 +60,7 @@ AC_PROG_AWK
 AC_PROG_SED
 AC_PROG_FGREP
 AC_PROG_EGREP
+AC_CHECK_PROGS([M4],[m4])
 
 PKG_PROG_PKG_CONFIG
 PKG_CONFIG="${PKG_CONFIG} --define-variable=PATSHOME=\"${PATSHOME}\""
@@ -97,6 +98,7 @@ StM_REQUIRE_GNU_MAKE_IN_PATH
 StM_CONFIG_MAKEFILES
 
 AC_CONFIG_FILES([tests/vectors.h:reference-implementation/vectors.h])
+AC_CONFIG_FILES([common-macros.m4])
 
 #AC_CONFIG_FILES([ats2-siphash.pc])
 #AC_CONFIG_FILES([siphash.pc])

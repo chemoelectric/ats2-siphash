@@ -1,4 +1,4 @@
-(*
+/*
 
 Copyright © 2021 Barry Schwartz
 
@@ -16,7 +16,9 @@ You should have received copies of the GNU General Public License
 along with this program. If not, see
 <https://www.gnu.org/licenses/>.
 
-*)
+*/
+
+include(`common-macros.m4')
 
 %{#
 #include <string.h>
@@ -68,7 +70,29 @@ initialize_bytes {n     : int}
   end
 
 fn
-test_siphash_2_4_64 () : void =
+print_bytes {n     : int}
+            (bytes : &(@[byte][n]),
+             n     : size_t n) : void =
+  let
+    prval _ = lemma_g1uint_param n
+    var j : [j : int | 0 <= j; j <= n] size_t j
+  in
+    for (j := i2sz 0; j < n; j := succ j)
+      {
+        val elem = bytes[j]
+        val _ =
+          if isgtz j then
+            {
+              val _ = $extfcall (int, "printf", " ")
+            }
+        val _ = $extfcall (int, "printf", "%02x",
+                           byte2int0 elem)
+      }
+  end
+
+m4_define(`implement_test_64',`
+fn
+$1 () : void =
   {
     fun
     loop {i : int | 0 <= i; i <= 64} .<64 - i>.
@@ -84,9 +108,8 @@ test_siphash_2_4_64 () : void =
           prval (pf_inp1, pf_inp2) =
             array_v_subdivide2 {byte} {..} {i, 64 - i} (view@ input)
 
-          var h = siphash_2_4_64 (!(addr@ input), i, key)
           var output = @[byte][8] (i2byte 0)
-          val _ = put_uint64 (output, h)
+          $2
 
           val (pf_vecs, consume_pf_vecs | p_vecs) = vectors_sip64 ()
           prval (pf_left, pf_vec, pf_right) =
@@ -96,11 +119,9 @@ test_siphash_2_4_64 () : void =
 
           val p_vec = ptr_add<byte> (p_vecs, i * i2sz 8)
 
-          (* The value printed here depends on the endianness
-             of the platform. *)
-          val _ = $extfcall (int, "printf",
-                             "test_siphash_2_4_64 %zu: 0x%.16llx\n",
-                             i, $UNSAFE.cast{ullint} h)
+          val _ = $extfcall (int, "printf", "$1/%02zu: [", i)
+          val _ = print_bytes (output, i2sz 8)
+          val _ = $extfcall (int, "printf", "]\n")
 
           val _ = assertloc (check_bytes (!p_vec, output, i2sz 8))
 
@@ -114,10 +135,25 @@ test_siphash_2_4_64 () : void =
         end
 
     val _ = loop (i2sz 0)
-  }
+    val _ = $extfcall (int, "printf", "\n$1 passed\n\n")
+  }')
+
+implement_test_64(`test_siphash_2_4_64',`
+  var h = siphash_2_4_64 (!(addr@ input), i, key)
+  val _ = put_uint64 (output, h)')
+
+implement_test_64(`test_siphash_2_4____64',`
+  var h = siphash_2_4 (!(addr@ input), i, key)
+  val _ = put_uint64 (output, h)')
+
+implement_test_64(`test_siphash_2_4_output____64',`
+  val _ = siphash_2_4_output (!(addr@ input), i, key,
+                              output, i2sz 8)')
 
 implement
 main0 () =
-  begin
-    test_siphash_2_4_64 ()
-  end
+  {
+    val _ = test_siphash_2_4_64 ()
+    val _ = test_siphash_2_4____64 ()
+    val _ = test_siphash_2_4_output____64 ()
+  }
