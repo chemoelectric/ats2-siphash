@@ -147,6 +147,9 @@ CLEANFILES += $(SIPHASH_DATS_C)
 SIPHASH_CATS = siphash/CATS/siphash.cats
 EXTRA_DIST += $(SIPHASH_CATS)
 
+SIPHASH_HATS = siphash/HATS/siphash.hats
+EXTRA_DIST += $(SIPHASH_HATS)
+
 nodist_libats2_siphash_la_SOURCES =
 nodist_libats2_siphash_la_SOURCES += $(ARRAY_PRF_SATS_C)
 nodist_libats2_siphash_la_SOURCES += $(ARRAY_PRF_DATS_C)
@@ -207,6 +210,8 @@ M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-64
 M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-128
 M4_GENERATED_ATS2_TESTS += tests/test-siphash-4-8-64
 M4_GENERATED_ATS2_TESTS += tests/test-siphash-4-8-128
+M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-64-hats
+M4_GENERATED_ATS2_TESTS += tests/test-siphash-4-8-64-hats
 
 tests_test_siphash_2_4_64_SOURCES =
 tests_test_siphash_2_4_64_SOURCES += tests/test-siphash-2-4-64_dats.c
@@ -247,6 +252,26 @@ tests_test_siphash_4_8_128_LDADD += libats2-siphash.la
 tests_test_siphash_4_8_128_DEPENDENCIES =
 tests_test_siphash_4_8_128_DEPENDENCIES += tests/vectors-4-8.h
 tests_test_siphash_4_8_128_DEPENDENCIES += siphash/SATS/array_prf.sats
+
+tests_test_siphash_2_4_64_hats_SOURCES =
+tests_test_siphash_2_4_64_hats_SOURCES += tests/test-siphash-2-4-64-hats_dats.c
+tests_test_siphash_2_4_64_hats_SOURCES += tests/vectors_sats.c
+tests_test_siphash_2_4_64_hats_SOURCES += tests/vectors-2-4_dats.c
+tests_test_siphash_2_4_64_hats_LDADD =
+tests_test_siphash_2_4_64_hats_LDADD += libats2-siphash.la
+tests_test_siphash_2_4_64_hats_DEPENDENCIES =
+tests_test_siphash_2_4_64_hats_DEPENDENCIES += tests/vectors-2-4.h
+tests_test_siphash_2_4_64_hats_DEPENDENCIES += siphash/SATS/array_prf.sats
+
+tests_test_siphash_4_8_64_hats_SOURCES =
+tests_test_siphash_4_8_64_hats_SOURCES += tests/test-siphash-4-8-64-hats_dats.c
+tests_test_siphash_4_8_64_hats_SOURCES += tests/vectors_sats.c
+tests_test_siphash_4_8_64_hats_SOURCES += tests/vectors-4-8_dats.c
+tests_test_siphash_4_8_64_hats_LDADD =
+tests_test_siphash_4_8_64_hats_LDADD += libats2-siphash.la
+tests_test_siphash_4_8_64_hats_DEPENDENCIES =
+tests_test_siphash_4_8_64_hats_DEPENDENCIES += tests/vectors-4-8.h
+tests_test_siphash_4_8_64_hats_DEPENDENCIES += siphash/SATS/array_prf.sats
 
 tests/vectors_sats.c: tests/vectors.sats
 tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
