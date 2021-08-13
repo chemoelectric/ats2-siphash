@@ -94,6 +94,10 @@ TOTAL_M4FLAGS += $(XM4FLAGS)
 	@$(MKDIR_P) $(@D)
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
+%.c: %.c.m4 common-macros.m4
+	@$(MKDIR_P) $(@D)
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
 PATSOPT_DEPS =
 
 AM_PATSOPTFLAGS =
@@ -197,7 +201,6 @@ TESTS =
 TESTS += $(check_PROGRAMS)
 
 DISTRIBUTED_ATS2_TESTS =
-DISTRIBUTED_ATS2_TESTS +=
 
 M4_GENERATED_ATS2_TESTS =
 M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-64
@@ -223,12 +226,21 @@ tests_test_siphash_2_4_128_DEPENDENCIES =
 tests_test_siphash_2_4_128_DEPENDENCIES += tests/vectors.h
 tests_test_siphash_2_4_128_DEPENDENCIES += siphash/SATS/array_prf.sats
 
-DISTRIBUTED_C_TESTS =
-
 tests/vectors_sats.c: tests/vectors.sats
 tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
 EXTRA_DIST += tests/vectors.sats tests/vectors.dats
 CLEANFILES += tests/vectors_sats.c tests/vectors_dats.c
+
+DISTRIBUTED_C_TESTS =
+
+M4_GENERATED_C_TESTS =
+M4_GENERATED_C_TESTS += tests/test-siphash-2-4-64-C
+
+tests_test_siphash_2_4_64_C_SOURCES =
+tests_test_siphash_2_4_64_C_SOURCES += tests/test-siphash-2-4-64-C.c
+tests_test_siphash_2_4_64_C_SOURCES += tests/vectors.h
+tests_test_siphash_2_4_64_C_LDADD =
+tests_test_siphash_2_4_64_C_LDADD += libsiphash.la
 
 DISTRIBUTED_TESTS =
 DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
@@ -236,21 +248,27 @@ DISTRIBUTED_TESTS += $(DISTRIBUTED_C_TESTS)
 
 GENERATED_TESTS =
 GENERATED_TESTS += $(M4_GENERATED_ATS2_TESTS)
+GENERATED_TESTS += $(M4_GENERATED_C_TESTS)
 
 check_PROGRAMS =
 check_PROGRAMS += $(DISTRIBUTED_TESTS)
 check_PROGRAMS += $(GENERATED_TESTS)
 
 EXTRA_DIST += $(DISTRIBUTED_ATS2_TESTS:%=%.dats)
-EXTRA_DIST += $(M4_GENERATED_UNIT_TESTS:%=%.dats.m4)
+EXTRA_DIST += $(M4_GENERATED_ATS2_TESTS:%=%.dats.m4)
 EXTRA_DIST += $(DISTRIBUTED_C_TESTS:%=%.c)
+EXTRA_DIST += $(M4_GENERATED_C_TESTS:%=%.c.m4)
 
 CLEANFILES += $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c)
-CLEANFILES += $(M4_GENERATED_UNIT_TESTS:%=%.dats)
-CLEANFILES += $(M4_GENERATED_UNIT_TESTS:%=%_dats.c)
+CLEANFILES += $(M4_GENERATED_ATS2_TESTS:%=%.dats)
+CLEANFILES += $(M4_GENERATED_ATS2_TESTS:%=%_dats.c)
+CLEANFILES += $(M4_GENERATED_C_TESTS:%=%.c)
 
 $(foreach f,$(M4_GENERATED_ATS2_TESTS), \
 	$(eval $(f:%=%.dats) $(f:%=%_dats.c): $(f:%=%.dats.m4)))
+
+$(foreach f,$(M4_GENERATED_C_TESTS), \
+	$(eval $(f:%=%.c): $(f:%=%.c.m4)))
 
 #--------------------------------------------------------------------------
 

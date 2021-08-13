@@ -71,7 +71,7 @@ siphash_2_4 {inlen  : int}
              inlen  : constsize inlen,
              key    : constptr pk,
              output : ptr po,
-             outlen : constsize outlen) : void
+             outlen : constsize outlen) : void = "ext#"
 
 extern fn
 siphash_4_8 {inlen  : int}
@@ -81,7 +81,7 @@ siphash_4_8 {inlen  : int}
              inlen  : constsize inlen,
              key    : constptr pk,
              output : ptr po,
-             outlen : constsize outlen) : void
+             outlen : constsize outlen) : void = "ext#"
 
 extern fn
 siphash_c_d {inlen   : int}
@@ -93,7 +93,7 @@ siphash_c_d {inlen   : int}
              crounds : uint,
              drounds : uint,
              output  : ptr po,
-             outlen  : constsize outlen) : void
+             outlen  : constsize outlen) : void = "ext#"
 
 implement
 siphash_2_4 {inlen} {outlen} {pi, pk, po}

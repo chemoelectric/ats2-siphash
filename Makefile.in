@@ -112,7 +112,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS =
-check_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_4)
+check_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_5)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_ac_append_to_file.m4 \
@@ -143,7 +143,8 @@ am__EXEEXT_1 =
 am__EXEEXT_2 = $(am__EXEEXT_1) $(am__EXEEXT_1)
 am__EXEEXT_3 = tests/test-siphash-2-4-64$(EXEEXT) \
 	tests/test-siphash-2-4-128$(EXEEXT)
-am__EXEEXT_4 = $(am__EXEEXT_3)
+am__EXEEXT_4 = tests/test-siphash-2-4-64-C$(EXEEXT)
+am__EXEEXT_5 = $(am__EXEEXT_3) $(am__EXEEXT_4)
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -200,6 +201,11 @@ am_tests_test_siphash_2_4_64_OBJECTS =  \
 	tests/vectors_sats.$(OBJEXT) tests/vectors_dats.$(OBJEXT)
 tests_test_siphash_2_4_64_OBJECTS =  \
 	$(am_tests_test_siphash_2_4_64_OBJECTS)
+am_tests_test_siphash_2_4_64_C_OBJECTS =  \
+	tests/test-siphash-2-4-64-C.$(OBJEXT)
+tests_test_siphash_2_4_64_C_OBJECTS =  \
+	$(am_tests_test_siphash_2_4_64_C_OBJECTS)
+tests_test_siphash_2_4_64_C_DEPENDENCIES = libsiphash.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -221,6 +227,7 @@ am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
 	siphash/SATS/$(DEPDIR)/array_prf_sats.Plo \
 	siphash/SATS/$(DEPDIR)/siphash_sats.Plo \
 	tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po \
+	tests/$(DEPDIR)/test-siphash-2-4-64-C.Po \
 	tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po \
 	tests/$(DEPDIR)/vectors_dats.Po \
 	tests/$(DEPDIR)/vectors_sats.Po
@@ -245,10 +252,12 @@ am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(nodist_libats2_siphash_la_SOURCES) \
 	$(libsiphash_la_SOURCES) $(tests_test_siphash_2_4_128_SOURCES) \
-	$(tests_test_siphash_2_4_64_SOURCES)
+	$(tests_test_siphash_2_4_64_SOURCES) \
+	$(tests_test_siphash_2_4_64_C_SOURCES)
 DIST_SOURCES = $(libsiphash_la_SOURCES) \
 	$(tests_test_siphash_2_4_128_SOURCES) \
-	$(tests_test_siphash_2_4_64_SOURCES)
+	$(tests_test_siphash_2_4_64_SOURCES) \
+	$(tests_test_siphash_2_4_64_C_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -647,8 +656,8 @@ EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	$(SIPHASH_DATS) $(SIPHASH_CATS) $(SIPHASH_C_DATS) \
 	tests/vectors.sats tests/vectors.dats \
 	$(DISTRIBUTED_ATS2_TESTS:%=%.dats) \
-	$(M4_GENERATED_UNIT_TESTS:%=%.dats.m4) \
-	$(DISTRIBUTED_C_TESTS:%=%.c) \
+	$(M4_GENERATED_ATS2_TESTS:%=%.dats.m4) \
+	$(DISTRIBUTED_C_TESTS:%=%.c) $(M4_GENERATED_C_TESTS:%=%.c.m4) \
 	reference-implementation/halfsiphash.c \
 	reference-implementation/halfsiphash.h \
 	reference-implementation/LICENSE \
@@ -663,8 +672,9 @@ MOSTLYCLEANFILES =
 CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
 	$(SIPHASH_DATS_C) $(SIPHASH_C_DATS_C) tests/vectors_sats.c \
 	tests/vectors_dats.c $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c) \
-	$(M4_GENERATED_UNIT_TESTS:%=%.dats) \
-	$(M4_GENERATED_UNIT_TESTS:%=%_dats.c)
+	$(M4_GENERATED_ATS2_TESTS:%=%.dats) \
+	$(M4_GENERATED_ATS2_TESTS:%=%_dats.c) \
+	$(M4_GENERATED_C_TESTS:%=%.c)
 DISTCLEANFILES = Makefile
 BUILT_SOURCES = 
 
@@ -735,7 +745,7 @@ libsiphash_la_LIBADD = libats2-siphash.la
 # #--------------------------------------------------------------------------
 AM_DEFAULT_SOURCE_EXT = _dats.c
 TESTS = $(check_PROGRAMS)
-DISTRIBUTED_ATS2_TESTS =
+DISTRIBUTED_ATS2_TESTS = 
 M4_GENERATED_ATS2_TESTS = tests/test-siphash-2-4-64 \
 	tests/test-siphash-2-4-128
 tests_test_siphash_2_4_64_SOURCES = tests/test-siphash-2-4-64_dats.c \
@@ -750,8 +760,12 @@ tests_test_siphash_2_4_128_LDADD = libats2-siphash.la
 tests_test_siphash_2_4_128_DEPENDENCIES = tests/vectors.h \
 	siphash/SATS/array_prf.sats
 DISTRIBUTED_C_TESTS = 
+M4_GENERATED_C_TESTS = tests/test-siphash-2-4-64-C
+tests_test_siphash_2_4_64_C_SOURCES = tests/test-siphash-2-4-64-C.c \
+	tests/vectors.h
+tests_test_siphash_2_4_64_C_LDADD = libsiphash.la
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
-GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS)
+GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS) $(M4_GENERATED_C_TESTS)
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -938,6 +952,12 @@ tests/test-siphash-2-4-64_dats.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-siphash-2-4-64$(EXEEXT): $(tests_test_siphash_2_4_64_OBJECTS) $(tests_test_siphash_2_4_64_DEPENDENCIES) $(EXTRA_tests_test_siphash_2_4_64_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-siphash-2-4-64$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_siphash_2_4_64_OBJECTS) $(tests_test_siphash_2_4_64_LDADD) $(LIBS)
+tests/test-siphash-2-4-64-C.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-siphash-2-4-64-C$(EXEEXT): $(tests_test_siphash_2_4_64_C_OBJECTS) $(tests_test_siphash_2_4_64_C_DEPENDENCIES) $(EXTRA_tests_test_siphash_2_4_64_C_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-siphash-2-4-64-C$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_siphash_2_4_64_C_OBJECTS) $(tests_test_siphash_2_4_64_C_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -956,6 +976,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/array_prf_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/siphash_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-64-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/vectors_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/vectors_sats.Po@am__quote@ # am--include-marker
@@ -1240,6 +1261,13 @@ tests/test-siphash-2-4-128.log: tests/test-siphash-2-4-128$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-siphash-2-4-64-C.log: tests/test-siphash-2-4-64-C$(EXEEXT)
+	@p='tests/test-siphash-2-4-64-C$(EXEEXT)'; \
+	b='tests/test-siphash-2-4-64-C'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1496,6 +1524,7 @@ distclean: distclean-am
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po
+	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_sats.Po
@@ -1552,6 +1581,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po
+	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_sats.Po
@@ -1714,6 +1744,10 @@ distclean-local: code-coverage-dist-clean
 	@$(MKDIR_P) $(@D)
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
+%.c: %.c.m4 common-macros.m4
+	@$(MKDIR_P) $(@D)
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
 %_sats.c: %.sats $(PATSOPT_DEPS)
 	@$(MKDIR_P) $(@D)
 	$(call v,PATSOPT)$(PATSOPT) -o $(@) $(TOTAL_PATSOPTFLAGS) -s $(<)
@@ -1733,6 +1767,9 @@ tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
 
 $(foreach f,$(M4_GENERATED_ATS2_TESTS), \
 	$(eval $(f:%=%.dats) $(f:%=%_dats.c): $(f:%=%.dats.m4)))
+
+$(foreach f,$(M4_GENERATED_C_TESTS), \
+	$(eval $(f:%=%.c): $(f:%=%.c.m4)))
 
 #--------------------------------------------------------------------------
 # local variables:
