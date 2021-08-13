@@ -141,7 +141,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(pkgincludedir)"
 am__EXEEXT_1 =
 am__EXEEXT_2 = $(am__EXEEXT_1) $(am__EXEEXT_1)
-am__EXEEXT_3 = tests/test_siphash$(EXEEXT)
+am__EXEEXT_3 = tests/test-siphash-2-4-64$(EXEEXT)
 am__EXEEXT_4 = $(am__EXEEXT_3)
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -189,9 +189,11 @@ libsiphash_la_DEPENDENCIES = libats2-siphash.la
 am__objects_5 = siphash/DATS/siphash_c_dats.lo
 am_libsiphash_la_OBJECTS = $(am__objects_5)
 libsiphash_la_OBJECTS = $(am_libsiphash_la_OBJECTS)
-am_tests_test_siphash_OBJECTS = tests/test_siphash_dats.$(OBJEXT) \
+am_tests_test_siphash_2_4_64_OBJECTS =  \
+	tests/test-siphash-2-4-64_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors_dats.$(OBJEXT)
-tests_test_siphash_OBJECTS = $(am_tests_test_siphash_OBJECTS)
+tests_test_siphash_2_4_64_OBJECTS =  \
+	$(am_tests_test_siphash_2_4_64_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -212,7 +214,7 @@ am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
 	siphash/DATS/$(DEPDIR)/siphash_dats.Plo \
 	siphash/SATS/$(DEPDIR)/array_prf_sats.Plo \
 	siphash/SATS/$(DEPDIR)/siphash_sats.Plo \
-	tests/$(DEPDIR)/test_siphash_dats.Po \
+	tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po \
 	tests/$(DEPDIR)/vectors_dats.Po \
 	tests/$(DEPDIR)/vectors_sats.Po
 am__mv = mv -f
@@ -235,8 +237,9 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(nodist_libats2_siphash_la_SOURCES) \
-	$(libsiphash_la_SOURCES) $(tests_test_siphash_SOURCES)
-DIST_SOURCES = $(libsiphash_la_SOURCES) $(tests_test_siphash_SOURCES)
+	$(libsiphash_la_SOURCES) $(tests_test_siphash_2_4_64_SOURCES)
+DIST_SOURCES = $(libsiphash_la_SOURCES) \
+	$(tests_test_siphash_2_4_64_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -724,11 +727,11 @@ libsiphash_la_LIBADD = libats2-siphash.la
 AM_DEFAULT_SOURCE_EXT = _dats.c
 TESTS = $(check_PROGRAMS)
 DISTRIBUTED_ATS2_TESTS =
-M4_GENERATED_ATS2_TESTS = tests/test_siphash
-tests_test_siphash_SOURCES = tests/test_siphash_dats.c \
+M4_GENERATED_ATS2_TESTS = tests/test-siphash-2-4-64
+tests_test_siphash_2_4_64_SOURCES = tests/test-siphash-2-4-64_dats.c \
 	tests/vectors_sats.c tests/vectors_dats.c
-tests_test_siphash_LDADD = libats2-siphash.la
-tests_test_siphash_DEPENDENCIES = siphash/SATS/array_prf.sats
+tests_test_siphash_2_4_64_LDADD = libats2-siphash.la
+tests_test_siphash_2_4_64_DEPENDENCIES = siphash/SATS/array_prf.sats
 DISTRIBUTED_C_TESTS = 
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
 GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS)
@@ -902,16 +905,16 @@ tests/$(am__dirstamp):
 tests/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) tests/$(DEPDIR)
 	@: > tests/$(DEPDIR)/$(am__dirstamp)
-tests/test_siphash_dats.$(OBJEXT): tests/$(am__dirstamp) \
+tests/test-siphash-2-4-64_dats.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 tests/vectors_sats.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 tests/vectors_dats.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 
-tests/test_siphash$(EXEEXT): $(tests_test_siphash_OBJECTS) $(tests_test_siphash_DEPENDENCIES) $(EXTRA_tests_test_siphash_DEPENDENCIES) tests/$(am__dirstamp)
-	@rm -f tests/test_siphash$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(tests_test_siphash_OBJECTS) $(tests_test_siphash_LDADD) $(LIBS)
+tests/test-siphash-2-4-64$(EXEEXT): $(tests_test_siphash_2_4_64_OBJECTS) $(tests_test_siphash_2_4_64_DEPENDENCIES) $(EXTRA_tests_test_siphash_2_4_64_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-siphash-2-4-64$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_siphash_2_4_64_OBJECTS) $(tests_test_siphash_2_4_64_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -929,7 +932,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/array_prf_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/siphash_sats.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test_siphash_dats.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/vectors_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/vectors_sats.Po@am__quote@ # am--include-marker
 
@@ -1199,9 +1202,9 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-tests/test_siphash.log: tests/test_siphash$(EXEEXT)
-	@p='tests/test_siphash$(EXEEXT)'; \
-	b='tests/test_siphash'; \
+tests/test-siphash-2-4-64.log: tests/test-siphash-2-4-64$(EXEEXT)
+	@p='tests/test-siphash-2-4-64$(EXEEXT)'; \
+	b='tests/test-siphash-2-4-64'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1461,7 +1464,7 @@ distclean: distclean-am
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
-	-rm -f tests/$(DEPDIR)/test_siphash_dats.Po
+	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_sats.Po
 	-rm -f GNUmakefile
@@ -1516,7 +1519,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
-	-rm -f tests/$(DEPDIR)/test_siphash_dats.Po
+	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_dats.Po
 	-rm -f tests/$(DEPDIR)/vectors_sats.Po
 	-rm -f GNUmakefile

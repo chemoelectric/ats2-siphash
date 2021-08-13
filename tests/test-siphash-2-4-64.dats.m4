@@ -150,10 +150,26 @@ implement_test_64(`test_siphash_2_4_output____64',`
   val _ = siphash_2_4_output (!(addr@ input), i, key,
                               output, i2sz 8)')
 
+implement_test_64(`test_siphash_2_4____output_64',`
+  val _ = siphash_2_4 (!(addr@ input), i, key,
+                       output, i2sz 8)')
+
+implement_test_64(`test_siphash_c_d_64____2_4',`
+  var h = siphash_c_d_64 (!(addr@ input), i, key, 2u, 4u)
+  val _ = put_uint64 (output, h)')
+
+implement_test_64(`test_siphash_c_d____64_2_4',`
+  var h = siphash_c_d (!(addr@ input), i, key, 2u, 4u)
+  val _ = put_uint64 (output, h)')
+
+
 implement
 main0 () =
   {
     val _ = test_siphash_2_4_64 ()
     val _ = test_siphash_2_4____64 ()
     val _ = test_siphash_2_4_output____64 ()
+    val _ = test_siphash_2_4____output_64 ()
+    val _ = test_siphash_c_d_64____2_4 ()
+    val _ = test_siphash_c_d____64_2_4 ()
   }

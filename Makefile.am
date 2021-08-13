@@ -200,15 +200,15 @@ DISTRIBUTED_ATS2_TESTS =
 DISTRIBUTED_ATS2_TESTS +=
 
 M4_GENERATED_ATS2_TESTS =
-M4_GENERATED_ATS2_TESTS += tests/test_siphash
+M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-64
 
-tests_test_siphash_SOURCES =
-tests_test_siphash_SOURCES += tests/test_siphash_dats.c
-tests_test_siphash_SOURCES += tests/vectors_sats.c
-tests_test_siphash_SOURCES += tests/vectors_dats.c
-tests_test_siphash_LDADD = libats2-siphash.la
-tests_test_siphash_DEPENDENCIES = tests/vectors.h
-tests_test_siphash_DEPENDENCIES = siphash/SATS/array_prf.sats
+tests_test_siphash_2_4_64_SOURCES =
+tests_test_siphash_2_4_64_SOURCES += tests/test-siphash-2-4-64_dats.c
+tests_test_siphash_2_4_64_SOURCES += tests/vectors_sats.c
+tests_test_siphash_2_4_64_SOURCES += tests/vectors_dats.c
+tests_test_siphash_2_4_64_LDADD = libats2-siphash.la
+tests_test_siphash_2_4_64_DEPENDENCIES = tests/vectors.h
+tests_test_siphash_2_4_64_DEPENDENCIES = siphash/SATS/array_prf.sats
 
 DISTRIBUTED_C_TESTS =
 
