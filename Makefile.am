@@ -205,11 +205,13 @@ DISTRIBUTED_ATS2_TESTS =
 M4_GENERATED_ATS2_TESTS =
 M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-64
 M4_GENERATED_ATS2_TESTS += tests/test-siphash-2-4-128
+M4_GENERATED_ATS2_TESTS += tests/test-siphash-4-8-64
+M4_GENERATED_ATS2_TESTS += tests/test-siphash-4-8-128
 
 tests_test_siphash_2_4_64_SOURCES =
 tests_test_siphash_2_4_64_SOURCES += tests/test-siphash-2-4-64_dats.c
 tests_test_siphash_2_4_64_SOURCES += tests/vectors_sats.c
-tests_test_siphash_2_4_64_SOURCES += tests/vectors_dats.c
+tests_test_siphash_2_4_64_SOURCES += tests/vectors-2-4_dats.c
 tests_test_siphash_2_4_64_LDADD =
 tests_test_siphash_2_4_64_LDADD += libats2-siphash.la
 tests_test_siphash_2_4_64_DEPENDENCIES =
@@ -219,23 +221,49 @@ tests_test_siphash_2_4_64_DEPENDENCIES += siphash/SATS/array_prf.sats
 tests_test_siphash_2_4_128_SOURCES =
 tests_test_siphash_2_4_128_SOURCES += tests/test-siphash-2-4-128_dats.c
 tests_test_siphash_2_4_128_SOURCES += tests/vectors_sats.c
-tests_test_siphash_2_4_128_SOURCES += tests/vectors_dats.c
+tests_test_siphash_2_4_128_SOURCES += tests/vectors-2-4_dats.c
 tests_test_siphash_2_4_128_LDADD =
 tests_test_siphash_2_4_128_LDADD += libats2-siphash.la
 tests_test_siphash_2_4_128_DEPENDENCIES =
 tests_test_siphash_2_4_128_DEPENDENCIES += tests/vectors-2-4.h
 tests_test_siphash_2_4_128_DEPENDENCIES += siphash/SATS/array_prf.sats
 
+tests_test_siphash_4_8_64_SOURCES =
+tests_test_siphash_4_8_64_SOURCES += tests/test-siphash-4-8-64_dats.c
+tests_test_siphash_4_8_64_SOURCES += tests/vectors_sats.c
+tests_test_siphash_4_8_64_SOURCES += tests/vectors-4-8_dats.c
+tests_test_siphash_4_8_64_LDADD =
+tests_test_siphash_4_8_64_LDADD += libats2-siphash.la
+tests_test_siphash_4_8_64_DEPENDENCIES =
+tests_test_siphash_4_8_64_DEPENDENCIES += tests/vectors-4-8.h
+tests_test_siphash_4_8_64_DEPENDENCIES += siphash/SATS/array_prf.sats
+
+tests_test_siphash_4_8_128_SOURCES =
+tests_test_siphash_4_8_128_SOURCES += tests/test-siphash-4-8-128_dats.c
+tests_test_siphash_4_8_128_SOURCES += tests/vectors_sats.c
+tests_test_siphash_4_8_128_SOURCES += tests/vectors-4-8_dats.c
+tests_test_siphash_4_8_128_LDADD =
+tests_test_siphash_4_8_128_LDADD += libats2-siphash.la
+tests_test_siphash_4_8_128_DEPENDENCIES =
+tests_test_siphash_4_8_128_DEPENDENCIES += tests/vectors-4-8.h
+tests_test_siphash_4_8_128_DEPENDENCIES += siphash/SATS/array_prf.sats
+
 tests/vectors_sats.c: tests/vectors.sats
 tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
-EXTRA_DIST += tests/vectors.sats tests/vectors.dats
-CLEANFILES += tests/vectors_sats.c tests/vectors_dats.c
+EXTRA_DIST += tests/vectors.sats
+EXTRA_DIST += tests/vectors-2-4.dats
+EXTRA_DIST += tests/vectors-4-8.dats
+CLEANFILES += tests/vectors_sats.c
+CLEANFILES += tests/vectors-2-4_dats.c
+CLEANFILES += tests/vectors-4-8_dats.c
 
 DISTRIBUTED_C_TESTS =
 
 M4_GENERATED_C_TESTS =
 M4_GENERATED_C_TESTS += tests/test-siphash-2-4-64-C
 M4_GENERATED_C_TESTS += tests/test-siphash-2-4-128-C
+M4_GENERATED_C_TESTS += tests/test-siphash-4-8-64-C
+M4_GENERATED_C_TESTS += tests/test-siphash-4-8-128-C
 
 tests_test_siphash_2_4_64_C_SOURCES =
 tests_test_siphash_2_4_64_C_SOURCES += tests/test-siphash-2-4-64-C.c
@@ -248,6 +276,18 @@ tests_test_siphash_2_4_128_C_SOURCES += tests/test-siphash-2-4-128-C.c
 tests_test_siphash_2_4_128_C_SOURCES += tests/vectors-2-4.h
 tests_test_siphash_2_4_128_C_LDADD =
 tests_test_siphash_2_4_128_C_LDADD += libsiphash.la
+
+tests_test_siphash_4_8_64_C_SOURCES =
+tests_test_siphash_4_8_64_C_SOURCES += tests/test-siphash-4-8-64-C.c
+tests_test_siphash_4_8_64_C_SOURCES += tests/vectors-4-8.h
+tests_test_siphash_4_8_64_C_LDADD =
+tests_test_siphash_4_8_64_C_LDADD += libsiphash.la
+
+tests_test_siphash_4_8_128_C_SOURCES =
+tests_test_siphash_4_8_128_C_SOURCES += tests/test-siphash-4-8-128-C.c
+tests_test_siphash_4_8_128_C_SOURCES += tests/vectors-4-8.h
+tests_test_siphash_4_8_128_C_LDADD =
+tests_test_siphash_4_8_128_C_LDADD += libsiphash.la
 
 DISTRIBUTED_TESTS =
 DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)
