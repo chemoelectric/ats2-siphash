@@ -37,9 +37,14 @@ staload "siphash/SATS/siphash.sats"
 staload "tests/vectors.sats"
 
 fn
-put_uint64 (bytes : &(@[byte][8]),
-            value : &uint64) : void =
-  $extfcall (void, "memcpy", addr@ bytes, addr@ value, i2sz 8)
+put_two_uint64 (bytes  : &(@[byte][16]),
+                value1 : &uint64,
+                value2 : &uint64) : void =
+  begin
+    $extfcall (void, "memcpy", addr@ bytes, addr@ value1, i2sz 8);
+    $extfcall (void, "memcpy", ptr_add<byte> (addr@ bytes, 8),
+               addr@ value2, i2sz 8)
+  end
 
 fn
 compare_bytes {n      : int}
@@ -88,7 +93,7 @@ print_bytes {n     : int}
       }
   end
 
-m4_define(`implement_test_64',`
+m4_define(`implement_test_128',`
 fn
 $1 () : void =
   {
@@ -106,22 +111,22 @@ $1 () : void =
           prval (pf_inp1, pf_inp2) =
             array_v_subdivide2 {byte} {..} {i, 64 - i} (view@ input)
 
-          var output = @[byte][8] (i2byte 0)
+          var output = @[byte][16] (i2byte 0)
           $2
 
-          val (pf_vecs, consume_pf_vecs | p_vecs) = vectors_sip64 ()
+          val (pf_vecs, consume_pf_vecs | p_vecs) = vectors_sip128 ()
           prval (pf_left, pf_vec, pf_right) =
             array_v_subdivide3 {byte} {..}
-                               {i * 8, 8, 512 - i * 8 - 8}
+                               {i * 16, 16, 1024 - i * 16 - 16}
                                (pf_vecs)
 
-          val p_vec = ptr_add<byte> (p_vecs, i * i2sz 8)
+          val p_vec = ptr_add<byte> (p_vecs, i * i2sz 16)
 
           val _ = $extfcall (int, "printf", "$1/%02zu: [", i)
-          val _ = print_bytes (output, i2sz 8)
+          val _ = print_bytes (output, i2sz 16)
           val _ = $extfcall (int, "printf", "]\n")
 
-          val _ = assertloc (check_bytes (!p_vec, output, i2sz 8))
+          val _ = assertloc (check_bytes (!p_vec, output, i2sz 16))
 
           prval _ =
             pf_vecs := array_v_join3 (pf_left, pf_vec, pf_right)
@@ -136,38 +141,27 @@ $1 () : void =
     val _ = $extfcall (int, "printf", "\n$1 passed\n\n")
   }')
 
-implement_test_64(`test_siphash_2_4_64',`
-  var h = siphash_2_4_64 (!(addr@ input), i, key)
-  val _ = put_uint64 (output, h)')
+implement_test_128(`test_siphash_2_4_128',`
+  val (h1a, h2a) = siphash_2_4_128 (!(addr@ input), i, key)
+  var h1 = h1a
+  var h2 = h2a
+  val _ = put_two_uint64 (output, h1, h2)')
 
-implement_test_64(`test_siphash_2_4____64',`
-  var h = siphash_2_4 (!(addr@ input), i, key)
-  val _ = put_uint64 (output, h)')
-
-implement_test_64(`test_siphash_2_4_output____64',`
+implement_test_128(`test_siphash_2_4_output____128',`
   val _ = siphash_2_4_output (!(addr@ input), i, key,
-                              output, i2sz 8)')
+                              output, i2sz 16)')
 
-implement_test_64(`test_siphash_2_4____output_64',`
-  val _ = siphash_2_4 (!(addr@ input), i, key,
-                       output, i2sz 8)')
-
-implement_test_64(`test_siphash_c_d_64____2_4',`
-  var h = siphash_c_d_64 (!(addr@ input), i, key, 2u, 4u)
-  val _ = put_uint64 (output, h)')
-
-implement_test_64(`test_siphash_c_d____64_2_4',`
-  var h = siphash_c_d (!(addr@ input), i, key, 2u, 4u)
-  val _ = put_uint64 (output, h)')
-
+implement_test_128(`test_siphash_c_d_128____2_4',`
+  val (h1a, h2a) = siphash_c_d_128 (!(addr@ input), i, key,
+                                    2U, 4U)
+  var h1 = h1a
+  var h2 = h2a
+  val _ = put_two_uint64 (output, h1, h2)')
 
 implement
 main0 () =
   {
-    val _ = test_siphash_2_4_64 ()
-    val _ = test_siphash_2_4____64 ()
-    val _ = test_siphash_2_4_output____64 ()
-    val _ = test_siphash_2_4____output_64 ()
-    val _ = test_siphash_c_d_64____2_4 ()
-    val _ = test_siphash_c_d____64_2_4 ()
+    val _ = test_siphash_2_4_128 ()
+    val _ = test_siphash_2_4_output____128 ()
+    val _ = test_siphash_c_d_128____2_4 ()
   }
