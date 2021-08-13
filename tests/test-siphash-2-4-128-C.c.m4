@@ -26,7 +26,7 @@ include(`common-macros.m4')
 #include <stdint.h>
 #include <string.h>
 #include <siphash/siphash.h>
-#include "tests/vectors.h"
+#include "tests/vectors-2-4.h"
 
 static bool
 check_bytes (const void *bytes1,

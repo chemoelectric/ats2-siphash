@@ -33,7 +33,7 @@
 #
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Fri Aug 13 09:00:27 CDT 2021
+# from AX_AM_MACROS_STATIC on Fri Aug 13 12:47:59 CDT 2021
 
 
 
@@ -135,7 +135,7 @@ DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = tests/vectors.h common-macros.m4
+CONFIG_CLEAN_FILES = common-macros.m4
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(pkgincludedir)"
@@ -477,11 +477,10 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/common-macros.m4.in \
 	$(top_srcdir)/build-aux/install-sh \
 	$(top_srcdir)/build-aux/ltmain.sh \
 	$(top_srcdir)/build-aux/missing \
-	$(top_srcdir)/build-aux/test-driver \
-	$(top_srcdir)/reference-implementation/vectors.h AUTHORS \
-	COPYING INSTALL README build-aux/compile \
-	build-aux/config.guess build-aux/config.sub build-aux/depcomp \
-	build-aux/install-sh build-aux/ltmain.sh build-aux/missing
+	$(top_srcdir)/build-aux/test-driver AUTHORS COPYING INSTALL \
+	README build-aux/compile build-aux/config.guess \
+	build-aux/config.sub build-aux/depcomp build-aux/install-sh \
+	build-aux/ltmain.sh build-aux/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -760,22 +759,22 @@ M4_GENERATED_ATS2_TESTS = tests/test-siphash-2-4-64 \
 tests_test_siphash_2_4_64_SOURCES = tests/test-siphash-2-4-64_dats.c \
 	tests/vectors_sats.c tests/vectors_dats.c
 tests_test_siphash_2_4_64_LDADD = libats2-siphash.la
-tests_test_siphash_2_4_64_DEPENDENCIES = tests/vectors.h \
+tests_test_siphash_2_4_64_DEPENDENCIES = tests/vectors-2-4.h \
 	siphash/SATS/array_prf.sats
 tests_test_siphash_2_4_128_SOURCES =  \
 	tests/test-siphash-2-4-128_dats.c tests/vectors_sats.c \
 	tests/vectors_dats.c
 tests_test_siphash_2_4_128_LDADD = libats2-siphash.la
-tests_test_siphash_2_4_128_DEPENDENCIES = tests/vectors.h \
+tests_test_siphash_2_4_128_DEPENDENCIES = tests/vectors-2-4.h \
 	siphash/SATS/array_prf.sats
 DISTRIBUTED_C_TESTS = 
 M4_GENERATED_C_TESTS = tests/test-siphash-2-4-64-C \
 	tests/test-siphash-2-4-128-C
 tests_test_siphash_2_4_64_C_SOURCES = tests/test-siphash-2-4-64-C.c \
-	tests/vectors.h
+	tests/vectors-2-4.h
 tests_test_siphash_2_4_64_C_LDADD = libsiphash.la
 tests_test_siphash_2_4_128_C_SOURCES = tests/test-siphash-2-4-128-C.c \
-	tests/vectors.h
+	tests/vectors-2-4.h
 tests_test_siphash_2_4_128_C_LDADD = libsiphash.la
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
 GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS) $(M4_GENERATED_C_TESTS)
@@ -818,8 +817,6 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
-tests/vectors.h: $(top_builddir)/config.status $(top_srcdir)/reference-implementation/vectors.h
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 common-macros.m4: $(top_builddir)/config.status $(srcdir)/common-macros.m4.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-binPROGRAMS: $(bin_PROGRAMS)

@@ -14674,8 +14674,6 @@ printf "%s\n" "$as_me: WARNING: Please consider installing and using GNU Make:
 
 }
 
-ac_config_files="$ac_config_files tests/vectors.h:reference-implementation/vectors.h"
-
 ac_config_files="$ac_config_files common-macros.m4"
 
 
@@ -15716,7 +15714,6 @@ do
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "GNUmakefile") CONFIG_FILES="$CONFIG_FILES GNUmakefile:Makefile.in" ;;
-    "tests/vectors.h") CONFIG_FILES="$CONFIG_FILES tests/vectors.h:reference-implementation/vectors.h" ;;
     "common-macros.m4") CONFIG_FILES="$CONFIG_FILES common-macros.m4" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;

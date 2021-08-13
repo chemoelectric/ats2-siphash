@@ -30,7 +30,7 @@ staload "tests/vectors.sats"
 
 %{^
 
-#include "tests/vectors.h"
+#include "tests/vectors-2-4.h"
 
 static void *
 vectors_sip64_p (void)
