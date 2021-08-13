@@ -235,12 +235,19 @@ DISTRIBUTED_C_TESTS =
 
 M4_GENERATED_C_TESTS =
 M4_GENERATED_C_TESTS += tests/test-siphash-2-4-64-C
+M4_GENERATED_C_TESTS += tests/test-siphash-2-4-128-C
 
 tests_test_siphash_2_4_64_C_SOURCES =
 tests_test_siphash_2_4_64_C_SOURCES += tests/test-siphash-2-4-64-C.c
 tests_test_siphash_2_4_64_C_SOURCES += tests/vectors.h
 tests_test_siphash_2_4_64_C_LDADD =
 tests_test_siphash_2_4_64_C_LDADD += libsiphash.la
+
+tests_test_siphash_2_4_128_C_SOURCES =
+tests_test_siphash_2_4_128_C_SOURCES += tests/test-siphash-2-4-128-C.c
+tests_test_siphash_2_4_128_C_SOURCES += tests/vectors.h
+tests_test_siphash_2_4_128_C_LDADD =
+tests_test_siphash_2_4_128_C_LDADD += libsiphash.la
 
 DISTRIBUTED_TESTS =
 DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)

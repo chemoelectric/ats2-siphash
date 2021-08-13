@@ -67,29 +67,29 @@ $1 (void)
       uint8_t input[64];
       initialize_bytes (input, 64);
 
-      uint8_t output[8];
+      uint8_t output[16];
       do { $2 } while (0);
 
-      const uint8_t *vec = vectors_sip64[i];
+      const uint8_t *vec = vectors_sip128[i];
 
       printf ("$1/%02zu: [", i);
-      print_bytes (output, 8);
+      print_bytes (output, 16);
       printf ("]\n");
 
-      assert (check_bytes (vec, output, 8));
+      assert (check_bytes (vec, output, 16));
     }
   printf ("\n$1 passed\n\n");
 }')
 
-implement_test_64(`test_siphash_2_4____64',`
-  siphash_2_4 (input, i, key, output, 8);')
+implement_test_64(`test_siphash_2_4____128',`
+  siphash_2_4 (input, i, key, output, 16);')
 
-implement_test_64(`test_siphash_c_d____2_4_64',`
-  siphash_c_d (input, i, key, 2, 4, output, 8);')
+implement_test_64(`test_siphash_c_d____2_4_128',`
+  siphash_c_d (input, i, key, 2, 4, output, 16);')
 
 int
 main (int argc, char *argv[])
 {
-  test_siphash_2_4____64 ();
-  test_siphash_c_d____2_4_64 ();
+  test_siphash_2_4____128 ();
+  test_siphash_c_d____2_4_128 ();
 }

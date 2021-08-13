@@ -143,7 +143,8 @@ am__EXEEXT_1 =
 am__EXEEXT_2 = $(am__EXEEXT_1) $(am__EXEEXT_1)
 am__EXEEXT_3 = tests/test-siphash-2-4-64$(EXEEXT) \
 	tests/test-siphash-2-4-128$(EXEEXT)
-am__EXEEXT_4 = tests/test-siphash-2-4-64-C$(EXEEXT)
+am__EXEEXT_4 = tests/test-siphash-2-4-64-C$(EXEEXT) \
+	tests/test-siphash-2-4-128-C$(EXEEXT)
 am__EXEEXT_5 = $(am__EXEEXT_3) $(am__EXEEXT_4)
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -196,6 +197,11 @@ am_tests_test_siphash_2_4_128_OBJECTS =  \
 	tests/vectors_sats.$(OBJEXT) tests/vectors_dats.$(OBJEXT)
 tests_test_siphash_2_4_128_OBJECTS =  \
 	$(am_tests_test_siphash_2_4_128_OBJECTS)
+am_tests_test_siphash_2_4_128_C_OBJECTS =  \
+	tests/test-siphash-2-4-128-C.$(OBJEXT)
+tests_test_siphash_2_4_128_C_OBJECTS =  \
+	$(am_tests_test_siphash_2_4_128_C_OBJECTS)
+tests_test_siphash_2_4_128_C_DEPENDENCIES = libsiphash.la
 am_tests_test_siphash_2_4_64_OBJECTS =  \
 	tests/test-siphash-2-4-64_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors_dats.$(OBJEXT)
@@ -226,6 +232,7 @@ am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
 	siphash/DATS/$(DEPDIR)/siphash_dats.Plo \
 	siphash/SATS/$(DEPDIR)/array_prf_sats.Plo \
 	siphash/SATS/$(DEPDIR)/siphash_sats.Plo \
+	tests/$(DEPDIR)/test-siphash-2-4-128-C.Po \
 	tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po \
 	tests/$(DEPDIR)/test-siphash-2-4-64-C.Po \
 	tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po \
@@ -252,10 +259,12 @@ am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(nodist_libats2_siphash_la_SOURCES) \
 	$(libsiphash_la_SOURCES) $(tests_test_siphash_2_4_128_SOURCES) \
+	$(tests_test_siphash_2_4_128_C_SOURCES) \
 	$(tests_test_siphash_2_4_64_SOURCES) \
 	$(tests_test_siphash_2_4_64_C_SOURCES)
 DIST_SOURCES = $(libsiphash_la_SOURCES) \
 	$(tests_test_siphash_2_4_128_SOURCES) \
+	$(tests_test_siphash_2_4_128_C_SOURCES) \
 	$(tests_test_siphash_2_4_64_SOURCES) \
 	$(tests_test_siphash_2_4_64_C_SOURCES)
 am__can_run_installinfo = \
@@ -760,10 +769,14 @@ tests_test_siphash_2_4_128_LDADD = libats2-siphash.la
 tests_test_siphash_2_4_128_DEPENDENCIES = tests/vectors.h \
 	siphash/SATS/array_prf.sats
 DISTRIBUTED_C_TESTS = 
-M4_GENERATED_C_TESTS = tests/test-siphash-2-4-64-C
+M4_GENERATED_C_TESTS = tests/test-siphash-2-4-64-C \
+	tests/test-siphash-2-4-128-C
 tests_test_siphash_2_4_64_C_SOURCES = tests/test-siphash-2-4-64-C.c \
 	tests/vectors.h
 tests_test_siphash_2_4_64_C_LDADD = libsiphash.la
+tests_test_siphash_2_4_128_C_SOURCES = tests/test-siphash-2-4-128-C.c \
+	tests/vectors.h
+tests_test_siphash_2_4_128_C_LDADD = libsiphash.la
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
 GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS) $(M4_GENERATED_C_TESTS)
 all: $(BUILT_SOURCES)
@@ -946,6 +959,12 @@ tests/vectors_dats.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-siphash-2-4-128$(EXEEXT): $(tests_test_siphash_2_4_128_OBJECTS) $(tests_test_siphash_2_4_128_DEPENDENCIES) $(EXTRA_tests_test_siphash_2_4_128_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-siphash-2-4-128$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_siphash_2_4_128_OBJECTS) $(tests_test_siphash_2_4_128_LDADD) $(LIBS)
+tests/test-siphash-2-4-128-C.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-siphash-2-4-128-C$(EXEEXT): $(tests_test_siphash_2_4_128_C_OBJECTS) $(tests_test_siphash_2_4_128_C_DEPENDENCIES) $(EXTRA_tests_test_siphash_2_4_128_C_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-siphash-2-4-128-C$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_siphash_2_4_128_C_OBJECTS) $(tests_test_siphash_2_4_128_C_LDADD) $(LIBS)
 tests/test-siphash-2-4-64_dats.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 
@@ -975,6 +994,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/array_prf_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/siphash_sats.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-128-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-64-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po@am__quote@ # am--include-marker
@@ -1268,6 +1288,13 @@ tests/test-siphash-2-4-64-C.log: tests/test-siphash-2-4-64-C$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-siphash-2-4-128-C.log: tests/test-siphash-2-4-128-C$(EXEEXT)
+	@p='tests/test-siphash-2-4-128-C$(EXEEXT)'; \
+	b='tests/test-siphash-2-4-128-C'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1523,6 +1550,7 @@ distclean: distclean-am
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
+	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po
@@ -1580,6 +1608,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_dats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
+	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-64_dats.Po
