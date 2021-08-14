@@ -271,13 +271,13 @@ nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_C_DATS)
 nobase_nodist_pkginclude_HEADERS += siphash/siphash.h
 nobase_nodist_pkginclude_HEADERS += siphash/halfsiphash.h
 
-# #--------------------------------------------------------------------------
-# 
-# pkgconfigdir = ${libdir}/pkgconfig
-# nodist_pkgconfig_DATA = ats2-murmurhash3.pc
-# nodist_pkgconfig_DATA = murmurhash3.pc
-# 
-# #--------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+
+pkgconfigdir = ${libdir}/pkgconfig
+nodist_pkgconfig_DATA = ats2-siphash.pc
+nodist_pkgconfig_DATA = siphash.pc
+
+#--------------------------------------------------------------------------
 
 AM_DEFAULT_SOURCE_EXT = _dats.c
 

@@ -1,0 +1,17 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+host=@host@
+package=@PACKAGE@
+version=@VERSION@
+pkgincludedir="${includedir}/${package}"
+
+CPPFLAGS="-I${pkgincludedir}"
+
+Name: ${package}
+Description: SipHash for C (written in ATS2)
+Version: ${version}
+Libs.private: -L${libdir} -lats2-siphash
+Libs: -L${libdir} -lsiphash
+Cflags: ${CPPFLAGS}

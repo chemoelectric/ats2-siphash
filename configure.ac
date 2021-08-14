@@ -99,8 +99,8 @@ StM_CONFIG_MAKEFILES
 
 AC_CONFIG_FILES([common-macros.m4])
 
-#AC_CONFIG_FILES([ats2-siphash.pc])
-#AC_CONFIG_FILES([siphash.pc])
+AC_CONFIG_FILES([ats2-siphash.pc])
+AC_CONFIG_FILES([siphash.pc])
 
 AC_CONFIG_COMMANDS([write-siphash-implementations.awk],[
   ${AWK} -f "${srcdir}/write-siphash-implementations.awk"

@@ -14677,8 +14677,10 @@ printf "%s\n" "$as_me: WARNING: Please consider installing and using GNU Make:
 ac_config_files="$ac_config_files common-macros.m4"
 
 
-#AC_CONFIG_FILES([ats2-siphash.pc])
-#AC_CONFIG_FILES([siphash.pc])
+ac_config_files="$ac_config_files ats2-siphash.pc"
+
+ac_config_files="$ac_config_files siphash.pc"
+
 
 ac_config_commands="$ac_config_commands write-siphash-implementations.awk"
 
@@ -15721,6 +15723,8 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "GNUmakefile") CONFIG_FILES="$CONFIG_FILES GNUmakefile:Makefile.in" ;;
     "common-macros.m4") CONFIG_FILES="$CONFIG_FILES common-macros.m4" ;;
+    "ats2-siphash.pc") CONFIG_FILES="$CONFIG_FILES ats2-siphash.pc" ;;
+    "siphash.pc") CONFIG_FILES="$CONFIG_FILES siphash.pc" ;;
     "write-siphash-implementations.awk") CONFIG_COMMANDS="$CONFIG_COMMANDS write-siphash-implementations.awk" ;;
     "write-halfsiphash-implementations.awk") CONFIG_COMMANDS="$CONFIG_COMMANDS write-halfsiphash-implementations.awk" ;;
 

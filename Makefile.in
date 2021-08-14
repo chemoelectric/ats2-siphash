@@ -33,7 +33,8 @@
 #
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Sat Aug 14 12:45:55 CDT 2021
+# from AX_AM_MACROS_STATIC on Sat Aug 14 14:54:28 CDT 2021
+
 
 
 
@@ -135,10 +136,10 @@ DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = common-macros.m4
+CONFIG_CLEAN_FILES = common-macros.m4 ats2-siphash.pc siphash.pc
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
-	"$(DESTDIR)$(pkgincludedir)"
+	"$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(pkgincludedir)"
 am__EXEEXT_1 =
 am__EXEEXT_2 = $(am__EXEEXT_1) $(am__EXEEXT_1)
 am__EXEEXT_3 = tests/test-siphash-2-4-64$(EXEEXT) \
@@ -461,6 +462,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+DATA = $(nodist_pkgconfig_DATA)
 HEADERS = $(nobase_nodist_pkginclude_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -657,7 +659,8 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/build-aux/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/common-macros.m4.in \
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/ats2-siphash.pc.in \
+	$(srcdir)/common-macros.m4.in $(srcdir)/siphash.pc.in \
 	$(top_srcdir)/aminclude_static.am \
 	$(top_srcdir)/build-aux/compile \
 	$(top_srcdir)/build-aux/config.guess \
@@ -990,13 +993,11 @@ libsiphash_la_SOURCES = $(SIPHASH_C_DATS_C) $(HALFSIPHASH_C_DATS_C) \
 	siphash/siphash.h siphash/halfsiphash.h
 libsiphash_la_LIBADD = libats2-siphash.la
 
-# #--------------------------------------------------------------------------
-# 
-# pkgconfigdir = ${libdir}/pkgconfig
-# nodist_pkgconfig_DATA = ats2-murmurhash3.pc
-# nodist_pkgconfig_DATA = murmurhash3.pc
-# 
-# #--------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+pkgconfigdir = ${libdir}/pkgconfig
+nodist_pkgconfig_DATA = siphash.pc
+
+#--------------------------------------------------------------------------
 AM_DEFAULT_SOURCE_EXT = _dats.c
 TESTS = $(check_PROGRAMS)
 DISTRIBUTED_ATS2_TESTS = 
@@ -1151,6 +1152,10 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
 common-macros.m4: $(top_builddir)/config.status $(srcdir)/common-macros.m4.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+ats2-siphash.pc: $(top_builddir)/config.status $(srcdir)/ats2-siphash.pc.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+siphash.pc: $(top_builddir)/config.status $(srcdir)/siphash.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -1553,6 +1558,27 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool config.lt
+install-nodist_pkgconfigDATA: $(nodist_pkgconfig_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(nodist_pkgconfig_DATA)'; test -n "$(pkgconfigdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(pkgconfigdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(pkgconfigdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(pkgconfigdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(pkgconfigdir)" || exit $$?; \
+	done
+
+uninstall-nodist_pkgconfigDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(nodist_pkgconfig_DATA)'; test -n "$(pkgconfigdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(pkgconfigdir)'; $(am__uninstall_files_from_dir)
 install-nobase_nodist_pkgincludeHEADERS: $(nobase_nodist_pkginclude_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_nodist_pkginclude_HEADERS)'; test -n "$(pkgincludedir)" || list=; \
@@ -2109,11 +2135,11 @@ check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
-all-am: GNUmakefile $(PROGRAMS) $(LTLIBRARIES) $(HEADERS)
+all-am: GNUmakefile $(PROGRAMS) $(LTLIBRARIES) $(DATA) $(HEADERS)
 install-binPROGRAMS: install-libLTLIBRARIES
 
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgincludedir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(pkgincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -2233,7 +2259,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-nobase_nodist_pkgincludeHEADERS
+install-data-am: install-nobase_nodist_pkgincludeHEADERS \
+	install-nodist_pkgconfigDATA
 
 install-dvi: install-dvi-am
 
@@ -2330,7 +2357,8 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
-	uninstall-nobase_nodist_pkgincludeHEADERS
+	uninstall-nobase_nodist_pkgincludeHEADERS \
+	uninstall-nodist_pkgconfigDATA
 
 .MAKE: all check check-am install install-am install-exec \
 	install-strip
@@ -2349,14 +2377,16 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am \
 	install-libLTLIBRARIES install-man \
-	install-nobase_nodist_pkgincludeHEADERS install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
+	install-nobase_nodist_pkgincludeHEADERS \
+	install-nodist_pkgconfigDATA install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	recheck tags tags-am uninstall uninstall-am \
 	uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
-	uninstall-nobase_nodist_pkgincludeHEADERS
+	uninstall-nobase_nodist_pkgincludeHEADERS \
+	uninstall-nodist_pkgconfigDATA
 
 .PRECIOUS: GNUmakefile
 
