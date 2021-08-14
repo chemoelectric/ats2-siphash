@@ -32,15 +32,15 @@ include(`common-macros.m4')
 #include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
 
-#include "siphash/HATS/siphash.hats"
+#include "siphash/HATS/halfsiphash.hats"
 
 staload "siphash/SATS/array_prf.sats"
 staload "tests/vectors.sats"
 
 fn
-put_uint64 (bytes : &(@[byte][8]),
-            value : &uint64) : void =
-  $extfcall (void, "memcpy", addr@ bytes, addr@ value, i2sz 8)
+put_uint32 (bytes : &(@[byte][4]),
+            value : &uint32) : void =
+  $extfcall (void, "memcpy", addr@ bytes, addr@ value, i2sz 4)
 
 fn
 compare_bytes {n      : int}
@@ -89,7 +89,7 @@ print_bytes {n     : int}
       }
   end
 
-m4_define(`implement_test_64',`
+m4_define(`implement_test_32',`
 fn
 $1 () : void =
   {
@@ -98,8 +98,8 @@ $1 () : void =
          (i : size_t i) : void =
       if i < i2sz 64 then
         let
-          var key : @[byte][16]
-          val _ = initialize_bytes (key, i2sz 16)
+          var key : @[byte][8]
+          val _ = initialize_bytes (key, i2sz 8)
 
           var input : @[byte][64]
           val _ = initialize_bytes (input, i2sz 64)
@@ -107,22 +107,22 @@ $1 () : void =
           prval (pf_inp1, pf_inp2) =
             array_v_subdivide2 {byte} {..} {i, 64 - i} (view@ input)
 
-          var output = @[byte][8] (i2byte 0)
+          var output = @[byte][4] (i2byte 0)
           $2
 
-          val (pf_vecs, consume_pf_vecs | p_vecs) = vectors_sip64 ()
+          val (pf_vecs, consume_pf_vecs | p_vecs) = vectors_hsip32 ()
           prval (pf_left, pf_vec, pf_right) =
             array_v_subdivide3 {byte} {..}
-                               {i * 8, 8, 512 - i * 8 - 8}
+                               {i * 4, 4, 256 - i * 4 - 4}
                                (pf_vecs)
 
-          val p_vec = ptr_add<byte> (p_vecs, i * i2sz 8)
+          val p_vec = ptr_add<byte> (p_vecs, i * i2sz 4)
 
           val _ = $extfcall (int, "printf", "$1/%02zu: [", i)
-          val _ = print_bytes (output, i2sz 8)
+          val _ = print_bytes (output, i2sz 4)
           val _ = $extfcall (int, "printf", "]\n")
 
-          val _ = assertloc (check_bytes (!p_vec, output, i2sz 8))
+          val _ = assertloc (check_bytes (!p_vec, output, i2sz 4))
 
           prval _ =
             pf_vecs := array_v_join3 (pf_left, pf_vec, pf_right)
@@ -137,22 +137,22 @@ $1 () : void =
     val _ = $extfcall (int, "printf", "\n$1 passed\n\n")
   }')
 
-implement_test_64(`test_siphash_2_4_64_hats',`
+implement_test_32(`test_halfsiphash_2_4_32_hats',`
   (* Test the template interface. *)
-  implement {} siphash$crounds () = 2U
-  implement {} siphash$drounds () = 4U
-  var h = siphash_64 (!(addr@ input), i, key)
-  val _ = put_uint64 (output, h)')
+  implement {} halfsiphash$crounds () = 2U
+  implement {} halfsiphash$drounds () = 4U
+  var h = halfsiphash_32 (!(addr@ input), i, key)
+  val _ = put_uint32 (output, h)')
 
-implement_test_64(`test_siphash_2_4_output_hats____64',`
+implement_test_32(`test_halfsiphash_2_4_output_hats____32',`
   (* Test the template interface. *)
-  implement {} siphash$crounds () = 2U
-  implement {} siphash$drounds () = 4U
-  val _ = siphash (!(addr@ input), i, key, output, i2sz 8)')
+  implement {} halfsiphash$crounds () = 2U
+  implement {} halfsiphash$drounds () = 4U
+  val _ = halfsiphash (!(addr@ input), i, key, output, i2sz 4)')
 
 implement
 main0 () =
   {
-    val _ = test_siphash_2_4_64_hats ()
-    val _ = test_siphash_2_4_output_hats____64 ()
+    val _ = test_halfsiphash_2_4_32_hats ()
+    val _ = test_halfsiphash_2_4_output_hats____32 ()
   }

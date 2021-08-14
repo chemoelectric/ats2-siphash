@@ -137,30 +137,6 @@ $1 () : void =
     val _ = $extfcall (int, "printf", "\n$1 passed\n\n")
   }')
 
-implement_test_64(`test_siphash_4_8_64',`
-  var h = siphash_4_8_64 (!(addr@ input), i, key)
-  val _ = put_uint64 (output, h)')
-
-implement_test_64(`test_siphash_4_8____64',`
-  var h = siphash_4_8 (!(addr@ input), i, key)
-  val _ = put_uint64 (output, h)')
-
-implement_test_64(`test_siphash_4_8_output____64',`
-  val _ = siphash_4_8_output (!(addr@ input), i, key,
-                              output, i2sz 8)')
-
-implement_test_64(`test_siphash_4_8____output_64',`
-  val _ = siphash_4_8 (!(addr@ input), i, key,
-                       output, i2sz 8)')
-
-implement_test_64(`test_siphash_c_d_64____4_8',`
-  var h = siphash_c_d_64 (!(addr@ input), i, key, 4U, 8U)
-  val _ = put_uint64 (output, h)')
-
-implement_test_64(`test_siphash_c_d____64_4_8',`
-  var h = siphash_c_d (!(addr@ input), i, key, 4U, 8U)
-  val _ = put_uint64 (output, h)')
-
 implement_test_64(`test_siphash_4_8_64_hats',`
   (* Test the template interface. *)
   implement {} siphash$crounds () = 4U
@@ -177,12 +153,6 @@ implement_test_64(`test_siphash_4_8_output_hats____64',`
 implement
 main0 () =
   {
-    val _ = test_siphash_4_8_64 ()
-    val _ = test_siphash_4_8____64 ()
-    val _ = test_siphash_4_8_output____64 ()
-    val _ = test_siphash_4_8____output_64 ()
-    val _ = test_siphash_c_d_64____4_8 ()
-    val _ = test_siphash_c_d____64_4_8 ()
     val _ = test_siphash_4_8_64_hats ()
     val _ = test_siphash_4_8_output_hats____64 ()
   }
