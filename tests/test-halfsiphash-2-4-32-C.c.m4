@@ -25,8 +25,8 @@ include(`common-macros.m4')
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <siphash/siphash.h>
-#include "tests/vectors-4-8.h"
+#include <siphash/halfsiphash.h>
+#include "tests/vectors-2-4.h"
 
 static bool
 check_bytes (const void *bytes1,
@@ -55,41 +55,41 @@ print_bytes (const void *bytes, size_t n)
     }
 }
 
-m4_define(`implement_test_128',`
+m4_define(`implement_test_32',`
 static void
 $1 (void)
 {
   for (size_t i = 0; i < 64; i += 1)
     {
-      uint8_t key[16];
-      initialize_bytes (key, 16);
+      uint8_t key[8];
+      initialize_bytes (key, 8);
 
       uint8_t input[64];
       initialize_bytes (input, 64);
 
-      uint8_t output[16];
+      uint8_t output[8];
       do { $2 } while (0);
 
-      const uint8_t *vec = vectors_sip128[i];
+      const uint8_t *vec = vectors_hsip32[i];
 
       printf ("$1/%02zu: [", i);
-      print_bytes (output, 16);
+      print_bytes (output, 4);
       printf ("]\n");
 
-      assert (check_bytes (vec, output, 16));
+      assert (check_bytes (vec, output, 4));
     }
   printf ("\n$1 passed\n\n");
 }')
 
-implement_test_128(`test_siphash_4_8____128',`
-  siphash_4_8 (input, i, key, output, 16);')
+implement_test_32(`test_halfsiphash_2_4____32',`
+  halfsiphash_2_4 (input, i, key, output, 4);')
 
-implement_test_128(`test_siphash_c_d____4_8_128',`
-  siphash_c_d (input, i, key, 4, 8, output, 16);')
+implement_test_32(`test_halfsiphash_c_d____2_4_32',`
+  halfsiphash_c_d (input, i, key, 2, 4, output, 4);')
 
 int
 main (int argc, char *argv[])
 {
-  test_siphash_4_8____128 ();
-  test_siphash_c_d____4_8_128 ();
+  test_halfsiphash_2_4____32 ();
+  test_halfsiphash_c_d____2_4_32 ();
 }

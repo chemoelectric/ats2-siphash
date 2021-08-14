@@ -252,15 +252,24 @@ SIPHASH_C_DATS_C = siphash/DATS/siphash_c_dats.c
 EXTRA_DIST += $(SIPHASH_C_DATS)
 CLEANFILES += $(SIPHASH_C_DATS_C)
 
+HALFSIPHASH_C_DATS = siphash/DATS/halfsiphash_c.dats
+HALFSIPHASH_C_DATS_C = siphash/DATS/halfsiphash_c_dats.c
+EXTRA_DIST += $(HALFSIPHASH_C_DATS)
+CLEANFILES += $(HALFSIPHASH_C_DATS_C)
+
 libsiphash_la_SOURCES =
 libsiphash_la_SOURCES += $(SIPHASH_C_DATS_C)
+libsiphash_la_SOURCES += $(HALFSIPHASH_C_DATS_C)
 libsiphash_la_SOURCES += siphash/siphash.h
+libsiphash_la_SOURCES += siphash/halfsiphash.h
 
 libsiphash_la_LIBADD =
 libsiphash_la_LIBADD += libats2-siphash.la
 
-nobase_nodist_pkginclude_HEADERS += $(SIPHASH_32_C_DATS)
+nobase_nodist_pkginclude_HEADERS += $(SIPHASH_C_DATS)
+nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_C_DATS)
 nobase_nodist_pkginclude_HEADERS += siphash/siphash.h
+nobase_nodist_pkginclude_HEADERS += siphash/halfsiphash.h
 
 # #--------------------------------------------------------------------------
 # 
@@ -427,6 +436,10 @@ M4_GENERATED_C_TESTS += tests/test-siphash-2-4-64-C
 M4_GENERATED_C_TESTS += tests/test-siphash-2-4-128-C
 M4_GENERATED_C_TESTS += tests/test-siphash-4-8-64-C
 M4_GENERATED_C_TESTS += tests/test-siphash-4-8-128-C
+M4_GENERATED_C_TESTS += tests/test-halfsiphash-2-4-32-C
+M4_GENERATED_C_TESTS += tests/test-halfsiphash-2-4-64-C
+M4_GENERATED_C_TESTS += tests/test-halfsiphash-4-8-32-C
+M4_GENERATED_C_TESTS += tests/test-halfsiphash-4-8-64-C
 
 tests_test_siphash_2_4_64_C_SOURCES =
 tests_test_siphash_2_4_64_C_SOURCES += tests/test-siphash-2-4-64-C.c
@@ -451,6 +464,30 @@ tests_test_siphash_4_8_128_C_SOURCES += tests/test-siphash-4-8-128-C.c
 tests_test_siphash_4_8_128_C_SOURCES += tests/vectors-4-8.h
 tests_test_siphash_4_8_128_C_LDADD =
 tests_test_siphash_4_8_128_C_LDADD += libsiphash.la
+
+tests_test_halfsiphash_2_4_32_C_SOURCES =
+tests_test_halfsiphash_2_4_32_C_SOURCES += tests/test-halfsiphash-2-4-32-C.c
+tests_test_halfsiphash_2_4_32_C_SOURCES += tests/vectors-2-4.h
+tests_test_halfsiphash_2_4_32_C_LDADD =
+tests_test_halfsiphash_2_4_32_C_LDADD += libsiphash.la
+
+tests_test_halfsiphash_2_4_64_C_SOURCES =
+tests_test_halfsiphash_2_4_64_C_SOURCES += tests/test-halfsiphash-2-4-64-C.c
+tests_test_halfsiphash_2_4_64_C_SOURCES += tests/vectors-2-4.h
+tests_test_halfsiphash_2_4_64_C_LDADD =
+tests_test_halfsiphash_2_4_64_C_LDADD += libsiphash.la
+
+tests_test_halfsiphash_4_8_32_C_SOURCES =
+tests_test_halfsiphash_4_8_32_C_SOURCES += tests/test-halfsiphash-4-8-32-C.c
+tests_test_halfsiphash_4_8_32_C_SOURCES += tests/vectors-4-8.h
+tests_test_halfsiphash_4_8_32_C_LDADD =
+tests_test_halfsiphash_4_8_32_C_LDADD += libsiphash.la
+
+tests_test_halfsiphash_4_8_64_C_SOURCES =
+tests_test_halfsiphash_4_8_64_C_SOURCES += tests/test-halfsiphash-4-8-64-C.c
+tests_test_halfsiphash_4_8_64_C_SOURCES += tests/vectors-4-8.h
+tests_test_halfsiphash_4_8_64_C_LDADD =
+tests_test_halfsiphash_4_8_64_C_LDADD += libsiphash.la
 
 DISTRIBUTED_TESTS =
 DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)

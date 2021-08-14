@@ -1,0 +1,181 @@
+(*
+
+Copyright © 2021 Barry Schwartz
+
+This program is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License, as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received copies of the GNU General Public License
+along with this program. If not, see
+<https://www.gnu.org/licenses/>.
+
+*)
+
+#define ATS_PACKNAME "ats2-siphash"
+#define ATS_EXTERN_PREFIX "ats2_siphash_"
+
+#define ATS_DYNLOADFLAG 0
+
+#include "share/atspre_define.hats"
+#include "share/atspre_staload.hats"
+
+staload SH = "siphash/SATS/halfsiphash.sats"
+
+(* A variant of ‘orelse’, with dependent types. *)
+fn {}
+orelse1 {b1, b2 : bool} (b1 : bool b1, b2 : bool b2) :<>
+    [b3 : bool | b3 == (b1 || b2)] bool b3 =
+  if b1 then
+    true
+  else
+    b2
+
+infixl (||) |||
+macdef ||| = orelse1
+
+typedef constptr (p : addr) = $extype"const void *"
+typedef constsize (n : int) = $extype"const size_t"
+
+extern castfn
+constptr2ptr :
+  {p : addr} constptr p -<> ptr p
+
+extern castfn
+constsize2size :
+  {n : int} constsize n -<> size_t n
+
+fn {}
+make_bytes_view {n : int} {p : addr} (p : ptr p) :<>
+    (@[byte][n] @ p, @[byte][n] @ p -<lin,prf> void | ptr p) =
+  let
+    extern praxi
+    make_view :
+      () -<prf> (@[byte][n] @ p, @[byte][n] @ p -<lin,prf> void)
+    prval (pf, consume_pf) = make_view ()
+  in
+    (pf, consume_pf | p)
+  end
+
+extern fn
+halfsiphash_2_4 {inlen  : int}
+                {outlen : int}
+                {pi, pk, po : addr}
+                (input  : constptr pi,
+                 inlen  : constsize inlen,
+                 key    : constptr pk,
+                 output : ptr po,
+                 outlen : constsize outlen) : void = "ext#"
+
+extern fn
+halfsiphash_4_8 {inlen  : int}
+                {outlen : int}
+                {pi, pk, po : addr}
+                (input  : constptr pi,
+                 inlen  : constsize inlen,
+                 key    : constptr pk,
+                 output : ptr po,
+                 outlen : constsize outlen) : void = "ext#"
+
+extern fn
+halfsiphash_c_d {inlen   : int}
+                {outlen  : int}
+                {pi, pk, po : addr}
+                (input   : constptr pi,
+                 inlen   : constsize inlen,
+                 key     : constptr pk,
+                 crounds : uint,
+                 drounds : uint,
+                 output  : ptr po,
+                 outlen  : constsize outlen) : void = "ext#"
+
+implement
+halfsiphash_2_4 {inlen} {outlen} {pi, pk, po}
+                (input, inlen, key, output, outlen) =
+  {
+    val inlen = constsize2size inlen
+    val outlen = constsize2size outlen
+    val _ = assertloc (outlen = i2sz 4 ||| outlen = i2sz 8)
+
+    val input = constptr2ptr input
+    val key = constptr2ptr key
+
+    val (pf_input, consume_pf_input | input) =
+      make_bytes_view {inlen} {pi} (input)
+    val (pf_key, consume_pf_key | key) =
+      make_bytes_view {8} {pk} (key)
+    val (pf_output, consume_pf_output | output) =
+      make_bytes_view {outlen} {po} (output)
+
+    val _ = $SH.halfsiphash_2_4_output (!input, inlen, !key,
+                                        !output, outlen)
+
+    prval _ = consume_pf_input pf_input
+    prval _ = consume_pf_key pf_key
+    prval _ = consume_pf_output pf_output
+  }
+
+implement
+halfsiphash_4_8 {inlen} {outlen} {pi, pk, po}
+                (input, inlen, key, output, outlen) =
+  {
+    val inlen = constsize2size inlen
+    val outlen = constsize2size outlen
+    val _ = assertloc (outlen = i2sz 4 ||| outlen = i2sz 8)
+
+    val input = constptr2ptr input
+    val key = constptr2ptr key
+
+    val (pf_input, consume_pf_input | input) =
+      make_bytes_view {inlen} {pi} (input)
+    val (pf_key, consume_pf_key | key) =
+      make_bytes_view {8} {pk} (key)
+    val (pf_output, consume_pf_output | output) =
+      make_bytes_view {outlen} {po} (output)
+
+    val _ = $SH.halfsiphash_4_8_output (!input, inlen, !key,
+                                        !output, outlen)
+
+    prval _ = consume_pf_input pf_input
+    prval _ = consume_pf_key pf_key
+    prval _ = consume_pf_output pf_output
+  }
+
+implement
+halfsiphash_c_d {inlen} {outlen} {pi, pk, po}
+                (input, inlen, key, crounds, drounds,
+                 output, outlen) =
+  {
+    val inlen = constsize2size inlen
+    val outlen = constsize2size outlen
+    val _ = assertloc (outlen = i2sz 4 ||| outlen = i2sz 8)
+
+    val input = constptr2ptr input
+    val key = constptr2ptr key
+
+    val (pf_input, consume_pf_input | input) =
+      make_bytes_view {inlen} {pi} (input)
+    val (pf_key, consume_pf_key | key) =
+      make_bytes_view {8} {pk} (key)
+    val (pf_output, consume_pf_output | output) =
+      make_bytes_view {outlen} {po} (output)
+
+    val crounds = g1ofg0 crounds
+    val drounds = g1ofg0 drounds
+    val _ = assertloc (1U <= crounds)
+    val _ = assertloc (1U <= drounds)
+
+    val _ = $SH.halfsiphash_c_d_output (!input, inlen, !key,
+                                        crounds, drounds,
+                                        !output, outlen)
+
+    prval _ = consume_pf_input pf_input
+    prval _ = consume_pf_key pf_key
+    prval _ = consume_pf_output pf_output
+  }

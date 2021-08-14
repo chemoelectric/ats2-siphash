@@ -55,7 +55,7 @@ print_bytes (const void *bytes, size_t n)
     }
 }
 
-m4_define(`implement_test_64',`
+m4_define(`implement_test_128',`
 static void
 $1 (void)
 {
@@ -81,10 +81,10 @@ $1 (void)
   printf ("\n$1 passed\n\n");
 }')
 
-implement_test_64(`test_siphash_2_4____128',`
+implement_test_128(`test_siphash_2_4____128',`
   siphash_2_4 (input, i, key, output, 16);')
 
-implement_test_64(`test_siphash_c_d____2_4_128',`
+implement_test_128(`test_siphash_c_d____2_4_128',`
   siphash_c_d (input, i, key, 2, 4, output, 16);')
 
 int

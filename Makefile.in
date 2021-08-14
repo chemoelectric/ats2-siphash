@@ -156,7 +156,11 @@ am__EXEEXT_3 = tests/test-siphash-2-4-64$(EXEEXT) \
 am__EXEEXT_4 = tests/test-siphash-2-4-64-C$(EXEEXT) \
 	tests/test-siphash-2-4-128-C$(EXEEXT) \
 	tests/test-siphash-4-8-64-C$(EXEEXT) \
-	tests/test-siphash-4-8-128-C$(EXEEXT)
+	tests/test-siphash-4-8-128-C$(EXEEXT) \
+	tests/test-halfsiphash-2-4-32-C$(EXEEXT) \
+	tests/test-halfsiphash-2-4-64-C$(EXEEXT) \
+	tests/test-halfsiphash-4-8-32-C$(EXEEXT) \
+	tests/test-halfsiphash-4-8-64-C$(EXEEXT)
 am__EXEEXT_5 = $(am__EXEEXT_3) $(am__EXEEXT_4)
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -223,13 +227,19 @@ am__v_lt_0 = --silent
 am__v_lt_1 = 
 libsiphash_la_DEPENDENCIES = libats2-siphash.la
 am__objects_7 = siphash/DATS/siphash_c_dats.lo
-am_libsiphash_la_OBJECTS = $(am__objects_7)
+am__objects_8 = siphash/DATS/halfsiphash_c_dats.lo
+am_libsiphash_la_OBJECTS = $(am__objects_7) $(am__objects_8)
 libsiphash_la_OBJECTS = $(am_libsiphash_la_OBJECTS)
 am_tests_test_halfsiphash_2_4_32_OBJECTS =  \
 	tests/test-halfsiphash-2-4-32_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-2-4_dats.$(OBJEXT)
 tests_test_halfsiphash_2_4_32_OBJECTS =  \
 	$(am_tests_test_halfsiphash_2_4_32_OBJECTS)
+am_tests_test_halfsiphash_2_4_32_C_OBJECTS =  \
+	tests/test-halfsiphash-2-4-32-C.$(OBJEXT)
+tests_test_halfsiphash_2_4_32_C_OBJECTS =  \
+	$(am_tests_test_halfsiphash_2_4_32_C_OBJECTS)
+tests_test_halfsiphash_2_4_32_C_DEPENDENCIES = libsiphash.la
 am_tests_test_halfsiphash_2_4_32_hats_OBJECTS =  \
 	tests/test-halfsiphash-2-4-32-hats_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-2-4_dats.$(OBJEXT)
@@ -240,11 +250,21 @@ am_tests_test_halfsiphash_2_4_64_OBJECTS =  \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-2-4_dats.$(OBJEXT)
 tests_test_halfsiphash_2_4_64_OBJECTS =  \
 	$(am_tests_test_halfsiphash_2_4_64_OBJECTS)
+am_tests_test_halfsiphash_2_4_64_C_OBJECTS =  \
+	tests/test-halfsiphash-2-4-64-C.$(OBJEXT)
+tests_test_halfsiphash_2_4_64_C_OBJECTS =  \
+	$(am_tests_test_halfsiphash_2_4_64_C_OBJECTS)
+tests_test_halfsiphash_2_4_64_C_DEPENDENCIES = libsiphash.la
 am_tests_test_halfsiphash_4_8_32_OBJECTS =  \
 	tests/test-halfsiphash-4-8-32_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-4-8_dats.$(OBJEXT)
 tests_test_halfsiphash_4_8_32_OBJECTS =  \
 	$(am_tests_test_halfsiphash_4_8_32_OBJECTS)
+am_tests_test_halfsiphash_4_8_32_C_OBJECTS =  \
+	tests/test-halfsiphash-4-8-32-C.$(OBJEXT)
+tests_test_halfsiphash_4_8_32_C_OBJECTS =  \
+	$(am_tests_test_halfsiphash_4_8_32_C_OBJECTS)
+tests_test_halfsiphash_4_8_32_C_DEPENDENCIES = libsiphash.la
 am_tests_test_halfsiphash_4_8_32_hats_OBJECTS =  \
 	tests/test-halfsiphash-4-8-32-hats_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-4-8_dats.$(OBJEXT)
@@ -255,6 +275,11 @@ am_tests_test_halfsiphash_4_8_64_OBJECTS =  \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-4-8_dats.$(OBJEXT)
 tests_test_halfsiphash_4_8_64_OBJECTS =  \
 	$(am_tests_test_halfsiphash_4_8_64_OBJECTS)
+am_tests_test_halfsiphash_4_8_64_C_OBJECTS =  \
+	tests/test-halfsiphash-4-8-64-C.$(OBJEXT)
+tests_test_halfsiphash_4_8_64_C_OBJECTS =  \
+	$(am_tests_test_halfsiphash_4_8_64_C_OBJECTS)
+tests_test_halfsiphash_4_8_64_C_DEPENDENCIES = libsiphash.la
 am_tests_test_siphash_2_4_128_OBJECTS =  \
 	tests/test-siphash-2-4-128_dats.$(OBJEXT) \
 	tests/vectors_sats.$(OBJEXT) tests/vectors-2-4_dats.$(OBJEXT)
@@ -330,6 +355,7 @@ am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
 	siphash/DATS/$(DEPDIR)/halfsiphash_c_d_32_dats.Plo \
 	siphash/DATS/$(DEPDIR)/halfsiphash_c_d_64_dats.Plo \
 	siphash/DATS/$(DEPDIR)/halfsiphash_c_d_output_dats.Plo \
+	siphash/DATS/$(DEPDIR)/halfsiphash_c_dats.Plo \
 	siphash/DATS/$(DEPDIR)/halfsiphash_dats.Plo \
 	siphash/DATS/$(DEPDIR)/siphash_2_4_128_dats.Plo \
 	siphash/DATS/$(DEPDIR)/siphash_2_4_64_dats.Plo \
@@ -345,11 +371,15 @@ am__depfiles_remade = siphash/DATS/$(DEPDIR)/array_prf_dats.Plo \
 	siphash/SATS/$(DEPDIR)/array_prf_sats.Plo \
 	siphash/SATS/$(DEPDIR)/halfsiphash_sats.Plo \
 	siphash/SATS/$(DEPDIR)/siphash_sats.Plo \
+	tests/$(DEPDIR)/test-halfsiphash-2-4-32-C.Po \
 	tests/$(DEPDIR)/test-halfsiphash-2-4-32-hats_dats.Po \
 	tests/$(DEPDIR)/test-halfsiphash-2-4-32_dats.Po \
+	tests/$(DEPDIR)/test-halfsiphash-2-4-64-C.Po \
 	tests/$(DEPDIR)/test-halfsiphash-2-4-64_dats.Po \
+	tests/$(DEPDIR)/test-halfsiphash-4-8-32-C.Po \
 	tests/$(DEPDIR)/test-halfsiphash-4-8-32-hats_dats.Po \
 	tests/$(DEPDIR)/test-halfsiphash-4-8-32_dats.Po \
+	tests/$(DEPDIR)/test-halfsiphash-4-8-64-C.Po \
 	tests/$(DEPDIR)/test-halfsiphash-4-8-64_dats.Po \
 	tests/$(DEPDIR)/test-siphash-2-4-128-C.Po \
 	tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po \
@@ -386,11 +416,15 @@ am__v_CCLD_1 =
 SOURCES = $(nodist_libats2_siphash_la_SOURCES) \
 	$(libsiphash_la_SOURCES) \
 	$(tests_test_halfsiphash_2_4_32_SOURCES) \
+	$(tests_test_halfsiphash_2_4_32_C_SOURCES) \
 	$(tests_test_halfsiphash_2_4_32_hats_SOURCES) \
 	$(tests_test_halfsiphash_2_4_64_SOURCES) \
+	$(tests_test_halfsiphash_2_4_64_C_SOURCES) \
 	$(tests_test_halfsiphash_4_8_32_SOURCES) \
+	$(tests_test_halfsiphash_4_8_32_C_SOURCES) \
 	$(tests_test_halfsiphash_4_8_32_hats_SOURCES) \
 	$(tests_test_halfsiphash_4_8_64_SOURCES) \
+	$(tests_test_halfsiphash_4_8_64_C_SOURCES) \
 	$(tests_test_siphash_2_4_128_SOURCES) \
 	$(tests_test_siphash_2_4_128_C_SOURCES) \
 	$(tests_test_siphash_2_4_64_SOURCES) \
@@ -403,11 +437,15 @@ SOURCES = $(nodist_libats2_siphash_la_SOURCES) \
 	$(tests_test_siphash_4_8_64_hats_SOURCES)
 DIST_SOURCES = $(libsiphash_la_SOURCES) \
 	$(tests_test_halfsiphash_2_4_32_SOURCES) \
+	$(tests_test_halfsiphash_2_4_32_C_SOURCES) \
 	$(tests_test_halfsiphash_2_4_32_hats_SOURCES) \
 	$(tests_test_halfsiphash_2_4_64_SOURCES) \
+	$(tests_test_halfsiphash_2_4_64_C_SOURCES) \
 	$(tests_test_halfsiphash_4_8_32_SOURCES) \
+	$(tests_test_halfsiphash_4_8_32_C_SOURCES) \
 	$(tests_test_halfsiphash_4_8_32_hats_SOURCES) \
 	$(tests_test_halfsiphash_4_8_64_SOURCES) \
+	$(tests_test_halfsiphash_4_8_64_C_SOURCES) \
 	$(tests_test_siphash_2_4_128_SOURCES) \
 	$(tests_test_siphash_2_4_128_C_SOURCES) \
 	$(tests_test_siphash_2_4_64_SOURCES) \
@@ -816,8 +854,9 @@ EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	$(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) $(SIPHASH_SATS) \
 	$(HALFSIPHASH_SATS) $(SIPHASH_DATS) $(HALFSIPHASH_DATS) \
 	$(SIPHASH_CATS) $(SIPHASH_HATS) $(HALFSIPHASH_HATS) \
-	$(SIPHASH_C_DATS) tests/vectors.sats tests/vectors-2-4.dats \
-	tests/vectors-4-8.dats $(DISTRIBUTED_ATS2_TESTS:%=%.dats) \
+	$(SIPHASH_C_DATS) $(HALFSIPHASH_C_DATS) tests/vectors.sats \
+	tests/vectors-2-4.dats tests/vectors-4-8.dats \
+	$(DISTRIBUTED_ATS2_TESTS:%=%.dats) \
 	$(M4_GENERATED_ATS2_TESTS:%=%.dats.m4) \
 	$(DISTRIBUTED_C_TESTS:%=%.c) $(M4_GENERATED_C_TESTS:%=%.c.m4) \
 	reference-implementation/halfsiphash.c \
@@ -833,9 +872,9 @@ EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 MOSTLYCLEANFILES = 
 CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
 	$(HALFSIPHASH_SATS_C) $(SIPHASH_DATS_C) $(HALFSIPHASH_DATS_C) \
-	$(SIPHASH_C_DATS_C) tests/vectors_sats.c \
-	tests/vectors-2-4_dats.c tests/vectors-4-8_dats.c \
-	$(DISTRIBUTED_ATS2_TESTS:%=%_dats.c) \
+	$(SIPHASH_C_DATS_C) $(HALFSIPHASH_C_DATS_C) \
+	tests/vectors_sats.c tests/vectors-2-4_dats.c \
+	tests/vectors-4-8_dats.c $(DISTRIBUTED_ATS2_TESTS:%=%_dats.c) \
 	$(M4_GENERATED_ATS2_TESTS:%=%.dats) \
 	$(M4_GENERATED_ATS2_TESTS:%=%_dats.c) \
 	$(M4_GENERATED_C_TESTS:%=%.c)
@@ -863,8 +902,8 @@ LDADD = $(CODE_COVERAGE_LIBS)
 lib_LTLIBRARIES = libats2-siphash.la libsiphash.la
 nobase_nodist_pkginclude_HEADERS = $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) \
 	$(SIPHASH_CATS) $(SIPHASH_SATS) $(SIPHASH_DATS) \
-	$(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) $(SIPHASH_32_C_DATS) \
-	siphash/siphash.h
+	$(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) $(SIPHASH_C_DATS) \
+	$(HALFSIPHASH_C_DATS) siphash/siphash.h siphash/halfsiphash.h
 CODE_COVERAGE_IGNORE_PATTERN = /usr/include/* /usr/include/*/* \
 	$(PATSHOME)/ccomp/runtime/* $(PATSHOME)/prelude/CATS/*
 
@@ -945,7 +984,10 @@ nodist_libats2_siphash_la_SOURCES = $(ARRAY_PRF_SATS_C) \
 	$(HALFSIPHASH_SATS_C) $(HALFSIPHASH_DATS_C)
 SIPHASH_C_DATS = siphash/DATS/siphash_c.dats
 SIPHASH_C_DATS_C = siphash/DATS/siphash_c_dats.c
-libsiphash_la_SOURCES = $(SIPHASH_C_DATS_C) siphash/siphash.h
+HALFSIPHASH_C_DATS = siphash/DATS/halfsiphash_c.dats
+HALFSIPHASH_C_DATS_C = siphash/DATS/halfsiphash_c_dats.c
+libsiphash_la_SOURCES = $(SIPHASH_C_DATS_C) $(HALFSIPHASH_C_DATS_C) \
+	siphash/siphash.h siphash/halfsiphash.h
 libsiphash_la_LIBADD = libats2-siphash.la
 
 # #--------------------------------------------------------------------------
@@ -1039,7 +1081,10 @@ tests_test_halfsiphash_4_8_32_hats_DEPENDENCIES = tests/vectors-4-8.h \
 DISTRIBUTED_C_TESTS = 
 M4_GENERATED_C_TESTS = tests/test-siphash-2-4-64-C \
 	tests/test-siphash-2-4-128-C tests/test-siphash-4-8-64-C \
-	tests/test-siphash-4-8-128-C
+	tests/test-siphash-4-8-128-C tests/test-halfsiphash-2-4-32-C \
+	tests/test-halfsiphash-2-4-64-C \
+	tests/test-halfsiphash-4-8-32-C \
+	tests/test-halfsiphash-4-8-64-C
 tests_test_siphash_2_4_64_C_SOURCES = tests/test-siphash-2-4-64-C.c \
 	tests/vectors-2-4.h
 tests_test_siphash_2_4_64_C_LDADD = libsiphash.la
@@ -1052,6 +1097,18 @@ tests_test_siphash_4_8_64_C_LDADD = libsiphash.la
 tests_test_siphash_4_8_128_C_SOURCES = tests/test-siphash-4-8-128-C.c \
 	tests/vectors-4-8.h
 tests_test_siphash_4_8_128_C_LDADD = libsiphash.la
+tests_test_halfsiphash_2_4_32_C_SOURCES =  \
+	tests/test-halfsiphash-2-4-32-C.c tests/vectors-2-4.h
+tests_test_halfsiphash_2_4_32_C_LDADD = libsiphash.la
+tests_test_halfsiphash_2_4_64_C_SOURCES =  \
+	tests/test-halfsiphash-2-4-64-C.c tests/vectors-2-4.h
+tests_test_halfsiphash_2_4_64_C_LDADD = libsiphash.la
+tests_test_halfsiphash_4_8_32_C_SOURCES =  \
+	tests/test-halfsiphash-4-8-32-C.c tests/vectors-4-8.h
+tests_test_halfsiphash_4_8_32_C_LDADD = libsiphash.la
+tests_test_halfsiphash_4_8_64_C_SOURCES =  \
+	tests/test-halfsiphash-4-8-64-C.c tests/vectors-4-8.h
+tests_test_halfsiphash_4_8_64_C_LDADD = libsiphash.la
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
 GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS) $(M4_GENERATED_C_TESTS)
 all: $(BUILT_SOURCES)
@@ -1256,6 +1313,8 @@ libats2-siphash.la: $(libats2_siphash_la_OBJECTS) $(libats2_siphash_la_DEPENDENC
 	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libats2_siphash_la_OBJECTS) $(libats2_siphash_la_LIBADD) $(LIBS)
 siphash/DATS/siphash_c_dats.lo: siphash/DATS/$(am__dirstamp) \
 	siphash/DATS/$(DEPDIR)/$(am__dirstamp)
+siphash/DATS/halfsiphash_c_dats.lo: siphash/DATS/$(am__dirstamp) \
+	siphash/DATS/$(DEPDIR)/$(am__dirstamp)
 
 libsiphash.la: $(libsiphash_la_OBJECTS) $(libsiphash_la_DEPENDENCIES) $(EXTRA_libsiphash_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libsiphash_la_OBJECTS) $(libsiphash_la_LIBADD) $(LIBS)
@@ -1275,6 +1334,12 @@ tests/vectors-2-4_dats.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-halfsiphash-2-4-32$(EXEEXT): $(tests_test_halfsiphash_2_4_32_OBJECTS) $(tests_test_halfsiphash_2_4_32_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_2_4_32_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-halfsiphash-2-4-32$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_2_4_32_OBJECTS) $(tests_test_halfsiphash_2_4_32_LDADD) $(LIBS)
+tests/test-halfsiphash-2-4-32-C.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-halfsiphash-2-4-32-C$(EXEEXT): $(tests_test_halfsiphash_2_4_32_C_OBJECTS) $(tests_test_halfsiphash_2_4_32_C_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_2_4_32_C_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-halfsiphash-2-4-32-C$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_2_4_32_C_OBJECTS) $(tests_test_halfsiphash_2_4_32_C_LDADD) $(LIBS)
 tests/test-halfsiphash-2-4-32-hats_dats.$(OBJEXT):  \
 	tests/$(am__dirstamp) tests/$(DEPDIR)/$(am__dirstamp)
 
@@ -1287,6 +1352,12 @@ tests/test-halfsiphash-2-4-64_dats.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-halfsiphash-2-4-64$(EXEEXT): $(tests_test_halfsiphash_2_4_64_OBJECTS) $(tests_test_halfsiphash_2_4_64_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_2_4_64_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-halfsiphash-2-4-64$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_2_4_64_OBJECTS) $(tests_test_halfsiphash_2_4_64_LDADD) $(LIBS)
+tests/test-halfsiphash-2-4-64-C.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-halfsiphash-2-4-64-C$(EXEEXT): $(tests_test_halfsiphash_2_4_64_C_OBJECTS) $(tests_test_halfsiphash_2_4_64_C_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_2_4_64_C_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-halfsiphash-2-4-64-C$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_2_4_64_C_OBJECTS) $(tests_test_halfsiphash_2_4_64_C_LDADD) $(LIBS)
 tests/test-halfsiphash-4-8-32_dats.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 tests/vectors-4-8_dats.$(OBJEXT): tests/$(am__dirstamp) \
@@ -1295,6 +1366,12 @@ tests/vectors-4-8_dats.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-halfsiphash-4-8-32$(EXEEXT): $(tests_test_halfsiphash_4_8_32_OBJECTS) $(tests_test_halfsiphash_4_8_32_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_4_8_32_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-halfsiphash-4-8-32$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_4_8_32_OBJECTS) $(tests_test_halfsiphash_4_8_32_LDADD) $(LIBS)
+tests/test-halfsiphash-4-8-32-C.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-halfsiphash-4-8-32-C$(EXEEXT): $(tests_test_halfsiphash_4_8_32_C_OBJECTS) $(tests_test_halfsiphash_4_8_32_C_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_4_8_32_C_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-halfsiphash-4-8-32-C$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_4_8_32_C_OBJECTS) $(tests_test_halfsiphash_4_8_32_C_LDADD) $(LIBS)
 tests/test-halfsiphash-4-8-32-hats_dats.$(OBJEXT):  \
 	tests/$(am__dirstamp) tests/$(DEPDIR)/$(am__dirstamp)
 
@@ -1307,6 +1384,12 @@ tests/test-halfsiphash-4-8-64_dats.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-halfsiphash-4-8-64$(EXEEXT): $(tests_test_halfsiphash_4_8_64_OBJECTS) $(tests_test_halfsiphash_4_8_64_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_4_8_64_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-halfsiphash-4-8-64$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_4_8_64_OBJECTS) $(tests_test_halfsiphash_4_8_64_LDADD) $(LIBS)
+tests/test-halfsiphash-4-8-64-C.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-halfsiphash-4-8-64-C$(EXEEXT): $(tests_test_halfsiphash_4_8_64_C_OBJECTS) $(tests_test_halfsiphash_4_8_64_C_DEPENDENCIES) $(EXTRA_tests_test_halfsiphash_4_8_64_C_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-halfsiphash-4-8-64-C$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_halfsiphash_4_8_64_C_OBJECTS) $(tests_test_halfsiphash_4_8_64_C_LDADD) $(LIBS)
 tests/test-siphash-2-4-128_dats.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 
@@ -1389,6 +1472,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/halfsiphash_c_d_32_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/halfsiphash_c_d_64_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/halfsiphash_c_d_output_dats.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/halfsiphash_c_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/halfsiphash_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_2_4_128_dats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/DATS/$(DEPDIR)/siphash_2_4_64_dats.Plo@am__quote@ # am--include-marker
@@ -1404,11 +1488,15 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/array_prf_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/halfsiphash_sats.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@siphash/SATS/$(DEPDIR)/siphash_sats.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-2-4-32-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-2-4-32-hats_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-2-4-32_dats.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-2-4-64-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-2-4-64_dats.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-4-8-32-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-4-8-32-hats_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-4-8-32_dats.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-4-8-64-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-halfsiphash-4-8-64_dats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-128-C.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po@am__quote@ # am--include-marker
@@ -1802,6 +1890,34 @@ tests/test-siphash-4-8-128-C.log: tests/test-siphash-4-8-128-C$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-halfsiphash-2-4-32-C.log: tests/test-halfsiphash-2-4-32-C$(EXEEXT)
+	@p='tests/test-halfsiphash-2-4-32-C$(EXEEXT)'; \
+	b='tests/test-halfsiphash-2-4-32-C'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-halfsiphash-2-4-64-C.log: tests/test-halfsiphash-2-4-64-C$(EXEEXT)
+	@p='tests/test-halfsiphash-2-4-64-C$(EXEEXT)'; \
+	b='tests/test-halfsiphash-2-4-64-C'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-halfsiphash-4-8-32-C.log: tests/test-halfsiphash-4-8-32-C$(EXEEXT)
+	@p='tests/test-halfsiphash-4-8-32-C$(EXEEXT)'; \
+	b='tests/test-halfsiphash-4-8-32-C'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-halfsiphash-4-8-64-C.log: tests/test-halfsiphash-4-8-64-C$(EXEEXT)
+	@p='tests/test-halfsiphash-4-8-64-C$(EXEEXT)'; \
+	b='tests/test-halfsiphash-4-8-64-C'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -2062,6 +2178,7 @@ distclean: distclean-am
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_d_32_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_d_64_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_d_output_dats.Plo
+	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_2_4_128_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_2_4_64_dats.Plo
@@ -2077,11 +2194,15 @@ distclean: distclean-am
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/halfsiphash_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-32-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-32-hats_dats.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-32_dats.Po
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-64_dats.Po
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-32-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-32-hats_dats.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-32_dats.Po
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-64_dats.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po
@@ -2153,6 +2274,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_d_32_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_d_64_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_d_output_dats.Plo
+	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_c_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_2_4_128_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/siphash_2_4_64_dats.Plo
@@ -2168,11 +2290,15 @@ maintainer-clean: maintainer-clean-am
 	-rm -f siphash/SATS/$(DEPDIR)/array_prf_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/halfsiphash_sats.Plo
 	-rm -f siphash/SATS/$(DEPDIR)/siphash_sats.Plo
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-32-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-32-hats_dats.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-32_dats.Po
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-2-4-64_dats.Po
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-32-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-32-hats_dats.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-32_dats.Po
+	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-64-C.Po
 	-rm -f tests/$(DEPDIR)/test-halfsiphash-4-8-64_dats.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128-C.Po
 	-rm -f tests/$(DEPDIR)/test-siphash-2-4-128_dats.Po
