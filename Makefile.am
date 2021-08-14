@@ -67,6 +67,9 @@ CODE_COVERAGE_IGNORE_PATTERN += $(PATSHOME)/prelude/CATS/*
 clean-local: code-coverage-clean
 distclean-local: code-coverage-dist-clean
 
+EXTRA_DIST += $(srcdir)/write-siphash-implementations.awk
+config.status: $(srcdir)/write-siphash-implementations.awk
+
 #---------------------------------------------------------------------
 #
 # Some GNU Make aids you might want to use.
@@ -134,15 +137,38 @@ ARRAY_PRF_DATS_C = siphash/DATS/array_prf_dats.c
 EXTRA_DIST += $(ARRAY_PRF_DATS)
 CLEANFILES += $(ARRAY_PRF_DATS_C)
 
-SIPHASH_SATS = siphash/SATS/siphash.sats
+SIPHASH_SATS = siphash/SATS/siphash.sats $(SIPHASH_SATS_EXTRA)
+SIPHASH_SATS_EXTRA = siphash/SATS/include/siphash-implementations.inc
 SIPHASH_SATS_C = siphash/SATS/siphash_sats.c
 EXTRA_DIST += $(SIPHASH_SATS)
 CLEANFILES += $(SIPHASH_SATS_C)
+DISTCLEANFILES += $(SIPHASH_SATS_EXTRA)
 
-SIPHASH_DATS = siphash/DATS/siphash.dats
-SIPHASH_DATS_C = siphash/DATS/siphash_dats.c
+SIPHASH_DATS = siphash/DATS/siphash.dats $(SIPHASH_DATS_EXTRA)
+SIPHASH_DATS_EXTRA =
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_2_4_64.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_2_4_128.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_2_4_output.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_4_8_64.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_4_8_128.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_4_8_output.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_c_d_64.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_c_d_128.dats
+SIPHASH_DATS_EXTRA += siphash/DATS/siphash_c_d_output.dats
+SIPHASH_DATS_C =
+SIPHASH_DATS_C += siphash/DATS/siphash_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_2_4_64_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_2_4_128_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_2_4_output_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_4_8_64_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_4_8_128_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_4_8_output_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_c_d_64_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_c_d_128_dats.c
+SIPHASH_DATS_C += siphash/DATS/siphash_c_d_output_dats.c
 EXTRA_DIST += $(SIPHASH_DATS)
 CLEANFILES += $(SIPHASH_DATS_C)
+DISTCLEANFILES += $(SIPHASH_DATS_EXTRA)
 
 SIPHASH_CATS = siphash/CATS/siphash.cats
 EXTRA_DIST += $(SIPHASH_CATS)

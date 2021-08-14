@@ -14680,6 +14680,9 @@ ac_config_files="$ac_config_files common-macros.m4"
 #AC_CONFIG_FILES([ats2-siphash.pc])
 #AC_CONFIG_FILES([siphash.pc])
 
+ac_config_commands="$ac_config_commands write-siphash-implementations.awk"
+
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -15715,6 +15718,7 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "GNUmakefile") CONFIG_FILES="$CONFIG_FILES GNUmakefile:Makefile.in" ;;
     "common-macros.m4") CONFIG_FILES="$CONFIG_FILES common-macros.m4" ;;
+    "write-siphash-implementations.awk") CONFIG_COMMANDS="$CONFIG_COMMANDS write-siphash-implementations.awk" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -16798,6 +16802,9 @@ ltmain=$ac_aux_dir/ltmain.sh
 EOF
       fi
     ;;
+    "write-siphash-implementations.awk":C)
+  ${AWK} -f "${srcdir}/write-siphash-implementations.awk"
+ ;;
 
   esac
 done # for ac_tag
