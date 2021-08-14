@@ -106,6 +106,10 @@ AC_CONFIG_COMMANDS([write-siphash-implementations.awk],[
   ${AWK} -f "${srcdir}/write-siphash-implementations.awk"
 ])
 
+AC_CONFIG_COMMANDS([write-halfsiphash-implementations.awk],[
+  ${AWK} -f "${srcdir}/write-halfsiphash-implementations.awk"
+])
+
 AC_OUTPUT
 
 #--------------------------------------------------------------------------

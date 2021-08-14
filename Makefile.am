@@ -70,6 +70,9 @@ distclean-local: code-coverage-dist-clean
 EXTRA_DIST += $(srcdir)/write-siphash-implementations.awk
 config.status: $(srcdir)/write-siphash-implementations.awk
 
+EXTRA_DIST += $(srcdir)/write-halfsiphash-implementations.awk
+config.status: $(srcdir)/write-halfsiphash-implementations.awk
+
 #---------------------------------------------------------------------
 #
 # Some GNU Make aids you might want to use.
@@ -144,6 +147,13 @@ EXTRA_DIST += $(SIPHASH_SATS)
 CLEANFILES += $(SIPHASH_SATS_C)
 DISTCLEANFILES += $(SIPHASH_SATS_EXTRA)
 
+HALFSIPHASH_SATS = siphash/SATS/halfsiphash.sats $(HALFSIPHASH_SATS_EXTRA)
+HALFSIPHASH_SATS_EXTRA = siphash/SATS/include/halfsiphash-implementations.inc
+HALFSIPHASH_SATS_C = siphash/SATS/halfsiphash_sats.c
+EXTRA_DIST += $(HALFSIPHASH_SATS)
+CLEANFILES += $(HALFSIPHASH_SATS_C)
+DISTCLEANFILES += $(HALFSIPHASH_SATS_EXTRA)
+
 SIPHASH_DATS = siphash/DATS/siphash.dats $(SIPHASH_DATS_EXTRA)
 SIPHASH_DATS_EXTRA =
 SIPHASH_DATS_EXTRA += siphash/DATS/siphash_2_4_64.dats
@@ -170,29 +180,65 @@ EXTRA_DIST += $(SIPHASH_DATS)
 CLEANFILES += $(SIPHASH_DATS_C)
 DISTCLEANFILES += $(SIPHASH_DATS_EXTRA)
 
+HALFSIPHASH_DATS = siphash/DATS/halfsiphash.dats $(HALFSIPHASH_DATS_EXTRA)
+HALFSIPHASH_DATS_EXTRA =
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_2_4_32.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_2_4_64.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_2_4_output.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_4_8_32.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_4_8_64.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_4_8_output.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_c_d_32.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_c_d_64.dats
+HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_c_d_output.dats
+HALFSIPHASH_DATS_C =
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_2_4_32_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_2_4_64_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_2_4_output_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_4_8_32_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_4_8_64_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_4_8_output_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_c_d_32_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_c_d_64_dats.c
+HALFSIPHASH_DATS_C += siphash/DATS/halfsiphash_c_d_output_dats.c
+EXTRA_DIST += $(HALFSIPHASH_DATS)
+CLEANFILES += $(HALFSIPHASH_DATS_C)
+DISTCLEANFILES += $(HALFSIPHASH_DATS_EXTRA)
+
 SIPHASH_CATS = siphash/CATS/siphash.cats
 EXTRA_DIST += $(SIPHASH_CATS)
 
 SIPHASH_HATS = siphash/HATS/siphash.hats
 EXTRA_DIST += $(SIPHASH_HATS)
 
+HALFSIPHASH_HATS = siphash/HATS/halfsiphash.hats
+EXTRA_DIST += $(HALFSIPHASH_HATS)
+
 nodist_libats2_siphash_la_SOURCES =
 nodist_libats2_siphash_la_SOURCES += $(ARRAY_PRF_SATS_C)
 nodist_libats2_siphash_la_SOURCES += $(ARRAY_PRF_DATS_C)
 nodist_libats2_siphash_la_SOURCES += $(SIPHASH_SATS_C)
 nodist_libats2_siphash_la_SOURCES += $(SIPHASH_DATS_C)
+nodist_libats2_siphash_la_SOURCES += $(HALFSIPHASH_SATS_C)
+nodist_libats2_siphash_la_SOURCES += $(HALFSIPHASH_DATS_C)
 
 $(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
 $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS)
 $(SIPHASH_SATS_C): $(SIPHASH_SATS)
-$(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) $(SIPHASH_CATS) \
-					$(ARRAY_PRF_SATS)
+$(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) \
+						$(SIPHASH_CATS)	$(ARRAY_PRF_SATS)
+$(HALFSIPHASH_SATS_C): $(HALFSIPHASH_SATS)
+$(HALFSIPHASH_DATS_C): $(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) \
+						$(SIPHASH_CATS) $(ARRAY_PRF_SATS)
 
 nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_SATS)
 nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_DATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_CATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_SATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_DATS)
+nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_SATS)
+nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_DATS)
 
 #--------------------------------------------------------------------------
 #
