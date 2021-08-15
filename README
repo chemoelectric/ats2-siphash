@@ -1,6 +1,16 @@
 SipHash and HalfSipHash for ATS2 and C
 --------------------------------------
 
+FIXME: Say more.
+
 The license is GPL version 3 or greater.
 
-FIXME: Say more.
+I have included a copy of the reference implementation. It is licensed
+‘CC0 1.0 Universal’; in other words, copyrights, etc., are waived.
+
+(Incidentally, the reference implementation is useful for generating
+test cases. I used it to generate the SipHash-4-8 test cases.)
+
+References:
+https://www.kernel.org/doc/html/latest/security/siphash.html
+https://en.wikipedia.org/w/index.php?title=SipHash&oldid=1038529046
