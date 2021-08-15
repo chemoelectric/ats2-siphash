@@ -127,6 +127,9 @@ overload fix_byte_order with fix_byte_order_uint32
 
 (********************************************************************)
 
+prval _ = lemma_sizeof_array {byte} {4} ()
+prval _ = prop_verify {sizeof (@[byte][4]) == sizeof (byte) * 4} ()
+
 fn {}
 siprounds {num_rounds : int}
           (num_rounds : uint num_rounds,
@@ -183,21 +186,17 @@ body_loop {i  : int | 0 <= i}
     @(uint32, uint32, uint32, uint32) =
   if i2sz 0 < i then
     let
-      prval _ = lemma_sizeof_array {byte} {4} ()
-      prval _ =
-        prop_verify {sizeof (@[byte][4]) == sizeof (byte) * 4} ()
-
       prval (pf_head, pf_tail) = array_v_uncons (pf)
 
       val m : uint32 = get32bits (pf_head | p)
       val v3 = bitwise_xor (v3, m)
       val @(v0, v1, v2, v3) =
-        siprounds (halfsiphash$crounds (), v0, v1, v2, v3)
+        siprounds<> (halfsiphash$crounds<> (), v0, v1, v2, v3)
       val v0 = bitwise_xor (v0, m)
 
       val p = ptr_add<byte> (p, 4)
       val result =
-        body_loop (pf_tail | p, v0, v1, v2, v3, pred i)
+        body_loop<> (pf_tail | p, v0, v1, v2, v3, pred i)
 
       prval _ = pf := array_v_cons (pf_head, pf_tail)
     in
@@ -294,7 +293,7 @@ halfsiphash_vtuple {inlen  : int}
     (* View the body as an array of 4-byte arrays. *)
     prval pf_fours = array_v_group {byte} {..} {count, 4} (pf_body)
     val @(v0, v1, v2, v3) =
-      body_loop (pf_fours | addr@ input, v0, v1, v2, v3, count)
+      body_loop<> (pf_fours | addr@ input, v0, v1, v2, v3, count)
     prval _ = pf_body := array_v_ungroup (pf_fours)
 
     (* Deal with whatever bytes are left over after the body. *)
@@ -302,14 +301,14 @@ halfsiphash_vtuple {inlen  : int}
     prval _ = lemma_mul_isfun {inlen - num_bytes_left, sizeof (byte)}
                               {(inlen / 4) * 4, sizeof (byte)} ()
     val p_what_is_left = ptr_add<byte> (addr@ input, inlen - num_bytes_left)
-    val b = read_what_is_left (pf_what_is_left | p_what_is_left, inlen)
+    val b = read_what_is_left<> (pf_what_is_left | p_what_is_left, inlen)
 
     prval _ = view@ input := array_v_join2 (pf_body, pf_what_is_left)
 
     val v3 = bitwise_xor (v3, b)
 
     val @(v0, v1, v2, v3) =
-      siprounds (halfsiphash$crounds (), v0, v1, v2, v3)
+      siprounds<> (halfsiphash$crounds<> (), v0, v1, v2, v3)
 
     val v0 = bitwise_xor (v0, b)
 
@@ -319,7 +318,7 @@ halfsiphash_vtuple {inlen  : int}
                                  u2u32 0xffU))
         
     val @(v0, v1, v2, v3) =
-      siprounds (halfsiphash$drounds (), v0, v1, v2, v3)
+      siprounds<> (halfsiphash$drounds<> (), v0, v1, v2, v3)
   in
     @(v0, v1, v2, v3)
   end
@@ -327,7 +326,8 @@ halfsiphash_vtuple {inlen  : int}
 implement {}
 halfsiphash_32 (input, inlen, key) =
   let
-    val @(v0, v1, v2, v3) = halfsiphash_vtuple (input, inlen, key, i2sz 4)
+    val @(v0, v1, v2, v3) =
+      halfsiphash_vtuple<> (input, inlen, key, i2sz 4)
   in
     bitwise_xor (v1, v3)
   end
@@ -336,13 +336,13 @@ implement {}
 halfsiphash_64 (input, inlen, key) =
   let
     val @(v0, v1, v2, v3) =
-      halfsiphash_vtuple (input, inlen, key, i2sz 8)
+      halfsiphash_vtuple<> (input, inlen, key, i2sz 8)
 
     val hashval1 = bitwise_xor (v1, v3)
 
     val v1 = bitwise_xor (v1, u2u32 0xddU)
     val @(v0, v1, v2, v3) =
-      siprounds (halfsiphash$drounds (), v0, v1, v2, v3)
+      siprounds<> (halfsiphash$drounds<> (), v0, v1, v2, v3)
 
     val hashval2 = bitwise_xor (v1, v3)
   in
@@ -353,12 +353,12 @@ implement {}
 halfsiphash (input, inlen, key, output, outlen) =
   if outlen = i2sz 4 then
     {
-      val hashval = halfsiphash_32 (input, inlen, key)
+      val hashval = halfsiphash_32<> (input, inlen, key)
       val _ = put32bits (view@ output | addr@ output, hashval)
     }
   else
     {
-      val (hashval1, hashval2) = halfsiphash_64 (input, inlen, key)
+      val (hashval1, hashval2) = halfsiphash_64<> (input, inlen, key)
       prval (pf1, pf2) =
         array_v_subdivide2 {..} {..} {4, 4} (view@ output)
       val _ = put32bits (pf1 | addr@ output, hashval1)

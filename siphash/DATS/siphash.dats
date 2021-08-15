@@ -127,6 +127,9 @@ overload fix_byte_order with fix_byte_order_uint64
 
 (********************************************************************)
 
+prval _ = lemma_sizeof_array {byte} {8} ()
+prval _ = prop_verify {sizeof (@[byte][8]) == sizeof (byte) * 8} ()
+
 fn {}
 siprounds {num_rounds : int}
           (num_rounds : uint num_rounds,
@@ -183,21 +186,17 @@ body_loop {i  : int | 0 <= i}
     @(uint64, uint64, uint64, uint64) =
   if i2sz 0 < i then
     let
-      prval _ = lemma_sizeof_array {byte} {8} ()
-      prval _ =
-        prop_verify {sizeof (@[byte][8]) == sizeof (byte) * 8} ()
-
       prval (pf_head, pf_tail) = array_v_uncons (pf)
 
       val m : uint64 = get64bits (pf_head | p)
       val v3 = bitwise_xor (v3, m)
       val @(v0, v1, v2, v3) =
-        siprounds (siphash$crounds (), v0, v1, v2, v3)
+        siprounds<> (siphash$crounds<> (), v0, v1, v2, v3)
       val v0 = bitwise_xor (v0, m)
 
       val p = ptr_add<byte> (p, 8)
       val result =
-        body_loop (pf_tail | p, v0, v1, v2, v3, pred i)
+        body_loop<> (pf_tail | p, v0, v1, v2, v3, pred i)
 
       prval _ = pf := array_v_cons (pf_head, pf_tail)
     in
@@ -294,7 +293,7 @@ siphash_vtuple {inlen  : int}
     (* View the body as an array of 8-byte arrays. *)
     prval pf_eights = array_v_group {byte} {..} {count, 8} (pf_body)
     val @(v0, v1, v2, v3) =
-      body_loop (pf_eights | addr@ input, v0, v1, v2, v3, count)
+      body_loop<> (pf_eights | addr@ input, v0, v1, v2, v3, count)
     prval _ = pf_body := array_v_ungroup (pf_eights)
 
     (* Deal with whatever bytes are left over after the body. *)
@@ -302,14 +301,14 @@ siphash_vtuple {inlen  : int}
     prval _ = lemma_mul_isfun {inlen - num_bytes_left, sizeof (byte)}
                               {(inlen / 8) * 8, sizeof (byte)} ()
     val p_what_is_left = ptr_add<byte> (addr@ input, inlen - num_bytes_left)
-    val b = read_what_is_left (pf_what_is_left | p_what_is_left, inlen)
+    val b = read_what_is_left<> (pf_what_is_left | p_what_is_left, inlen)
 
     prval _ = view@ input := array_v_join2 (pf_body, pf_what_is_left)
 
     val v3 = bitwise_xor (v3, b)
 
     val @(v0, v1, v2, v3) =
-      siprounds (siphash$crounds (), v0, v1, v2, v3)
+      siprounds<> (siphash$crounds<> (), v0, v1, v2, v3)
 
     val v0 = bitwise_xor (v0, b)
 
@@ -319,7 +318,7 @@ siphash_vtuple {inlen  : int}
                                  u2u64 0xffU))
         
     val @(v0, v1, v2, v3) =
-      siprounds (siphash$drounds (), v0, v1, v2, v3)
+      siprounds<> (siphash$drounds<> (), v0, v1, v2, v3)
   in
     @(v0, v1, v2, v3)
   end
@@ -327,7 +326,8 @@ siphash_vtuple {inlen  : int}
 implement {}
 siphash_64 (input, inlen, key) =
   let
-    val @(v0, v1, v2, v3) = siphash_vtuple (input, inlen, key, i2sz 8)
+    val @(v0, v1, v2, v3) =
+      siphash_vtuple<> (input, inlen, key, i2sz 8)
   in
     bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
   end
@@ -336,14 +336,14 @@ implement {}
 siphash_128 (input, inlen, key) =
   let
     val @(v0, v1, v2, v3) =
-      siphash_vtuple (input, inlen, key, i2sz 16)
+      siphash_vtuple<> (input, inlen, key, i2sz 16)
 
     val hashval1 =
       bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
 
     val v1 = bitwise_xor (v1, u2u64 0xddU)
     val @(v0, v1, v2, v3) =
-      siprounds (siphash$drounds (), v0, v1, v2, v3)
+      siprounds<> (siphash$drounds<> (), v0, v1, v2, v3)
 
     val hashval2 =
       bitwise_xor (bitwise_xor (bitwise_xor (v0, v1), v2), v3)
@@ -355,12 +355,12 @@ implement {}
 siphash (input, inlen, key, output, outlen) =
   if outlen = i2sz 8 then
     {
-      val hashval = siphash_64 (input, inlen, key)
+      val hashval = siphash_64<> (input, inlen, key)
       val _ = put64bits (view@ output | addr@ output, hashval)
     }
   else
     {
-      val (hashval1, hashval2) = siphash_128 (input, inlen, key)
+      val (hashval1, hashval2) = siphash_128<> (input, inlen, key)
       prval (pf1, pf2) =
         array_v_subdivide2 {..} {..} {8, 8} (view@ output)
       val _ = put64bits (pf1 | addr@ output, hashval1)

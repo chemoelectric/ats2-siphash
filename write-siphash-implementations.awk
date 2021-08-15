@@ -176,8 +176,8 @@ function write_dats_m_n_outlen(outlen, crounds, drounds,  f)
   write_dats_header(f)
   print > f
   print "local" > f
-  print "  implement {} siphash$crounds () = " crounds "U" > f
-  print "  implement {} siphash$drounds () = " drounds "U" > f
+  print "  implement siphash$crounds<> () = " crounds "U" > f
+  print "  implement siphash$drounds<> () = " drounds "U" > f
   print "in" > f
   print "  implement" > f
   print "  siphash_" crounds "_" drounds "_" (8 * outlen) " (input, inlen, key) =" > f
@@ -194,8 +194,8 @@ function write_dats_c_d_outlen(outlen,  f)
   print "implement" > f
   print "siphash_c_d_" (8 * outlen) " (input, inlen, key, crounds, drounds) =" > f
   print "  let" > f
-  print "    implement {} siphash$crounds () = crounds" > f
-  print "    implement {} siphash$drounds () = drounds" > f
+  print "    implement siphash$crounds<> () = crounds" > f
+  print "    implement siphash$drounds<> () = drounds" > f
   print "  in" > f
   print "    siphash_" (8 * outlen) "<> (input, inlen, key)" > f
   print "  end" > f
@@ -208,8 +208,8 @@ function write_dats_m_n_output(crounds, drounds,  f)
   write_dats_header(f)
   print > f
   print "local" > f
-  print "  implement {} siphash$crounds () = " crounds "U" > f
-  print "  implement {} siphash$drounds () = " drounds "U" > f
+  print "  implement siphash$crounds<> () = " crounds "U" > f
+  print "  implement siphash$drounds<> () = " drounds "U" > f
   print "in" > f
   print "  implement" > f
   print "  siphash_" crounds "_" drounds "_output (input, inlen, key, output, outlen) =" > f
@@ -227,8 +227,8 @@ function write_dats_c_d_output( f)
   print "siphash_c_d_output (input, inlen, key, crounds, drounds," > f
   print "                    output, outlen) =" > f
   print "  let" > f
-  print "    implement {} siphash$crounds () = crounds" > f
-  print "    implement {} siphash$drounds () = drounds" > f
+  print "    implement siphash$crounds<> () = crounds" > f
+  print "    implement siphash$drounds<> () = drounds" > f
   print "  in" > f
   print "    siphash<> (input, inlen, key, output, outlen)" > f
   print "  end" > f
