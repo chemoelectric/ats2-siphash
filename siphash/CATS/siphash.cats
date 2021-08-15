@@ -165,42 +165,6 @@ ats2_siphash_bitwise_lrotate_uint64_uint (atstype_uint64 x,
   return (x << i) | (x >> ((-i) & 63));
 }
 
-/* Get a little endian atstype_uint32 from memory, where perhaps the
-   data is misaligned. */
-ats2_siphash_always_inline atstype_uint32
-ats2_siphash_get32bits (const atstype_ptr p)
-{
-  atstype_uint32 v;
-  ats2_siphash_memcpy (&v, p, 4);
-  return v;
-}
-
-/* Get a little endian atstype_uint64 from memory, where perhaps the
-   data is misaligned. */
-ats2_siphash_always_inline atstype_uint64
-ats2_siphash_get64bits (const atstype_ptr p)
-{
-  atstype_uint64 v;
-  ats2_siphash_memcpy (&v, p, 8);
-  return v;
-}
-
-/* Put a little endian atstype_uint32 to memory, where perhaps the
-   data is misaligned. */
-ats2_siphash_always_inline void
-ats2_siphash_put32bits (atstype_ptr p, atstype_uint32 v)
-{
-  ats2_siphash_memcpy (p, &v, 4);
-}
-
-/* Put a little endian atstype_uint64 to memory, where perhaps the
-   data is misaligned. */
-ats2_siphash_always_inline void
-ats2_siphash_put64bits (atstype_ptr p, atstype_uint64 v)
-{
-  ats2_siphash_memcpy (p, &v, 8);
-}
-
 /* On big endian platforms, swap the byte order. On little endian
    platforms, do not change the value. */
 ats2_siphash_always_inline atstype_uint32
@@ -221,6 +185,44 @@ ats2_siphash_fix_byte_order_uint64 (atstype_uint64 x)
 #else
   return x;
 #endif
+}
+
+/* Get a little endian atstype_uint32 from memory, where perhaps the
+   data is misaligned. */
+ats2_siphash_always_inline atstype_uint32
+ats2_siphash_get32bits (const atstype_ptr p)
+{
+  atstype_uint32 v;
+  ats2_siphash_memcpy (&v, p, 4);
+  return ats2_siphash_fix_byte_order_uint32 (v);
+}
+
+/* Get a little endian atstype_uint64 from memory, where perhaps the
+   data is misaligned. */
+ats2_siphash_always_inline atstype_uint64
+ats2_siphash_get64bits (const atstype_ptr p)
+{
+  atstype_uint64 v;
+  ats2_siphash_memcpy (&v, p, 8);
+  return ats2_siphash_fix_byte_order_uint64 (v);
+}
+
+/* Put a little endian atstype_uint32 to memory, where perhaps the
+   data is misaligned. */
+ats2_siphash_always_inline void
+ats2_siphash_put32bits (atstype_ptr p, atstype_uint32 v)
+{
+  v = ats2_siphash_fix_byte_order_uint32 (v);
+  ats2_siphash_memcpy (p, &v, 4);
+}
+
+/* Put a little endian atstype_uint64 to memory, where perhaps the
+   data is misaligned. */
+ats2_siphash_always_inline void
+ats2_siphash_put64bits (atstype_ptr p, atstype_uint64 v)
+{
+  v = ats2_siphash_fix_byte_order_uint64 (v);
+  ats2_siphash_memcpy (p, &v, 8);
 }
 
 #endif /* ATS2_SIPHASH_CATS_HEADER_GUARD__ */
