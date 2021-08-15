@@ -33,7 +33,7 @@
 #
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Sat Aug 14 14:54:28 CDT 2021
+# from AX_AM_MACROS_STATIC on Sun Aug 15 12:27:49 CDT 2021
 
 
 
@@ -116,18 +116,43 @@ bin_PROGRAMS =
 check_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_5)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ax_ac_append_to_file.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
+	$(top_srcdir)/m4/absolute-header.m4 $(top_srcdir)/m4/alloca.m4 \
+	$(top_srcdir)/m4/ax_ac_append_to_file.m4 \
 	$(top_srcdir)/m4/ax_ac_print_to_file.m4 \
 	$(top_srcdir)/m4/ax_add_am_macro_static.m4 \
 	$(top_srcdir)/m4/ax_am_macros_static.m4 \
 	$(top_srcdir)/m4/ax_check_gnu_make.m4 \
 	$(top_srcdir)/m4/ax_code_coverage.m4 \
-	$(top_srcdir)/m4/ax_file_escapes.m4 \
-	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
-	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
-	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/pkg.m4 \
+	$(top_srcdir)/m4/ax_file_escapes.m4 $(top_srcdir)/m4/close.m4 \
+	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/eealloc.m4 \
+	$(top_srcdir)/m4/errno_h.m4 $(top_srcdir)/m4/extensions.m4 \
+	$(top_srcdir)/m4/extern-inline.m4 $(top_srcdir)/m4/fcntl-o.m4 \
+	$(top_srcdir)/m4/fcntl.m4 $(top_srcdir)/m4/fcntl_h.m4 \
+	$(top_srcdir)/m4/fstat.m4 $(top_srcdir)/m4/getdtablesize.m4 \
+	$(top_srcdir)/m4/getentropy.m4 $(top_srcdir)/m4/getrandom.m4 \
+	$(top_srcdir)/m4/gnulib-common.m4 \
+	$(top_srcdir)/m4/gnulib-comp.m4 \
+	$(top_srcdir)/m4/include_next.m4 $(top_srcdir)/m4/largefile.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/limits-h.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/m4/malloca.m4 $(top_srcdir)/m4/minmax.m4 \
+	$(top_srcdir)/m4/mode_t.m4 $(top_srcdir)/m4/msvc-inval.m4 \
+	$(top_srcdir)/m4/msvc-nothrow.m4 $(top_srcdir)/m4/multiarch.m4 \
+	$(top_srcdir)/m4/off_t.m4 $(top_srcdir)/m4/open-cloexec.m4 \
+	$(top_srcdir)/m4/open-slash.m4 $(top_srcdir)/m4/open.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/pkg.m4 \
+	$(top_srcdir)/m4/ssize_t.m4 $(top_srcdir)/m4/stat-time.m4 \
+	$(top_srcdir)/m4/stat.m4 $(top_srcdir)/m4/stdbool.m4 \
+	$(top_srcdir)/m4/stddef_h.m4 $(top_srcdir)/m4/stdint.m4 \
 	$(top_srcdir)/m4/stm_config_makefiles.m4 \
 	$(top_srcdir)/m4/stm_prog_gnu_make.m4 \
+	$(top_srcdir)/m4/sys_random_h.m4 \
+	$(top_srcdir)/m4/sys_stat_h.m4 $(top_srcdir)/m4/sys_types_h.m4 \
+	$(top_srcdir)/m4/time_h.m4 $(top_srcdir)/m4/unistd_h.m4 \
+	$(top_srcdir)/m4/warn-on-use.m4 $(top_srcdir)/m4/wchar_t.m4 \
+	$(top_srcdir)/m4/wint_t.m4 $(top_srcdir)/m4/zzgnulib.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -136,6 +161,7 @@ DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = common-macros.m4 ats2-siphash.pc siphash.pc
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
@@ -457,6 +483,14 @@ DIST_SOURCES = $(libsiphash_la_SOURCES) \
 	$(tests_test_siphash_4_8_64_SOURCES) \
 	$(tests_test_siphash_4_8_64_C_SOURCES) \
 	$(tests_test_siphash_4_8_64_hats_SOURCES)
+RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
+	ctags-recursive dvi-recursive html-recursive info-recursive \
+	install-data-recursive install-dvi-recursive \
+	install-exec-recursive install-html-recursive \
+	install-info-recursive install-pdf-recursive \
+	install-ps-recursive install-recursive installcheck-recursive \
+	installdirs-recursive pdf-recursive ps-recursive \
+	tags-recursive uninstall-recursive
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -464,7 +498,17 @@ am__can_run_installinfo = \
   esac
 DATA = $(nodist_pkgconfig_DATA)
 HEADERS = $(nobase_nodist_pkginclude_HEADERS)
-am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
+RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
+  distclean-recursive maintainer-clean-recursive
+am__recursive_targets = \
+  $(RECURSIVE_TARGETS) \
+  $(RECURSIVE_CLEAN_TARGETS) \
+  $(am__extra_recursive_targets)
+AM_RECURSIVE_TARGETS = $(am__recursive_targets:-recursive=) TAGS CTAGS \
+	cscope check recheck distdir distdir-am dist dist-all \
+	distcheck
+am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP) \
+	config.h.in
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
 # *not* preserved.
@@ -481,7 +525,6 @@ am__define_uniq_tagged_files = \
   unique=`for i in $$list; do \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
-AM_RECURSIVE_TARGETS = cscope check recheck
 am__tty_colors_dummy = \
   mgn= red= grn= lgn= blu= brg= std=; \
   am__color_tests=no
@@ -659,9 +702,10 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/build-aux/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
+DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/ats2-siphash.pc.in \
-	$(srcdir)/common-macros.m4.in $(srcdir)/siphash.pc.in \
-	$(top_srcdir)/aminclude_static.am \
+	$(srcdir)/common-macros.m4.in $(srcdir)/config.h.in \
+	$(srcdir)/siphash.pc.in $(top_srcdir)/aminclude_static.am \
 	$(top_srcdir)/build-aux/compile \
 	$(top_srcdir)/build-aux/config.guess \
 	$(top_srcdir)/build-aux/config.sub \
@@ -683,6 +727,31 @@ am__remove_distdir = \
       || { sleep 5 && rm -rf "$(distdir)"; }; \
   else :; fi
 am__post_remove_distdir = $(am__remove_distdir)
+am__relativize = \
+  dir0=`pwd`; \
+  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
+  sed_rest='s,^[^/]*/*,,'; \
+  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
+  sed_butlast='s,/*[^/]*$$,,'; \
+  while test -n "$$dir1"; do \
+    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
+    if test "$$first" != "."; then \
+      if test "$$first" = ".."; then \
+        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
+        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
+      else \
+        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
+        if test "$$first2" = "$$first"; then \
+          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
+        else \
+          dir2="../$$dir2"; \
+        fi; \
+        dir0="$$dir0"/"$$first"; \
+      fi; \
+    fi; \
+    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
+  done; \
+  reldir="$$dir2"
 DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 DIST_TARGETS = dist-gzip
@@ -693,13 +762,22 @@ am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
+ALLOCA = @ALLOCA@
+ALLOCA_H = @ALLOCA_H@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+APPLE_UNIVERSAL_BUILD = @APPLE_UNIVERSAL_BUILD@
 AR = @AR@
+ARFLAGS = @ARFLAGS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BITSIZEOF_PTRDIFF_T = @BITSIZEOF_PTRDIFF_T@
+BITSIZEOF_SIG_ATOMIC_T = @BITSIZEOF_SIG_ATOMIC_T@
+BITSIZEOF_SIZE_T = @BITSIZEOF_SIZE_T@
+BITSIZEOF_WCHAR_T = @BITSIZEOF_WCHAR_T@
+BITSIZEOF_WINT_T = @BITSIZEOF_WINT_T@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -708,6 +786,7 @@ CODE_COVERAGE_CPPFLAGS = @CODE_COVERAGE_CPPFLAGS@
 CODE_COVERAGE_CXXFLAGS = @CODE_COVERAGE_CXXFLAGS@
 CODE_COVERAGE_ENABLED = @CODE_COVERAGE_ENABLED@
 CODE_COVERAGE_LIBS = @CODE_COVERAGE_LIBS@
+CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CSCOPE = @CSCOPE@
 CTAGS = @CTAGS@
@@ -721,14 +800,233 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
+EMULTIHOP_HIDDEN = @EMULTIHOP_HIDDEN@
+EMULTIHOP_VALUE = @EMULTIHOP_VALUE@
+ENOLINK_HIDDEN = @ENOLINK_HIDDEN@
+ENOLINK_VALUE = @ENOLINK_VALUE@
+EOVERFLOW_HIDDEN = @EOVERFLOW_HIDDEN@
+EOVERFLOW_VALUE = @EOVERFLOW_VALUE@
+ERRNO_H = @ERRNO_H@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GCOV = @GCOV@
 GENHTML = @GENHTML@
+GL_GNULIB_ACCESS = @GL_GNULIB_ACCESS@
+GL_GNULIB_CHDIR = @GL_GNULIB_CHDIR@
+GL_GNULIB_CHOWN = @GL_GNULIB_CHOWN@
+GL_GNULIB_CLOSE = @GL_GNULIB_CLOSE@
+GL_GNULIB_COPY_FILE_RANGE = @GL_GNULIB_COPY_FILE_RANGE@
+GL_GNULIB_CREAT = @GL_GNULIB_CREAT@
+GL_GNULIB_CTIME = @GL_GNULIB_CTIME@
+GL_GNULIB_DUP = @GL_GNULIB_DUP@
+GL_GNULIB_DUP2 = @GL_GNULIB_DUP2@
+GL_GNULIB_DUP3 = @GL_GNULIB_DUP3@
+GL_GNULIB_ENVIRON = @GL_GNULIB_ENVIRON@
+GL_GNULIB_EUIDACCESS = @GL_GNULIB_EUIDACCESS@
+GL_GNULIB_EXECL = @GL_GNULIB_EXECL@
+GL_GNULIB_EXECLE = @GL_GNULIB_EXECLE@
+GL_GNULIB_EXECLP = @GL_GNULIB_EXECLP@
+GL_GNULIB_EXECV = @GL_GNULIB_EXECV@
+GL_GNULIB_EXECVE = @GL_GNULIB_EXECVE@
+GL_GNULIB_EXECVP = @GL_GNULIB_EXECVP@
+GL_GNULIB_EXECVPE = @GL_GNULIB_EXECVPE@
+GL_GNULIB_FACCESSAT = @GL_GNULIB_FACCESSAT@
+GL_GNULIB_FCHDIR = @GL_GNULIB_FCHDIR@
+GL_GNULIB_FCHMODAT = @GL_GNULIB_FCHMODAT@
+GL_GNULIB_FCHOWNAT = @GL_GNULIB_FCHOWNAT@
+GL_GNULIB_FCNTL = @GL_GNULIB_FCNTL@
+GL_GNULIB_FDATASYNC = @GL_GNULIB_FDATASYNC@
+GL_GNULIB_FSTAT = @GL_GNULIB_FSTAT@
+GL_GNULIB_FSTATAT = @GL_GNULIB_FSTATAT@
+GL_GNULIB_FSYNC = @GL_GNULIB_FSYNC@
+GL_GNULIB_FTRUNCATE = @GL_GNULIB_FTRUNCATE@
+GL_GNULIB_FUTIMENS = @GL_GNULIB_FUTIMENS@
+GL_GNULIB_GETCWD = @GL_GNULIB_GETCWD@
+GL_GNULIB_GETDOMAINNAME = @GL_GNULIB_GETDOMAINNAME@
+GL_GNULIB_GETDTABLESIZE = @GL_GNULIB_GETDTABLESIZE@
+GL_GNULIB_GETENTROPY = @GL_GNULIB_GETENTROPY@
+GL_GNULIB_GETGROUPS = @GL_GNULIB_GETGROUPS@
+GL_GNULIB_GETHOSTNAME = @GL_GNULIB_GETHOSTNAME@
+GL_GNULIB_GETLOGIN = @GL_GNULIB_GETLOGIN@
+GL_GNULIB_GETLOGIN_R = @GL_GNULIB_GETLOGIN_R@
+GL_GNULIB_GETOPT_POSIX = @GL_GNULIB_GETOPT_POSIX@
+GL_GNULIB_GETPAGESIZE = @GL_GNULIB_GETPAGESIZE@
+GL_GNULIB_GETPASS = @GL_GNULIB_GETPASS@
+GL_GNULIB_GETRANDOM = @GL_GNULIB_GETRANDOM@
+GL_GNULIB_GETUMASK = @GL_GNULIB_GETUMASK@
+GL_GNULIB_GETUSERSHELL = @GL_GNULIB_GETUSERSHELL@
+GL_GNULIB_GROUP_MEMBER = @GL_GNULIB_GROUP_MEMBER@
+GL_GNULIB_ISATTY = @GL_GNULIB_ISATTY@
+GL_GNULIB_LCHMOD = @GL_GNULIB_LCHMOD@
+GL_GNULIB_LCHOWN = @GL_GNULIB_LCHOWN@
+GL_GNULIB_LINK = @GL_GNULIB_LINK@
+GL_GNULIB_LINKAT = @GL_GNULIB_LINKAT@
+GL_GNULIB_LOCALTIME = @GL_GNULIB_LOCALTIME@
+GL_GNULIB_LSEEK = @GL_GNULIB_LSEEK@
+GL_GNULIB_LSTAT = @GL_GNULIB_LSTAT@
+GL_GNULIB_MDA_ACCESS = @GL_GNULIB_MDA_ACCESS@
+GL_GNULIB_MDA_CHDIR = @GL_GNULIB_MDA_CHDIR@
+GL_GNULIB_MDA_CHMOD = @GL_GNULIB_MDA_CHMOD@
+GL_GNULIB_MDA_CLOSE = @GL_GNULIB_MDA_CLOSE@
+GL_GNULIB_MDA_CREAT = @GL_GNULIB_MDA_CREAT@
+GL_GNULIB_MDA_DUP = @GL_GNULIB_MDA_DUP@
+GL_GNULIB_MDA_DUP2 = @GL_GNULIB_MDA_DUP2@
+GL_GNULIB_MDA_EXECL = @GL_GNULIB_MDA_EXECL@
+GL_GNULIB_MDA_EXECLE = @GL_GNULIB_MDA_EXECLE@
+GL_GNULIB_MDA_EXECLP = @GL_GNULIB_MDA_EXECLP@
+GL_GNULIB_MDA_EXECV = @GL_GNULIB_MDA_EXECV@
+GL_GNULIB_MDA_EXECVE = @GL_GNULIB_MDA_EXECVE@
+GL_GNULIB_MDA_EXECVP = @GL_GNULIB_MDA_EXECVP@
+GL_GNULIB_MDA_EXECVPE = @GL_GNULIB_MDA_EXECVPE@
+GL_GNULIB_MDA_GETCWD = @GL_GNULIB_MDA_GETCWD@
+GL_GNULIB_MDA_GETPID = @GL_GNULIB_MDA_GETPID@
+GL_GNULIB_MDA_ISATTY = @GL_GNULIB_MDA_ISATTY@
+GL_GNULIB_MDA_LSEEK = @GL_GNULIB_MDA_LSEEK@
+GL_GNULIB_MDA_MKDIR = @GL_GNULIB_MDA_MKDIR@
+GL_GNULIB_MDA_OPEN = @GL_GNULIB_MDA_OPEN@
+GL_GNULIB_MDA_READ = @GL_GNULIB_MDA_READ@
+GL_GNULIB_MDA_RMDIR = @GL_GNULIB_MDA_RMDIR@
+GL_GNULIB_MDA_SWAB = @GL_GNULIB_MDA_SWAB@
+GL_GNULIB_MDA_TZSET = @GL_GNULIB_MDA_TZSET@
+GL_GNULIB_MDA_UMASK = @GL_GNULIB_MDA_UMASK@
+GL_GNULIB_MDA_UNLINK = @GL_GNULIB_MDA_UNLINK@
+GL_GNULIB_MDA_WRITE = @GL_GNULIB_MDA_WRITE@
+GL_GNULIB_MKDIR = @GL_GNULIB_MKDIR@
+GL_GNULIB_MKDIRAT = @GL_GNULIB_MKDIRAT@
+GL_GNULIB_MKFIFO = @GL_GNULIB_MKFIFO@
+GL_GNULIB_MKFIFOAT = @GL_GNULIB_MKFIFOAT@
+GL_GNULIB_MKNOD = @GL_GNULIB_MKNOD@
+GL_GNULIB_MKNODAT = @GL_GNULIB_MKNODAT@
+GL_GNULIB_MKTIME = @GL_GNULIB_MKTIME@
+GL_GNULIB_NANOSLEEP = @GL_GNULIB_NANOSLEEP@
+GL_GNULIB_NONBLOCKING = @GL_GNULIB_NONBLOCKING@
+GL_GNULIB_OPEN = @GL_GNULIB_OPEN@
+GL_GNULIB_OPENAT = @GL_GNULIB_OPENAT@
+GL_GNULIB_OVERRIDES_STRUCT_STAT = @GL_GNULIB_OVERRIDES_STRUCT_STAT@
+GL_GNULIB_PIPE = @GL_GNULIB_PIPE@
+GL_GNULIB_PIPE2 = @GL_GNULIB_PIPE2@
+GL_GNULIB_PREAD = @GL_GNULIB_PREAD@
+GL_GNULIB_PWRITE = @GL_GNULIB_PWRITE@
+GL_GNULIB_READ = @GL_GNULIB_READ@
+GL_GNULIB_READLINK = @GL_GNULIB_READLINK@
+GL_GNULIB_READLINKAT = @GL_GNULIB_READLINKAT@
+GL_GNULIB_RMDIR = @GL_GNULIB_RMDIR@
+GL_GNULIB_SETHOSTNAME = @GL_GNULIB_SETHOSTNAME@
+GL_GNULIB_SLEEP = @GL_GNULIB_SLEEP@
+GL_GNULIB_STAT = @GL_GNULIB_STAT@
+GL_GNULIB_STRFTIME = @GL_GNULIB_STRFTIME@
+GL_GNULIB_STRPTIME = @GL_GNULIB_STRPTIME@
+GL_GNULIB_SYMLINK = @GL_GNULIB_SYMLINK@
+GL_GNULIB_SYMLINKAT = @GL_GNULIB_SYMLINKAT@
+GL_GNULIB_TIMEGM = @GL_GNULIB_TIMEGM@
+GL_GNULIB_TIMESPEC_GET = @GL_GNULIB_TIMESPEC_GET@
+GL_GNULIB_TIME_R = @GL_GNULIB_TIME_R@
+GL_GNULIB_TIME_RZ = @GL_GNULIB_TIME_RZ@
+GL_GNULIB_TRUNCATE = @GL_GNULIB_TRUNCATE@
+GL_GNULIB_TTYNAME_R = @GL_GNULIB_TTYNAME_R@
+GL_GNULIB_TZSET = @GL_GNULIB_TZSET@
+GL_GNULIB_UNISTD_H_GETOPT = @GL_GNULIB_UNISTD_H_GETOPT@
+GL_GNULIB_UNISTD_H_NONBLOCKING = @GL_GNULIB_UNISTD_H_NONBLOCKING@
+GL_GNULIB_UNISTD_H_SIGPIPE = @GL_GNULIB_UNISTD_H_SIGPIPE@
+GL_GNULIB_UNLINK = @GL_GNULIB_UNLINK@
+GL_GNULIB_UNLINKAT = @GL_GNULIB_UNLINKAT@
+GL_GNULIB_USLEEP = @GL_GNULIB_USLEEP@
+GL_GNULIB_UTIMENSAT = @GL_GNULIB_UTIMENSAT@
+GL_GNULIB_WRITE = @GL_GNULIB_WRITE@
 GNU = @GNU@
+GNULIBHEADERS_OVERRIDE_WINT_T = @GNULIBHEADERS_OVERRIDE_WINT_T@
+GNULIB_GETTIMEOFDAY = @GNULIB_GETTIMEOFDAY@
 GNU_MAKE = @GNU_MAKE@
 GREP = @GREP@
+HAVE_ALLOCA_H = @HAVE_ALLOCA_H@
+HAVE_C99_STDINT_H = @HAVE_C99_STDINT_H@
+HAVE_CHOWN = @HAVE_CHOWN@
+HAVE_COPY_FILE_RANGE = @HAVE_COPY_FILE_RANGE@
+HAVE_DECL_ENVIRON = @HAVE_DECL_ENVIRON@
+HAVE_DECL_EXECVPE = @HAVE_DECL_EXECVPE@
+HAVE_DECL_FCHDIR = @HAVE_DECL_FCHDIR@
+HAVE_DECL_FDATASYNC = @HAVE_DECL_FDATASYNC@
+HAVE_DECL_GETDOMAINNAME = @HAVE_DECL_GETDOMAINNAME@
+HAVE_DECL_GETLOGIN = @HAVE_DECL_GETLOGIN@
+HAVE_DECL_GETLOGIN_R = @HAVE_DECL_GETLOGIN_R@
+HAVE_DECL_GETPAGESIZE = @HAVE_DECL_GETPAGESIZE@
+HAVE_DECL_GETUSERSHELL = @HAVE_DECL_GETUSERSHELL@
+HAVE_DECL_LOCALTIME_R = @HAVE_DECL_LOCALTIME_R@
+HAVE_DECL_SETHOSTNAME = @HAVE_DECL_SETHOSTNAME@
+HAVE_DECL_TRUNCATE = @HAVE_DECL_TRUNCATE@
+HAVE_DECL_TTYNAME_R = @HAVE_DECL_TTYNAME_R@
+HAVE_DUP3 = @HAVE_DUP3@
+HAVE_EUIDACCESS = @HAVE_EUIDACCESS@
+HAVE_EXECVPE = @HAVE_EXECVPE@
+HAVE_FACCESSAT = @HAVE_FACCESSAT@
+HAVE_FCHDIR = @HAVE_FCHDIR@
+HAVE_FCHMODAT = @HAVE_FCHMODAT@
+HAVE_FCHOWNAT = @HAVE_FCHOWNAT@
+HAVE_FCNTL = @HAVE_FCNTL@
+HAVE_FDATASYNC = @HAVE_FDATASYNC@
+HAVE_FSTATAT = @HAVE_FSTATAT@
+HAVE_FSYNC = @HAVE_FSYNC@
+HAVE_FTRUNCATE = @HAVE_FTRUNCATE@
+HAVE_FUTIMENS = @HAVE_FUTIMENS@
+HAVE_GETDTABLESIZE = @HAVE_GETDTABLESIZE@
+HAVE_GETENTROPY = @HAVE_GETENTROPY@
+HAVE_GETGROUPS = @HAVE_GETGROUPS@
+HAVE_GETHOSTNAME = @HAVE_GETHOSTNAME@
+HAVE_GETLOGIN = @HAVE_GETLOGIN@
+HAVE_GETPAGESIZE = @HAVE_GETPAGESIZE@
+HAVE_GETPASS = @HAVE_GETPASS@
+HAVE_GETRANDOM = @HAVE_GETRANDOM@
+HAVE_GETUMASK = @HAVE_GETUMASK@
+HAVE_GROUP_MEMBER = @HAVE_GROUP_MEMBER@
+HAVE_INTTYPES_H = @HAVE_INTTYPES_H@
+HAVE_LCHMOD = @HAVE_LCHMOD@
+HAVE_LCHOWN = @HAVE_LCHOWN@
+HAVE_LINK = @HAVE_LINK@
+HAVE_LINKAT = @HAVE_LINKAT@
+HAVE_LSTAT = @HAVE_LSTAT@
+HAVE_MAX_ALIGN_T = @HAVE_MAX_ALIGN_T@
+HAVE_MKDIRAT = @HAVE_MKDIRAT@
+HAVE_MKFIFO = @HAVE_MKFIFO@
+HAVE_MKFIFOAT = @HAVE_MKFIFOAT@
+HAVE_MKNOD = @HAVE_MKNOD@
+HAVE_MKNODAT = @HAVE_MKNODAT@
+HAVE_MSVC_INVALID_PARAMETER_HANDLER = @HAVE_MSVC_INVALID_PARAMETER_HANDLER@
+HAVE_NANOSLEEP = @HAVE_NANOSLEEP@
+HAVE_OPENAT = @HAVE_OPENAT@
+HAVE_OS_H = @HAVE_OS_H@
+HAVE_PIPE = @HAVE_PIPE@
+HAVE_PIPE2 = @HAVE_PIPE2@
+HAVE_PREAD = @HAVE_PREAD@
+HAVE_PWRITE = @HAVE_PWRITE@
+HAVE_READLINK = @HAVE_READLINK@
+HAVE_READLINKAT = @HAVE_READLINKAT@
+HAVE_SETHOSTNAME = @HAVE_SETHOSTNAME@
+HAVE_SIGNED_SIG_ATOMIC_T = @HAVE_SIGNED_SIG_ATOMIC_T@
+HAVE_SIGNED_WCHAR_T = @HAVE_SIGNED_WCHAR_T@
+HAVE_SIGNED_WINT_T = @HAVE_SIGNED_WINT_T@
+HAVE_SLEEP = @HAVE_SLEEP@
+HAVE_STDINT_H = @HAVE_STDINT_H@
+HAVE_STRPTIME = @HAVE_STRPTIME@
+HAVE_SYMLINK = @HAVE_SYMLINK@
+HAVE_SYMLINKAT = @HAVE_SYMLINKAT@
+HAVE_SYS_BITYPES_H = @HAVE_SYS_BITYPES_H@
+HAVE_SYS_INTTYPES_H = @HAVE_SYS_INTTYPES_H@
+HAVE_SYS_PARAM_H = @HAVE_SYS_PARAM_H@
+HAVE_SYS_RANDOM_H = @HAVE_SYS_RANDOM_H@
+HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
+HAVE_TIMEGM = @HAVE_TIMEGM@
+HAVE_TIMESPEC_GET = @HAVE_TIMESPEC_GET@
+HAVE_TIMEZONE_T = @HAVE_TIMEZONE_T@
+HAVE_UNISTD_H = @HAVE_UNISTD_H@
+HAVE_UNLINKAT = @HAVE_UNLINKAT@
+HAVE_USLEEP = @HAVE_USLEEP@
+HAVE_UTIMENSAT = @HAVE_UTIMENSAT@
+HAVE_WCHAR_H = @HAVE_WCHAR_H@
+HAVE_WCHAR_T = @HAVE_WCHAR_T@
+HAVE__BOOL = @HAVE__BOOL@
+INCLUDE_NEXT = @INCLUDE_NEXT@
+INCLUDE_NEXT_AS_FIRST_DIRECTIVE = @INCLUDE_NEXT_AS_FIRST_DIRECTIVE@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -737,9 +1035,13 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LCOV = @LCOV@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
+LIBGNU_LIBDEPS = @LIBGNU_LIBDEPS@
+LIBGNU_LTLIBDEPS = @LIBGNU_LTLIBDEPS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
+LIB_GETRANDOM = @LIB_GETRANDOM@
+LIMITS_H = @LIMITS_H@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -749,6 +1051,26 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
+NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
+NEXT_AS_FIRST_DIRECTIVE_LIMITS_H = @NEXT_AS_FIRST_DIRECTIVE_LIMITS_H@
+NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = @NEXT_AS_FIRST_DIRECTIVE_STDDEF_H@
+NEXT_AS_FIRST_DIRECTIVE_STDINT_H = @NEXT_AS_FIRST_DIRECTIVE_STDINT_H@
+NEXT_AS_FIRST_DIRECTIVE_SYS_RANDOM_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_RANDOM_H@
+NEXT_AS_FIRST_DIRECTIVE_SYS_STAT_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_STAT_H@
+NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H@
+NEXT_AS_FIRST_DIRECTIVE_TIME_H = @NEXT_AS_FIRST_DIRECTIVE_TIME_H@
+NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
+NEXT_ERRNO_H = @NEXT_ERRNO_H@
+NEXT_FCNTL_H = @NEXT_FCNTL_H@
+NEXT_LIMITS_H = @NEXT_LIMITS_H@
+NEXT_STDDEF_H = @NEXT_STDDEF_H@
+NEXT_STDINT_H = @NEXT_STDINT_H@
+NEXT_SYS_RANDOM_H = @NEXT_SYS_RANDOM_H@
+NEXT_SYS_STAT_H = @NEXT_SYS_STAT_H@
+NEXT_SYS_TYPES_H = @NEXT_SYS_TYPES_H@
+NEXT_TIME_H = @NEXT_TIME_H@
+NEXT_UNISTD_H = @NEXT_UNISTD_H@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -769,12 +1091,103 @@ PKGCONFIG_PATSHOME = @PKGCONFIG_PATSHOME@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+PRAGMA_COLUMNS = @PRAGMA_COLUMNS@
+PRAGMA_SYSTEM_HEADER = @PRAGMA_SYSTEM_HEADER@
+PTHREAD_H_DEFINES_STRUCT_TIMESPEC = @PTHREAD_H_DEFINES_STRUCT_TIMESPEC@
+PTRDIFF_T_SUFFIX = @PTRDIFF_T_SUFFIX@
 RANLIB = @RANLIB@
+REPLACE_ACCESS = @REPLACE_ACCESS@
+REPLACE_CHOWN = @REPLACE_CHOWN@
+REPLACE_CLOSE = @REPLACE_CLOSE@
+REPLACE_CREAT = @REPLACE_CREAT@
+REPLACE_CTIME = @REPLACE_CTIME@
+REPLACE_DUP = @REPLACE_DUP@
+REPLACE_DUP2 = @REPLACE_DUP2@
+REPLACE_EXECL = @REPLACE_EXECL@
+REPLACE_EXECLE = @REPLACE_EXECLE@
+REPLACE_EXECLP = @REPLACE_EXECLP@
+REPLACE_EXECV = @REPLACE_EXECV@
+REPLACE_EXECVE = @REPLACE_EXECVE@
+REPLACE_EXECVP = @REPLACE_EXECVP@
+REPLACE_EXECVPE = @REPLACE_EXECVPE@
+REPLACE_FACCESSAT = @REPLACE_FACCESSAT@
+REPLACE_FCHMODAT = @REPLACE_FCHMODAT@
+REPLACE_FCHOWNAT = @REPLACE_FCHOWNAT@
+REPLACE_FCNTL = @REPLACE_FCNTL@
+REPLACE_FSTAT = @REPLACE_FSTAT@
+REPLACE_FSTATAT = @REPLACE_FSTATAT@
+REPLACE_FTRUNCATE = @REPLACE_FTRUNCATE@
+REPLACE_FUTIMENS = @REPLACE_FUTIMENS@
+REPLACE_GETCWD = @REPLACE_GETCWD@
+REPLACE_GETDOMAINNAME = @REPLACE_GETDOMAINNAME@
+REPLACE_GETDTABLESIZE = @REPLACE_GETDTABLESIZE@
+REPLACE_GETGROUPS = @REPLACE_GETGROUPS@
+REPLACE_GETLOGIN_R = @REPLACE_GETLOGIN_R@
+REPLACE_GETPAGESIZE = @REPLACE_GETPAGESIZE@
+REPLACE_GETPASS = @REPLACE_GETPASS@
+REPLACE_GETRANDOM = @REPLACE_GETRANDOM@
+REPLACE_GMTIME = @REPLACE_GMTIME@
+REPLACE_ISATTY = @REPLACE_ISATTY@
+REPLACE_LCHOWN = @REPLACE_LCHOWN@
+REPLACE_LINK = @REPLACE_LINK@
+REPLACE_LINKAT = @REPLACE_LINKAT@
+REPLACE_LOCALTIME = @REPLACE_LOCALTIME@
+REPLACE_LOCALTIME_R = @REPLACE_LOCALTIME_R@
+REPLACE_LSEEK = @REPLACE_LSEEK@
+REPLACE_LSTAT = @REPLACE_LSTAT@
+REPLACE_MKDIR = @REPLACE_MKDIR@
+REPLACE_MKFIFO = @REPLACE_MKFIFO@
+REPLACE_MKFIFOAT = @REPLACE_MKFIFOAT@
+REPLACE_MKNOD = @REPLACE_MKNOD@
+REPLACE_MKNODAT = @REPLACE_MKNODAT@
+REPLACE_MKTIME = @REPLACE_MKTIME@
+REPLACE_NANOSLEEP = @REPLACE_NANOSLEEP@
+REPLACE_NULL = @REPLACE_NULL@
+REPLACE_OPEN = @REPLACE_OPEN@
+REPLACE_OPENAT = @REPLACE_OPENAT@
+REPLACE_PREAD = @REPLACE_PREAD@
+REPLACE_PWRITE = @REPLACE_PWRITE@
+REPLACE_READ = @REPLACE_READ@
+REPLACE_READLINK = @REPLACE_READLINK@
+REPLACE_READLINKAT = @REPLACE_READLINKAT@
+REPLACE_RMDIR = @REPLACE_RMDIR@
+REPLACE_SLEEP = @REPLACE_SLEEP@
+REPLACE_STAT = @REPLACE_STAT@
+REPLACE_STRFTIME = @REPLACE_STRFTIME@
+REPLACE_SYMLINK = @REPLACE_SYMLINK@
+REPLACE_SYMLINKAT = @REPLACE_SYMLINKAT@
+REPLACE_TIMEGM = @REPLACE_TIMEGM@
+REPLACE_TRUNCATE = @REPLACE_TRUNCATE@
+REPLACE_TTYNAME_R = @REPLACE_TTYNAME_R@
+REPLACE_TZSET = @REPLACE_TZSET@
+REPLACE_UNLINK = @REPLACE_UNLINK@
+REPLACE_UNLINKAT = @REPLACE_UNLINKAT@
+REPLACE_USLEEP = @REPLACE_USLEEP@
+REPLACE_UTIMENSAT = @REPLACE_UTIMENSAT@
+REPLACE_WRITE = @REPLACE_WRITE@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SIG_ATOMIC_T_SUFFIX = @SIG_ATOMIC_T_SUFFIX@
+SIZE_T_SUFFIX = @SIZE_T_SUFFIX@
+STDBOOL_H = @STDBOOL_H@
+STDDEF_H = @STDDEF_H@
+STDINT_H = @STDINT_H@
 STRIP = @STRIP@
+SYS_TIME_H_DEFINES_STRUCT_TIMESPEC = @SYS_TIME_H_DEFINES_STRUCT_TIMESPEC@
+TIME_H_DEFINES_STRUCT_TIMESPEC = @TIME_H_DEFINES_STRUCT_TIMESPEC@
+TIME_H_DEFINES_TIME_UTC = @TIME_H_DEFINES_TIME_UTC@
+UNISTD_H_DEFINES_STRUCT_TIMESPEC = @UNISTD_H_DEFINES_STRUCT_TIMESPEC@
+UNISTD_H_HAVE_SYS_RANDOM_H = @UNISTD_H_HAVE_SYS_RANDOM_H@
+UNISTD_H_HAVE_WINSOCK2_H = @UNISTD_H_HAVE_WINSOCK2_H@
+UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = @UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS@
 VERSION = @VERSION@
+WCHAR_T_SUFFIX = @WCHAR_T_SUFFIX@
+WINDOWS_64_BIT_OFF_T = @WINDOWS_64_BIT_OFF_T@
+WINDOWS_64_BIT_ST_SIZE = @WINDOWS_64_BIT_ST_SIZE@
+WINDOWS_STAT_INODES = @WINDOWS_STAT_INODES@
+WINDOWS_STAT_TIMESPEC = @WINDOWS_STAT_TIMESPEC@
+WINT_T_SUFFIX = @WINT_T_SUFFIX@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -799,6 +1212,11 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+gl_LIBOBJS = @gl_LIBOBJS@
+gl_LTLIBOBJS = @gl_LTLIBOBJS@
+gltests_LIBOBJS = @gltests_LIBOBJS@
+gltests_LTLIBOBJS = @gltests_LTLIBOBJS@
+gltests_WITNESS = @gltests_WITNESS@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -849,17 +1267,18 @@ AUTOMAKE_OPTIONS = foreign subdir-objects -Wno-portability
 # sanitizes the test-name: replaces with underscores: dashes and dots
 @CODE_COVERAGE_ENABLED_TRUE@code_coverage_sanitize = $(subst -,_,$(subst .,_,$(1)))
 @CODE_COVERAGE_ENABLED_TRUE@AM_DISTCHECK_CONFIGURE_FLAGS := $(AM_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
+SUBDIRS = lib
 
 #--------------------------------------------------------------------------
 EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	$(srcdir)/write-siphash-implementations.awk \
 	$(srcdir)/write-halfsiphash-implementations.awk \
-	$(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) $(SIPHASH_SATS) \
-	$(HALFSIPHASH_SATS) $(SIPHASH_DATS) $(HALFSIPHASH_DATS) \
-	$(SIPHASH_CATS) $(SIPHASH_HATS) $(HALFSIPHASH_HATS) \
-	$(SIPHASH_C_DATS) $(HALFSIPHASH_C_DATS) tests/vectors.sats \
-	tests/vectors-2-4.dats tests/vectors-4-8.dats \
-	$(DISTRIBUTED_ATS2_TESTS:%=%.dats) \
+	m4/gnulib-cache.m4 $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) \
+	$(SIPHASH_SATS) $(HALFSIPHASH_SATS) $(SIPHASH_DATS) \
+	$(HALFSIPHASH_DATS) $(SIPHASH_CATS) $(SIPHASH_HATS) \
+	$(HALFSIPHASH_HATS) $(SIPHASH_C_DATS) $(HALFSIPHASH_C_DATS) \
+	tests/vectors.sats tests/vectors-2-4.dats \
+	tests/vectors-4-8.dats $(DISTRIBUTED_ATS2_TESTS:%=%.dats) \
 	$(M4_GENERATED_ATS2_TESTS:%=%.dats.m4) \
 	$(DISTRIBUTED_C_TESTS:%=%.c) $(M4_GENERATED_C_TESTS:%=%.c.m4) \
 	reference-implementation/halfsiphash.c \
@@ -881,14 +1300,15 @@ CLEANFILES = $(ARRAY_PRF_SATS_C) $(ARRAY_PRF_DATS_C) $(SIPHASH_SATS_C) \
 	$(M4_GENERATED_ATS2_TESTS:%=%.dats) \
 	$(M4_GENERATED_ATS2_TESTS:%=%_dats.c) \
 	$(M4_GENERATED_C_TESTS:%=%.c)
-DISTCLEANFILES = Makefile $(SIPHASH_SATS_EXTRA) \
-	$(HALFSIPHASH_SATS_EXTRA) $(SIPHASH_DATS_EXTRA) \
-	$(HALFSIPHASH_DATS_EXTRA)
+DISTCLEANFILES = Makefile GNUmakefile lib/Makefile lib/GNUmakefile \
+	$(SIPHASH_SATS_EXTRA) $(HALFSIPHASH_SATS_EXTRA) \
+	$(SIPHASH_DATS_EXTRA) $(HALFSIPHASH_DATS_EXTRA)
 BUILT_SOURCES = 
 
 # We will not be using exceptions.
 AM_CPPFLAGS = -D_ATS_CCOMP_EXCEPTION_NONE -I$(builddir) -I$(srcdir) \
-	-I$(PATSHOME) -I$(PATSHOME)/ccomp/runtime/
+	-I$(PATSHOME) -I$(PATSHOME)/ccomp/runtime/ -I$(builddir)/lib \
+	-I$(srcdir)/lib
 AM_CFLAGS = 
 AM_LDFLAGS = 
 LDADD = $(CODE_COVERAGE_LIBS)
@@ -907,6 +1327,7 @@ nobase_nodist_pkginclude_HEADERS = $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) \
 	$(SIPHASH_CATS) $(SIPHASH_SATS) $(SIPHASH_DATS) \
 	$(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) $(SIPHASH_C_DATS) \
 	$(HALFSIPHASH_C_DATS) siphash/siphash.h siphash/halfsiphash.h
+nodist_pkgconfig_DATA = ats2-siphash.pc siphash.pc
 CODE_COVERAGE_IGNORE_PATTERN = /usr/include/* /usr/include/*/* \
 	$(PATSHOME)/ccomp/runtime/* $(PATSHOME)/prelude/CATS/*
 
@@ -995,7 +1416,6 @@ libsiphash_la_LIBADD = libats2-siphash.la
 
 #--------------------------------------------------------------------------
 pkgconfigdir = ${libdir}/pkgconfig
-nodist_pkgconfig_DATA = siphash.pc
 
 #--------------------------------------------------------------------------
 AM_DEFAULT_SOURCE_EXT = _dats.c
@@ -1112,8 +1532,8 @@ tests_test_halfsiphash_4_8_64_C_SOURCES =  \
 tests_test_halfsiphash_4_8_64_C_LDADD = libsiphash.la
 DISTRIBUTED_TESTS = $(DISTRIBUTED_ATS2_TESTS) $(DISTRIBUTED_C_TESTS)
 GENERATED_TESTS = $(M4_GENERATED_ATS2_TESTS) $(M4_GENERATED_C_TESTS)
-all: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) all-am
+all: $(BUILT_SOURCES) config.h
+	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
 .SUFFIXES: .c .lo .log .o .obj .test .test$(EXEEXT) .trs
@@ -1151,6 +1571,21 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
+
+config.h: stamp-h1
+	@test -f $@ || rm -f stamp-h1
+	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) stamp-h1
+
+stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
+	@rm -f stamp-h1
+	cd $(top_builddir) && $(SHELL) ./config.status config.h
+$(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps) 
+	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
+	rm -f stamp-h1
+	touch $@
+
+distclean-hdr:
+	-rm -f config.h stamp-h1
 common-macros.m4: $(top_builddir)/config.status $(srcdir)/common-macros.m4.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 ats2-siphash.pc: $(top_builddir)/config.status $(srcdir)/ats2-siphash.pc.in
@@ -1604,14 +2039,61 @@ uninstall-nobase_nodist_pkgincludeHEADERS:
 	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
 	dir='$(DESTDIR)$(pkgincludedir)'; $(am__uninstall_files_from_dir)
 
+# This directory's subdirectories are mostly independent; you can cd
+# into them and run 'make' without going through this Makefile.
+# To change the values of 'make' variables: instead of editing Makefiles,
+# (1) if the variable is set in 'config.status', edit 'config.status'
+#     (which will cause the Makefiles to be regenerated when you run 'make');
+# (2) otherwise, pass the desired values on the 'make' command line.
+$(am__recursive_targets):
+	@fail=; \
+	if $(am__make_keepgoing); then \
+	  failcom='fail=yes'; \
+	else \
+	  failcom='exit 1'; \
+	fi; \
+	dot_seen=no; \
+	target=`echo $@ | sed s/-recursive//`; \
+	case "$@" in \
+	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
+	  *) list='$(SUBDIRS)' ;; \
+	esac; \
+	for subdir in $$list; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    dot_seen=yes; \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done; \
+	if test "$$dot_seen" = "no"; then \
+	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
+	fi; test -z "$$fail"
+
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-am
+tags: tags-recursive
 TAGS: tags
 
 tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	set x; \
 	here=`pwd`; \
+	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
+	  include_option=--etags-include; \
+	  empty_fix=.; \
+	else \
+	  include_option=--include; \
+	  empty_fix=; \
+	fi; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test ! -f $$subdir/TAGS || \
+	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
+	  fi; \
+	done; \
 	$(am__define_uniq_tagged_files); \
 	shift; \
 	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
@@ -1624,7 +2106,7 @@ tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	      $$unique; \
 	  fi; \
 	fi
-ctags: ctags-am
+ctags: ctags-recursive
 
 CTAGS: ctags
 ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
@@ -1643,7 +2125,7 @@ cscope: cscope.files
 clean-cscope:
 	-rm -f cscope.files
 cscope.files: clean-cscope cscopelist
-cscopelist: cscopelist-am
+cscopelist: cscopelist-recursive
 
 cscopelist-am: $(am__tagged_files)
 	list='$(am__tagged_files)'; \
@@ -1993,6 +2475,31 @@ distdir-am: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    $(am__make_dryrun) \
+	      || test -d "$(distdir)/$$subdir" \
+	      || $(MKDIR_P) "$(distdir)/$$subdir" \
+	      || exit 1; \
+	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
+	    $(am__relativize); \
+	    new_distdir=$$reldir; \
+	    dir1=$$subdir; dir2="$(top_distdir)"; \
+	    $(am__relativize); \
+	    new_top_distdir=$$reldir; \
+	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
+	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
+	    ($(am__cd) $$subdir && \
+	      $(MAKE) $(AM_MAKEFLAGS) \
+	        top_distdir="$$new_top_distdir" \
+	        distdir="$$new_distdir" \
+		am__remove_distdir=: \
+		am__skip_length_check=: \
+		am__skip_mode_fix=: \
+	        distdir) \
+	      || exit 1; \
+	  fi; \
+	done
 	-test -n "$(am__skip_mode_fix)" \
 	|| find "$(distdir)" -type d ! -perm -755 \
 		-exec chmod u+rwx,go+rx {} \; -o \
@@ -2134,25 +2641,27 @@ check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) check-am
-all-am: GNUmakefile $(PROGRAMS) $(LTLIBRARIES) $(DATA) $(HEADERS)
+	$(MAKE) $(AM_MAKEFLAGS) check-recursive
+all-am: GNUmakefile $(PROGRAMS) $(LTLIBRARIES) $(DATA) $(HEADERS) \
+		config.h
 install-binPROGRAMS: install-libLTLIBRARIES
 
-installdirs:
+installdirs: installdirs-recursive
+installdirs-am:
 	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(pkgincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) install-am
+	$(MAKE) $(AM_MAKEFLAGS) install-recursive
 install-exec: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) install-exec-am
-install-data: install-data-am
-uninstall: uninstall-am
+	$(MAKE) $(AM_MAKEFLAGS) install-exec-recursive
+install-data: install-data-recursive
+uninstall: uninstall-recursive
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-am
+installcheck: installcheck-recursive
 install-strip:
 	if test -z '$(STRIP)'; then \
 	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
@@ -2187,12 +2696,12 @@ maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
-clean: clean-am
+clean: clean-recursive
 
 clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 	clean-libLTLIBRARIES clean-libtool clean-local mostlyclean-am
 
-distclean: distclean-am
+distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 		-rm -f siphash/DATS/$(DEPDIR)/array_prf_dats.Plo
 	-rm -f siphash/DATS/$(DEPDIR)/halfsiphash_2_4_32_dats.Plo
@@ -2245,50 +2754,50 @@ distclean: distclean-am
 	-rm -f tests/$(DEPDIR)/vectors_sats.Po
 	-rm -f GNUmakefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-libtool distclean-local distclean-tags
+	distclean-hdr distclean-libtool distclean-local distclean-tags
 
-dvi: dvi-am
+dvi: dvi-recursive
 
 dvi-am:
 
-html: html-am
+html: html-recursive
 
 html-am:
 
-info: info-am
+info: info-recursive
 
 info-am:
 
 install-data-am: install-nobase_nodist_pkgincludeHEADERS \
 	install-nodist_pkgconfigDATA
 
-install-dvi: install-dvi-am
+install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
 install-exec-am: install-binPROGRAMS install-libLTLIBRARIES
 
-install-html: install-html-am
+install-html: install-html-recursive
 
 install-html-am:
 
-install-info: install-info-am
+install-info: install-info-recursive
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-am
+install-pdf: install-pdf-recursive
 
 install-pdf-am:
 
-install-ps: install-ps-am
+install-ps: install-ps-recursive
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-am
+maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 		-rm -f siphash/DATS/$(DEPDIR)/array_prf_dats.Plo
@@ -2343,16 +2852,16 @@ maintainer-clean: maintainer-clean-am
 	-rm -f GNUmakefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-am
+mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-pdf: pdf-am
+pdf: pdf-recursive
 
 pdf-am:
 
-ps: ps-am
+ps: ps-recursive
 
 ps-am:
 
@@ -2360,27 +2869,27 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
 	uninstall-nobase_nodist_pkgincludeHEADERS \
 	uninstall-nodist_pkgconfigDATA
 
-.MAKE: all check check-am install install-am install-exec \
-	install-strip
+.MAKE: $(am__recursive_targets) all check check-am install install-am \
+	install-exec install-strip
 
-.PHONY: CTAGS GTAGS TAGS all all-am am--depfiles am--refresh check \
-	check-TESTS check-am clean clean-binPROGRAMS \
-	clean-checkPROGRAMS clean-cscope clean-generic \
-	clean-libLTLIBRARIES clean-libtool clean-local cscope \
-	cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
+.PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am \
+	am--depfiles am--refresh check check-TESTS check-am clean \
+	clean-binPROGRAMS clean-checkPROGRAMS clean-cscope \
+	clean-generic clean-libLTLIBRARIES clean-libtool clean-local \
+	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
 	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
 	dist-zstd distcheck distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-local \
-	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am \
-	install-libLTLIBRARIES install-man \
+	distclean-generic distclean-hdr distclean-libtool \
+	distclean-local distclean-tags distcleancheck distdir \
+	distuninstallcheck dvi dvi-am html html-am info info-am \
+	install install-am install-binPROGRAMS install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-libLTLIBRARIES install-man \
 	install-nobase_nodist_pkgincludeHEADERS \
 	install-nodist_pkgconfigDATA install-pdf install-pdf-am \
 	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	installcheck-am installdirs installdirs-am maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	recheck tags tags-am uninstall uninstall-am \

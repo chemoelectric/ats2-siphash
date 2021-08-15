@@ -27,6 +27,8 @@ AUTOMAKE_OPTIONS += -Wno-portability
 include $(top_srcdir)/aminclude_static.am
 @GNU@ include $(srcdir)/silent-rules.mk
 
+SUBDIRS = lib
+
 EXTRA_DIST =
 MOSTLYCLEANFILES =
 CLEANFILES =
@@ -39,6 +41,7 @@ LDADD =
 bin_PROGRAMS =
 lib_LTLIBRARIES =
 nobase_nodist_pkginclude_HEADERS =
+nodist_pkgconfig_DATA =
 
 EXTRA_DIST += $(srcdir)/silent-rules.mk
 EXTRA_DIST += COPYING
@@ -47,6 +50,9 @@ EXTRA_DIST += README
 EXTRA_DIST += AUTHORS
 
 DISTCLEANFILES += Makefile
+DISTCLEANFILES += GNUmakefile
+DISTCLEANFILES += lib/Makefile
+DISTCLEANFILES += lib/GNUmakefile
 
 # We will not be using exceptions.
 AM_CPPFLAGS += -D_ATS_CCOMP_EXCEPTION_NONE
@@ -55,6 +61,8 @@ AM_CPPFLAGS += -I$(builddir)
 AM_CPPFLAGS += -I$(srcdir)
 AM_CPPFLAGS += -I$(PATSHOME)
 AM_CPPFLAGS += -I$(PATSHOME)/ccomp/runtime/
+AM_CPPFLAGS += -I$(builddir)/lib
+AM_CPPFLAGS += -I$(srcdir)/lib
 
 LDADD += $(CODE_COVERAGE_LIBS)
 
@@ -72,6 +80,8 @@ config.status: $(srcdir)/write-siphash-implementations.awk
 
 EXTRA_DIST += $(srcdir)/write-halfsiphash-implementations.awk
 config.status: $(srcdir)/write-halfsiphash-implementations.awk
+
+EXTRA_DIST += m4/gnulib-cache.m4
 
 #---------------------------------------------------------------------
 #
@@ -274,8 +284,8 @@ nobase_nodist_pkginclude_HEADERS += siphash/halfsiphash.h
 #--------------------------------------------------------------------------
 
 pkgconfigdir = ${libdir}/pkgconfig
-nodist_pkgconfig_DATA = ats2-siphash.pc
-nodist_pkgconfig_DATA = siphash.pc
+nodist_pkgconfig_DATA += ats2-siphash.pc
+nodist_pkgconfig_DATA += siphash.pc
 
 #--------------------------------------------------------------------------
 

@@ -50,6 +50,7 @@ fi
 # Checks for programs.
 
 AC_PROG_CC
+gl_EARLY
 AC_PROG_CC_C_O
 AC_CHECK_PROGS([PATSOPT],[patsopt])
 AC_PROG_INSTALL
@@ -61,6 +62,8 @@ AC_PROG_SED
 AC_PROG_FGREP
 AC_PROG_EGREP
 AC_CHECK_PROGS([M4],[m4])
+
+gl_INIT
 
 PKG_PROG_PKG_CONFIG
 PKG_CONFIG="${PKG_CONFIG} --define-variable=PATSHOME=\"${PATSHOME}\""
@@ -94,8 +97,11 @@ CFLAGS="${CFLAGS}${CFLAGS+ }\$(CODE_COVERAGE_CFLAGS)"
 # @GNU@ here may be better.)
 AC_SUBST([GNU],[])
 
+AC_CONFIG_HEADERS([config.h])
+
 StM_REQUIRE_GNU_MAKE_IN_PATH
 StM_CONFIG_MAKEFILES
+StM_CONFIG_MAKEFILES([lib/Makefile],[lib/GNUmakefile])
 
 AC_CONFIG_FILES([common-macros.m4])
 
