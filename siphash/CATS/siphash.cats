@@ -30,8 +30,13 @@ _Static_assert (sizeof (atstype_uint64) == 8,
 
 #ifdef __GNUC__
 
+#if 10 <= __GNUC__
+#define ats2_siphash_always_inline              \
+  [[gnu::always_inline]] ats2_siphash_inline
+#else
 #define ats2_siphash_always_inline                          \
-  ats2_siphash_inline __attribute__((__always_inline__))
+  __attribute__((__always_inline__)) ats2_siphash_inline
+#endif
 
 #define ats2_siphash_memcpy __builtin_memcpy
 #define ats2_siphash_bswap32 __builtin_bswap32

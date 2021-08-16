@@ -140,6 +140,9 @@ TOTAL_PATSOPTFLAGS += $(XPATSOPTFLAGS)
 
 lib_LTLIBRARIES += libats2-siphash.la
 
+libats2_siphash_la_LDFLAGS =
+libats2_siphash_la_LDFLAGS += $(LIB_GETRANDOM)
+
 ARRAY_PRF_SATS = siphash/SATS/array_prf.sats
 ARRAY_PRF_SATS_C = siphash/SATS/array_prf_sats.c
 EXTRA_DIST += $(ARRAY_PRF_SATS)
@@ -156,13 +159,6 @@ SIPHASH_SATS_C = siphash/SATS/siphash_sats.c
 EXTRA_DIST += $(SIPHASH_SATS)
 CLEANFILES += $(SIPHASH_SATS_C)
 DISTCLEANFILES += $(SIPHASH_SATS_EXTRA)
-
-HALFSIPHASH_SATS = siphash/SATS/halfsiphash.sats $(HALFSIPHASH_SATS_EXTRA)
-HALFSIPHASH_SATS_EXTRA = siphash/SATS/include/halfsiphash-implementations.inc
-HALFSIPHASH_SATS_C = siphash/SATS/halfsiphash_sats.c
-EXTRA_DIST += $(HALFSIPHASH_SATS)
-CLEANFILES += $(HALFSIPHASH_SATS_C)
-DISTCLEANFILES += $(HALFSIPHASH_SATS_EXTRA)
 
 SIPHASH_DATS = siphash/DATS/siphash.dats $(SIPHASH_DATS_EXTRA)
 SIPHASH_DATS_EXTRA =
@@ -190,6 +186,13 @@ EXTRA_DIST += $(SIPHASH_DATS)
 CLEANFILES += $(SIPHASH_DATS_C)
 DISTCLEANFILES += $(SIPHASH_DATS_EXTRA)
 
+HALFSIPHASH_SATS = siphash/SATS/halfsiphash.sats $(HALFSIPHASH_SATS_EXTRA)
+HALFSIPHASH_SATS_EXTRA = siphash/SATS/include/halfsiphash-implementations.inc
+HALFSIPHASH_SATS_C = siphash/SATS/halfsiphash_sats.c
+EXTRA_DIST += $(HALFSIPHASH_SATS)
+CLEANFILES += $(HALFSIPHASH_SATS_C)
+DISTCLEANFILES += $(HALFSIPHASH_SATS_EXTRA)
+
 HALFSIPHASH_DATS = siphash/DATS/halfsiphash.dats $(HALFSIPHASH_DATS_EXTRA)
 HALFSIPHASH_DATS_EXTRA =
 HALFSIPHASH_DATS_EXTRA += siphash/DATS/halfsiphash_2_4_32.dats
@@ -216,6 +219,36 @@ EXTRA_DIST += $(HALFSIPHASH_DATS)
 CLEANFILES += $(HALFSIPHASH_DATS_C)
 DISTCLEANFILES += $(HALFSIPHASH_DATS_EXTRA)
 
+KEY_SATS = siphash/SATS/key.sats
+KEY_SATS_C = siphash/SATS/key_sats.c
+EXTRA_DIST += $(KEY_SATS)
+CLEANFILES += $(KEY_SATS_C)
+
+KEY_DATS = siphash/DATS/key.dats
+KEY_DATS_C = siphash/DATS/key_dats.c
+EXTRA_DIST += $(KEY_DATS)
+CLEANFILES += $(KEY_DATS_C)
+
+ATOMIC_CATS = siphash/CATS/atomic.cats
+ATOMIC_CATS += siphash/CATS/spinlock.cats
+ATOMIC_SATS = siphash/SATS/atomic.sats
+ATOMIC_SATS += siphash/SATS/spinlock.sats
+ATOMIC_SATS += siphash/SATS/initialize_once.sats
+ATOMIC_DATS = siphash/DATS/atomic.dats
+ATOMIC_DATS += siphash/DATS/spinlock.dats
+ATOMIC_DATS += siphash/DATS/initialize_once.dats
+ATOMIC_SATS_C = siphash/SATS/atomic_sats.c
+ATOMIC_SATS_C += siphash/SATS/spinlock_sats.c
+ATOMIC_SATS_C += siphash/SATS/initialize_once_sats.c
+ATOMIC_DATS_C = siphash/DATS/atomic_dats.c
+ATOMIC_DATS_C += siphash/DATS/spinlock_dats.c
+ATOMIC_DATS_C += siphash/DATS/initialize_once_dats.c
+EXTRA_DIST += $(ATOMIC_CATS)
+EXTRA_DIST += $(ATOMIC_SATS)
+EXTRA_DIST += $(ATOMIC_DATS)
+CLEANFILES += $(ATOMIC_SATS_C)
+CLEANFILES += $(ATOMIC_DATS_C)
+
 SIPHASH_CATS = siphash/CATS/siphash.cats
 EXTRA_DIST += $(SIPHASH_CATS)
 
@@ -232,6 +265,10 @@ nodist_libats2_siphash_la_SOURCES += $(SIPHASH_SATS_C)
 nodist_libats2_siphash_la_SOURCES += $(SIPHASH_DATS_C)
 nodist_libats2_siphash_la_SOURCES += $(HALFSIPHASH_SATS_C)
 nodist_libats2_siphash_la_SOURCES += $(HALFSIPHASH_DATS_C)
+nodist_libats2_siphash_la_SOURCES += $(KEY_SATS_C)
+nodist_libats2_siphash_la_SOURCES += $(KEY_DATS_C)
+nodist_libats2_siphash_la_SOURCES += $(ATOMIC_SATS_C)
+nodist_libats2_siphash_la_SOURCES += $(ATOMIC_DATS_C)
 
 $(ARRAY_PRF_SATS_C): $(ARRAY_PRF_SATS)
 $(ARRAY_PRF_DATS_C): $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS)
@@ -241,6 +278,46 @@ $(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) \
 $(HALFSIPHASH_SATS_C): $(HALFSIPHASH_SATS)
 $(HALFSIPHASH_DATS_C): $(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) \
 						$(SIPHASH_CATS) $(ARRAY_PRF_SATS)
+$(KEY_SATS_C): $(KEY_SATS)
+$(KEY_DATS_C): $(KEY_SATS) $(KEY_DATS) \
+					$(ATOMIC_SATS) $(ATOMIC_DATS) $(ATOMIC_CATS) \
+					config.h
+
+siphash/SATS/atomic_sats.c: siphash/SATS/atomic.sats
+siphash/SATS/atomic_sats.c: siphash/CATS/atomic.cats
+siphash/SATS/atomic_sats.c: $(SIPHASH_CATS)
+siphash/SATS/spinlock_sats.c: siphash/SATS/spinlock.sats
+siphash/SATS/spinlock_sats.c: siphash/CATS/spinlock.cats
+siphash/SATS/spinlock_sats.c: siphash/SATS/atomic.sats
+siphash/SATS/spinlock_sats.c: siphash/CATS/atomic.cats
+siphash/SATS/spinlock_sats.c: $(SIPHASH_CATS)
+siphash/SATS/initialize_once_sats.c: siphash/SATS/initialize_once.sats
+siphash/SATS/initialize_once_sats.c: siphash/SATS/spinlock.sats
+siphash/SATS/initialize_once_sats.c: siphash/CATS/spinlock.cats
+siphash/SATS/initialize_once_sats.c: siphash/SATS/atomic.sats
+siphash/SATS/initialize_once_sats.c: siphash/CATS/atomic.cats
+siphash/SATS/initialize_once_sats.c: $(SIPHASH_CATS)
+
+siphash/DATS/atomic_dats.c: siphash/DATS/atomic.dats
+siphash/DATS/atomic_dats.c: siphash/SATS/atomic.sats
+siphash/DATS/atomic_dats.c: siphash/CATS/atomic.cats
+siphash/DATS/atomic_dats.c: $(SIPHASH_CATS)
+siphash/DATS/spinlock_dats.c: siphash/DATS/spinlock.dats
+siphash/DATS/spinlock_dats.c: siphash/DATS/atomic.dats
+siphash/DATS/spinlock_dats.c: siphash/SATS/spinlock.sats
+siphash/DATS/spinlock_dats.c: siphash/SATS/atomic.sats
+siphash/DATS/spinlock_dats.c: siphash/CATS/spinlock.cats
+siphash/DATS/spinlock_dats.c: siphash/CATS/atomic.cats
+siphash/DATS/spinlock_dats.c: $(SIPHASH_CATS)
+siphash/DATS/initialize_once_dats.c: siphash/DATS/initialize_once.dats
+siphash/DATS/initialize_once_dats.c: siphash/DATS/spinlock.dats
+siphash/DATS/initialize_once_dats.c: siphash/DATS/atomic.dats
+siphash/DATS/initialize_once_dats.c: siphash/SATS/initialize_once.sats
+siphash/DATS/initialize_once_dats.c: siphash/SATS/spinlock.sats
+siphash/DATS/initialize_once_dats.c: siphash/SATS/atomic.sats
+siphash/DATS/initialize_once_dats.c: siphash/CATS/spinlock.cats
+siphash/DATS/initialize_once_dats.c: siphash/CATS/atomic.cats
+siphash/DATS/initialize_once_dats.c: $(SIPHASH_CATS)
 
 nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_SATS)
 nobase_nodist_pkginclude_HEADERS += $(ARRAY_PRF_DATS)
@@ -249,6 +326,14 @@ nobase_nodist_pkginclude_HEADERS += $(SIPHASH_SATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_DATS)
 nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_SATS)
 nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_DATS)
+nobase_nodist_pkginclude_HEADERS += $(KEY_SATS)
+
+#
+# The following probably should not be installed.
+#
+#nobase_nodist_pkginclude_HEADERS += $(KEY_DATS)
+#nobase_nodist_pkginclude_HEADERS += $(ATOMIC_SATS)
+#nobase_nodist_pkginclude_HEADERS += $(ATOMIC_DATS)
 
 #--------------------------------------------------------------------------
 #
@@ -309,6 +394,7 @@ M4_GENERATED_ATS2_TESTS += tests/test-halfsiphash-4-8-32
 M4_GENERATED_ATS2_TESTS += tests/test-halfsiphash-4-8-64
 M4_GENERATED_ATS2_TESTS += tests/test-halfsiphash-2-4-32-hats
 M4_GENERATED_ATS2_TESTS += tests/test-halfsiphash-4-8-32-hats
+M4_GENERATED_ATS2_TESTS += tests/test-key
 
 tests_test_siphash_2_4_64_SOURCES =
 tests_test_siphash_2_4_64_SOURCES += tests/test-siphash-2-4-64_dats.c
@@ -429,6 +515,12 @@ tests_test_halfsiphash_4_8_32_hats_LDADD += libats2-siphash.la
 tests_test_halfsiphash_4_8_32_hats_DEPENDENCIES =
 tests_test_halfsiphash_4_8_32_hats_DEPENDENCIES += tests/vectors-4-8.h
 tests_test_halfsiphash_4_8_32_hats_DEPENDENCIES += siphash/SATS/array_prf.sats
+
+tests_test_key_SOURCES =
+tests_test_key_SOURCES += tests/test-key_dats.c
+tests_test_key_LDADD =
+tests_test_key_LDADD += libats2-siphash.la
+tests_test_key_DEPENDENCIES =
 
 tests/vectors_sats.c: tests/vectors.sats
 tests/vectors_dats.c: tests/vectors.dats tests/vectors.sats
