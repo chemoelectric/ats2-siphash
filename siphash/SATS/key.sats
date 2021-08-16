@@ -30,9 +30,9 @@ along with this program. If not, see
 
 (* Randomly generate a key of given length. *)
 fun
-make_key {keylen : int | keylen <= 256}
-         (key    : &(@[byte?][keylen]) >> @[byte][keylen],
-          keylen : size_t keylen) :<!refwrt> void
+siphash_make_key {keylen : int | keylen <= 256}
+                 (key    : &(@[byte?][keylen]) >> @[byte][keylen],
+                  keylen : size_t keylen) :<!refwrt> void
 
 (* Return a pointer to a one-time-initialized key of length 128. *)
 fun

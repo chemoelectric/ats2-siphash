@@ -156,6 +156,34 @@ use_halfsiphash_key (void)
           (long long unsigned int) hash2a);
 }
 
+static void
+use_siphash_make_key (void)
+{
+  uint8_t key1[16];
+  siphash_make_key (key1, 16);
+  printf ("siphash_make_key (key1, 16): ");
+  print_bytes (key1, 16);
+  printf ("\n");
+
+  uint8_t key2[8];
+  siphash_make_key (key2, 8);
+  printf ("siphash_make_key (key2, 8):  ");
+  print_bytes (key2, 8);
+  printf ("\n");
+}
+
+void
+get_function_pointers (void)
+{
+  /*
+   * Are pointers to all the functions (including those
+   * declared "inline") available?
+   */
+  printf ("&siphash_make_key = %p\n", &siphash_make_key);
+  printf ("&siphash_key      = %p\n", &siphash_key);
+  printf ("&halfsiphash_key  = %p\n", &halfsiphash_key);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -163,4 +191,6 @@ main (int argc, char *argv[])
   test_halfsiphash_keys_equal ();
   use_siphash_key ();
   use_halfsiphash_key ();
+  use_siphash_make_key ();
+  get_function_pointers ();
 }

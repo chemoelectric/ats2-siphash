@@ -356,9 +356,15 @@ HALFSIPHASH_C_DATS_C = siphash/DATS/halfsiphash_c_dats.c
 EXTRA_DIST += $(HALFSIPHASH_C_DATS)
 CLEANFILES += $(HALFSIPHASH_C_DATS_C)
 
+KEY_C_DATS = siphash/DATS/key_c.dats
+KEY_C_DATS_C = siphash/DATS/key_c_dats.c
+EXTRA_DIST += $(KEY_C_DATS)
+CLEANFILES += $(KEY_C_DATS_C)
+
 libsiphash_la_SOURCES =
 libsiphash_la_SOURCES += $(SIPHASH_C_DATS_C)
 libsiphash_la_SOURCES += $(HALFSIPHASH_C_DATS_C)
+libsiphash_la_SOURCES += $(KEY_C_DATS_C)
 libsiphash_la_SOURCES += siphash/siphash.h
 libsiphash_la_SOURCES += siphash/halfsiphash.h
 libsiphash_la_SOURCES += siphash/key.h

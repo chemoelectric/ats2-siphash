@@ -82,7 +82,7 @@ static atstype_byte ats2_siphash_key_64_storage[8];
 %}
 
 implement
-make_key (key, keylen) =
+siphash_make_key (key, keylen) =
   let
     val retval = $extfcall (int, "getentropy", addr@ key, keylen)
     prval _ = fake_initialization (key)
@@ -103,7 +103,7 @@ in
       val n = i2sz 16
       val p = $extval (Ptr0, "ats2_siphash_key_128_storage")
       val (pf_view, consume_pf_view | p) = make_pf_view<byte> (p, n)
-      val _ = make_key (!p, n)
+      val _ = siphash_make_key (!p, n)
       prval _ = consume_pf_view pf_view
       val _ = key_storage := p
     }
@@ -130,7 +130,7 @@ in
       val n = i2sz 8
       val p = $extval (Ptr0, "ats2_siphash_key_64_storage")
       val (pf_view, consume_pf_view | p) = make_pf_view<byte> (p, n)
-      val _ = make_key (!p, n)
+      val _ = siphash_make_key (!p, n)
       prval _ = consume_pf_view pf_view
       val _ = key_storage := p
     }

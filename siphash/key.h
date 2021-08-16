@@ -35,19 +35,22 @@ along with this program. If not, see
 
 #endif /* !__GNUC__ */
 
+/* Generate a random key of given length (<= 256 bytes). */
+extern void siphash_make_key (void *key, size_t keylen);
+
 /* Return a pointer to a one-time-initialized SipHash key. */
-siphash_key_attribute_const__ static inline const void *
+siphash_key_attribute_const__ inline const void *
 siphash_key (void)
 {
-  extern const void *ats2_siphash_get_key_128 (void);
+  extern void *ats2_siphash_get_key_128 (void);
   return ats2_siphash_get_key_128 ();
 }
 
 /* Return a pointer to a one-time-initialized HalfSipHash key. */
-siphash_key_attribute_const__ static inline const void *
+siphash_key_attribute_const__ inline const void *
 halfsiphash_key (void)
 {
-  extern const void *ats2_siphash_get_key_64 (void);
+  extern void *ats2_siphash_get_key_64 (void);
   return ats2_siphash_get_key_64 ();
 }
 
