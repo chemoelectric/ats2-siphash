@@ -197,9 +197,13 @@ ats2_siphash_fix_byte_order_uint64 (atstype_uint64 x)
 ats2_siphash_always_inline atstype_uint32
 ats2_siphash_get32bits (const atstype_ptr p)
 {
+#if defined (__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+  return *((const atstype_uint32 *) p);
+#else
   atstype_uint32 v;
   ats2_siphash_memcpy (&v, p, 4);
   return ats2_siphash_fix_byte_order_uint32 (v);
+#endif
 }
 
 /* Get a little endian atstype_uint64 from memory, where perhaps the
@@ -207,9 +211,13 @@ ats2_siphash_get32bits (const atstype_ptr p)
 ats2_siphash_always_inline atstype_uint64
 ats2_siphash_get64bits (const atstype_ptr p)
 {
+#if defined (__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+  return *((const atstype_uint64 *) p);
+#else
   atstype_uint64 v;
   ats2_siphash_memcpy (&v, p, 8);
   return ats2_siphash_fix_byte_order_uint64 (v);
+#endif
 }
 
 /* Put a little endian atstype_uint32 to memory, where perhaps the
@@ -217,8 +225,12 @@ ats2_siphash_get64bits (const atstype_ptr p)
 ats2_siphash_always_inline void
 ats2_siphash_put32bits (atstype_ptr p, atstype_uint32 v)
 {
+#if defined (__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+  *((atstype_uint32 *) p) = v;
+#else
   v = ats2_siphash_fix_byte_order_uint32 (v);
   ats2_siphash_memcpy (p, &v, 4);
+#endif
 }
 
 /* Put a little endian atstype_uint64 to memory, where perhaps the
@@ -226,8 +238,12 @@ ats2_siphash_put32bits (atstype_ptr p, atstype_uint32 v)
 ats2_siphash_always_inline void
 ats2_siphash_put64bits (atstype_ptr p, atstype_uint64 v)
 {
+#if defined (__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+  *((atstype_uint64 *) p) = v;
+#else
   v = ats2_siphash_fix_byte_order_uint64 (v);
   ats2_siphash_memcpy (p, &v, 8);
+#endif
 }
 
 #endif /* ATS2_SIPHASH_CATS_HEADER_GUARD__ */
