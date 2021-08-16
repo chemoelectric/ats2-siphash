@@ -229,6 +229,9 @@ KEY_DATS_C = siphash/DATS/key_dats.c
 EXTRA_DIST += $(KEY_DATS)
 CLEANFILES += $(KEY_DATS_C)
 
+KEY_CATS = siphash/CATS/key.cats
+EXTRA_DIST += $(KEY_CATS)
+
 ATOMIC_CATS = siphash/CATS/atomic.cats
 ATOMIC_CATS += siphash/CATS/spinlock.cats
 ATOMIC_SATS = siphash/SATS/atomic.sats
@@ -278,8 +281,8 @@ $(SIPHASH_DATS_C): $(SIPHASH_SATS) $(SIPHASH_DATS) \
 $(HALFSIPHASH_SATS_C): $(HALFSIPHASH_SATS)
 $(HALFSIPHASH_DATS_C): $(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) \
 						$(SIPHASH_CATS) $(ARRAY_PRF_SATS)
-$(KEY_SATS_C): $(KEY_SATS)
-$(KEY_DATS_C): $(KEY_SATS) $(KEY_DATS) \
+$(KEY_SATS_C): $(KEY_SATS) $(KEY_CATS)
+$(KEY_DATS_C): $(KEY_SATS) $(KEY_DATS) $(KEY_CATS) \
 					$(ATOMIC_SATS) $(ATOMIC_DATS) $(ATOMIC_CATS) \
 					config.h
 
@@ -326,6 +329,7 @@ nobase_nodist_pkginclude_HEADERS += $(SIPHASH_SATS)
 nobase_nodist_pkginclude_HEADERS += $(SIPHASH_DATS)
 nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_SATS)
 nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_DATS)
+nobase_nodist_pkginclude_HEADERS += $(KEY_CATS)
 nobase_nodist_pkginclude_HEADERS += $(KEY_SATS)
 
 #
@@ -357,6 +361,7 @@ libsiphash_la_SOURCES += $(SIPHASH_C_DATS_C)
 libsiphash_la_SOURCES += $(HALFSIPHASH_C_DATS_C)
 libsiphash_la_SOURCES += siphash/siphash.h
 libsiphash_la_SOURCES += siphash/halfsiphash.h
+libsiphash_la_SOURCES += siphash/key.h
 
 libsiphash_la_LIBADD =
 libsiphash_la_LIBADD += libats2-siphash.la
@@ -365,6 +370,7 @@ nobase_nodist_pkginclude_HEADERS += $(SIPHASH_C_DATS)
 nobase_nodist_pkginclude_HEADERS += $(HALFSIPHASH_C_DATS)
 nobase_nodist_pkginclude_HEADERS += siphash/siphash.h
 nobase_nodist_pkginclude_HEADERS += siphash/halfsiphash.h
+nobase_nodist_pkginclude_HEADERS += siphash/key.h
 
 #--------------------------------------------------------------------------
 
@@ -542,6 +548,7 @@ M4_GENERATED_C_TESTS += tests/test-halfsiphash-2-4-32-C
 M4_GENERATED_C_TESTS += tests/test-halfsiphash-2-4-64-C
 M4_GENERATED_C_TESTS += tests/test-halfsiphash-4-8-32-C
 M4_GENERATED_C_TESTS += tests/test-halfsiphash-4-8-64-C
+M4_GENERATED_C_TESTS += tests/test-key-C
 
 tests_test_siphash_2_4_64_C_SOURCES =
 tests_test_siphash_2_4_64_C_SOURCES += tests/test-siphash-2-4-64-C.c
@@ -590,6 +597,11 @@ tests_test_halfsiphash_4_8_64_C_SOURCES += tests/test-halfsiphash-4-8-64-C.c
 tests_test_halfsiphash_4_8_64_C_SOURCES += tests/vectors-4-8.h
 tests_test_halfsiphash_4_8_64_C_LDADD =
 tests_test_halfsiphash_4_8_64_C_LDADD += libsiphash.la
+
+tests_test_key_C_SOURCES =
+tests_test_key_C_SOURCES += tests/test-key-C.c
+tests_test_key_C_LDADD =
+tests_test_key_C_LDADD += libsiphash.la
 
 DISTRIBUTED_TESTS =
 DISTRIBUTED_TESTS += $(DISTRIBUTED_ATS2_TESTS)

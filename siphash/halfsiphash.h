@@ -21,6 +21,7 @@ along with this program. If not, see
 #ifndef SIPHASH_HALFSIPHASH_HEADER_GUARD__
 #define SIPHASH_HALFSIPHASH_HEADER_GUARD__
 
+#include <stdlib.h>
 #include <stdint.h>
 
 /* A clone of the reference implementation’s ‘halfsiphash()’ function,

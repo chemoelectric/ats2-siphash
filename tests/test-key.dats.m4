@@ -74,7 +74,7 @@ print_bytes {n     : int}
   end
 
 fn
-bytes_equal {n      : int}
+check_bytes {n      : int}
             (bytes1 : &(@[byte][n]),
              bytes2 : &(@[byte][n]),
              n      : size_t n) : bool =
@@ -104,9 +104,9 @@ test_siphash_keys_equal () : void =
     val (pf_key3, consume_pf_key3 | key3) = siphash_key ()
     val (pf_key4, consume_pf_key4 | key4) = siphash_key ()
 
-    val _ = assertloc (bytes_equal (!key1, !key2, i2sz 16))
-    val _ = assertloc (bytes_equal (!key1, !key3, i2sz 16))
-    val _ = assertloc (bytes_equal (!key1, !key4, i2sz 16))
+    val _ = assertloc (check_bytes (!key1, !key2, i2sz 16))
+    val _ = assertloc (check_bytes (!key1, !key3, i2sz 16))
+    val _ = assertloc (check_bytes (!key1, !key4, i2sz 16))
 
     val _ = $extfcall (int, "printf", "siphash_key ()       ")
     val _ = print_bytes (!key1, i2sz 16)
@@ -126,9 +126,9 @@ test_halfsiphash_keys_equal () : void =
     val (pf_key3, consume_pf_key3 | key3) = halfsiphash_key ()
     val (pf_key4, consume_pf_key4 | key4) = halfsiphash_key ()
 
-    val _ = assertloc (bytes_equal (!key1, !key2, i2sz 8))
-    val _ = assertloc (bytes_equal (!key1, !key3, i2sz 8))
-    val _ = assertloc (bytes_equal (!key1, !key4, i2sz 8))
+    val _ = assertloc (check_bytes (!key1, !key2, i2sz 8))
+    val _ = assertloc (check_bytes (!key1, !key3, i2sz 8))
+    val _ = assertloc (check_bytes (!key1, !key4, i2sz 8))
 
     val _ = $extfcall (int, "printf", "halfsiphash_key ()   ")
     val _ = print_bytes (!key1, i2sz 8)

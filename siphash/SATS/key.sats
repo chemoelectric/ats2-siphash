@@ -23,36 +23,7 @@ along with this program. If not, see
 
 %{#
 #include "siphash/CATS/siphash.cats"
-
-#ifdef __GNUC__
-
-#if 10 <= __GNUC__
-#define ats2_siphash_attribute_const [[gnu::const]]
-#else
-#define ats2_siphash_attribute_const __attribute__((__const__))
-#endif
-
-#else /* !__GNUC__ */
-
-#define ats2_siphash_attribute_const
-
-#endif /* !__GNUC__ */
-
-extern atstype_ptr ats2_siphash_get_key_128 (void);
-extern atstype_ptr ats2_siphash_get_key_64 (void);
-
-ats2_siphash_attribute_const ats2_siphash_inline atstype_ptr
-ats2_siphash_siphash_key (void)
-{
-  return ats2_siphash_get_key_128 ();
-}
-
-ats2_siphash_attribute_const ats2_siphash_inline atstype_ptr
-ats2_siphash_halfsiphash_key (void)
-{
-  return ats2_siphash_get_key_64 ();
-}
-
+#include "siphash/CATS/key.cats"
 %}
 
 (********************************************************************)
