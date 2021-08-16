@@ -35,6 +35,7 @@ along with this program. If not, see
 
 #endif /* !__GNUC__ */
 
+/* Return a pointer to a one-time-initialized SipHash key. */
 siphash_key_attribute_const__ static inline const void *
 siphash_key (void)
 {
@@ -42,6 +43,7 @@ siphash_key (void)
   return ats2_siphash_get_key_128 ();
 }
 
+/* Return a pointer to a one-time-initialized HalfSipHash key. */
 siphash_key_attribute_const__ static inline const void *
 halfsiphash_key (void)
 {
