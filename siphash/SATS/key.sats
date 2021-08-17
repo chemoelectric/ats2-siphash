@@ -34,7 +34,8 @@ siphash_make_key {keylen : int | keylen <= 256}
                  (key    : &(@[byte?][keylen]) >> @[byte][keylen],
                   keylen : size_t keylen) :<!refwrt> void
 
-(* Return a pointer to a one-time-initialized key of length 128. *)
+(* Return a pointer to a one-time-initialized key
+   of length 128 bits (16 bytes). *)
 fun
 siphash_key () :<!ref>
   [p : addr | null < p]
@@ -42,7 +43,8 @@ siphash_key () :<!ref>
    @[byte][16] @ p -<lin,prf> void |
    ptr p) = "mac#%"
 
-(* Return a pointer to a one-time-initialized key of length 64. *)
+(* Return a pointer to a one-time-initialized key
+   of length 64 bits (8 bytes). *)
 fun
 halfsiphash_key () :<!ref>
   [p : addr | null < p]
