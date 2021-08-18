@@ -36,14 +36,24 @@ staload "siphash/SATS/array_prf.sats"
 staload "siphash/SATS/halfsiphash.sats"
 staload "tests/vectors.sats"
 
+%{#
+#include "siphash/CATS/siphash.cats"
+%}
+
 fn
 put_two_uint32 (bytes  : &(@[byte][8]),
-                value1 : &uint32,
-                value2 : &uint32) : void =
-  begin
-    $extfcall (void, "memcpy", addr@ bytes, addr@ value1, i2sz 4);
+                value1 : uint32,
+                value2 : uint32) : void =
+  let
+    extern fn
+    fix_byte_order_uint32 (x : uint32) :<> uint32 =
+      "mac#ats2_siphash_fix_byte_order_uint32"
+    var value1_ = fix_byte_order_uint32 (value1)
+    var value2_ = fix_byte_order_uint32 (value2)
+  in
+    $extfcall (void, "memcpy", addr@ bytes, addr@ value1_, i2sz 4);
     $extfcall (void, "memcpy", ptr_add<byte> (addr@ bytes, 4),
-               addr@ value2, i2sz 4)
+               addr@ value2_, i2sz 4)
   end
 
 fn

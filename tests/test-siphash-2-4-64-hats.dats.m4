@@ -37,10 +37,21 @@ include(`common-macros.m4')
 staload "siphash/SATS/array_prf.sats"
 staload "tests/vectors.sats"
 
+%{#
+#include "siphash/CATS/siphash.cats"
+%}
+
 fn
 put_uint64 (bytes : &(@[byte][8]),
-            value : &uint64) : void =
-  $extfcall (void, "memcpy", addr@ bytes, addr@ value, i2sz 8)
+            value : uint64) : void =
+  let
+    extern fn
+    fix_byte_order_uint64 (x : uint64) :<> uint64 =
+      "mac#ats2_siphash_fix_byte_order_uint64"
+    var value_ = fix_byte_order_uint64 (value)
+  in
+    $extfcall (void, "memcpy", addr@ bytes, addr@ value_, i2sz 8)
+  end
 
 fn
 compare_bytes {n      : int}
