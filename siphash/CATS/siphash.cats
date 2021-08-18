@@ -24,7 +24,7 @@
 _Static_assert (sizeof (atstype_uint32) == 4,
                 "uint32 is not 4 bytes");
 _Static_assert (sizeof (atstype_uint64) == 8,
-                "uint32 is not 8 bytes");
+                "uint64 is not 8 bytes");
 
 #define ats2_siphash_inline ATSinline()
 
