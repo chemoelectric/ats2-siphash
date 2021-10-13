@@ -380,7 +380,6 @@ nobase_nodist_pkginclude_HEADERS += siphash/key.h
 
 #--------------------------------------------------------------------------
 
-pkgconfigdir = ${libdir}/pkgconfig
 nodist_pkgconfig_DATA += ats2-siphash.pc
 nodist_pkgconfig_DATA += siphash.pc
 

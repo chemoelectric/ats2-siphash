@@ -679,6 +679,7 @@ ifGNUmake
 CODE_COVERAGE_ENABLED
 CODE_COVERAGE_ENABLED_FALSE
 CODE_COVERAGE_ENABLED_TRUE
+pkgconfigdir
 PKG_CONFIG_LIBDIR
 PKG_CONFIG_PATH
 PKG_CONFIG
@@ -1180,6 +1181,7 @@ with_sysroot
 enable_libtool_lock
 enable_largefile
 enable_cross_guesses
+with_pkgconfigdir
 with_gcov
 enable_code_coverage
 '
@@ -1856,6 +1858,8 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
                           compiler's sysroot if not specified).
+  --with-pkgconfigdir     pkg-config installation directory
+                          ['${libdir}/pkgconfig']
   --with-gcov=GCOV        use given GCOV for coverage (GCOV=gcov).
 
 Some influential environment variables:
@@ -21554,6 +21558,22 @@ printf "%s\n" "no" >&6; }
 	fi
 fi
 PKG_CONFIG="${PKG_CONFIG} --define-variable=PATSHOME=\"${PATSHOME}\""
+
+
+
+# Check whether --with-pkgconfigdir was given.
+if test ${with_pkgconfigdir+y}
+then :
+  withval=$with_pkgconfigdir;
+else $as_nop
+  with_pkgconfigdir='${libdir}/pkgconfig'
+fi
+
+pkgconfigdir=$with_pkgconfigdir
+
+
+
+
 
 # Enable optional code coverage analysis.
 

@@ -67,6 +67,7 @@ gl_INIT
 
 PKG_PROG_PKG_CONFIG
 PKG_CONFIG="${PKG_CONFIG} --define-variable=PATSHOME=\"${PATSHOME}\""
+PKG_INSTALLDIR
 
 # Enable optional code coverage analysis.
 AX_CODE_COVERAGE
