@@ -21,6 +21,10 @@ along with this program. If not, see
 #define ATS_PACKNAME "ats2-siphash"
 #define ATS_EXTERN_PREFIX "ats2_siphash_"
 
+%{#
+#include "siphash/CATS/siphash.cats"
+%}
+
 (********************************************************************)
 (*
   HalfSipHash

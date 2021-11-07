@@ -18,10 +18,5 @@ along with this program. If not, see
 
 *)
 
-#ifndef SIPHASH_HATS_HEADER_GUARD__ #then
-#define SIPHASH_HATS_HEADER_GUARD__ 1
-
 staload "siphash/SATS/siphash.sats"
 staload _ = "siphash/DATS/siphash.dats"
-
-#endif (* SIPHASH_HATS_HEADER_GUARD__ *)
