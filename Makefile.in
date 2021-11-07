@@ -1370,9 +1370,10 @@ LDADD = $(CODE_COVERAGE_LIBS)
 lib_LTLIBRARIES = libats2-siphash.la libsiphash.la
 nobase_nodist_pkginclude_HEADERS = $(ARRAY_PRF_SATS) $(ARRAY_PRF_DATS) \
 	$(SIPHASH_CATS) $(SIPHASH_SATS) $(SIPHASH_DATS) \
-	$(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) $(KEY_CATS) \
-	$(KEY_SATS) $(SIPHASH_C_DATS) $(HALFSIPHASH_C_DATS) \
-	siphash/siphash.h siphash/halfsiphash.h siphash/key.h
+	$(SIPHASH_HATS) $(HALFSIPHASH_SATS) $(HALFSIPHASH_DATS) \
+	$(HALFSIPHASH_HATS) $(KEY_CATS) $(KEY_SATS) $(SIPHASH_C_DATS) \
+	$(HALFSIPHASH_C_DATS) siphash/siphash.h siphash/halfsiphash.h \
+	siphash/key.h
 
 #--------------------------------------------------------------------------
 nodist_pkgconfig_DATA = ats2-siphash.pc siphash.pc
