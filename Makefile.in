@@ -1342,11 +1342,8 @@ DISTCLEANFILES = Makefile GNUmakefile lib/Makefile lib/GNUmakefile \
 	$(SIPHASH_SATS_EXTRA) $(SIPHASH_DATS_EXTRA) \
 	$(HALFSIPHASH_SATS_EXTRA) $(HALFSIPHASH_DATS_EXTRA)
 BUILT_SOURCES = 
-
-# We will not be using exceptions.
-AM_CPPFLAGS = -D_ATS_CCOMP_EXCEPTION_NONE -I$(builddir) -I$(srcdir) \
-	-I$(PATSHOME) -I$(PATSHOME)/ccomp/runtime/ -I$(builddir)/lib \
-	-I$(srcdir)/lib
+AM_CPPFLAGS = -I$(builddir) -I$(srcdir) -I$(PATSHOME) \
+	-I$(PATSHOME)/ccomp/runtime/ -I$(builddir)/lib -I$(srcdir)/lib
 AM_CFLAGS = 
 AM_LDFLAGS = 
 LDADD = $(CODE_COVERAGE_LIBS)
