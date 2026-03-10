@@ -1183,7 +1183,7 @@ enable_cross_guesses
 with_pkgconfigdir
 with_gcov
 enable_code_coverage
-enable_strong_optimization
+enable_aggressive_optimizations
 enable_year2038
 '
       ac_precious_vars='build_alias
@@ -1852,8 +1852,8 @@ Optional Features:
   --enable-cross-guesses={conservative|risky}
                           specify policy for cross-compilation guesses
   --enable-code-coverage  Whether to enable code coverage support
-  --disable-strong-optimization
-                          disable strong optimizations that are enabled by
+  --disable-aggressive-optimizations
+                          disable aggressive optimizations that are enabled by
                           default
   --enable-year2038       support timestamps after 2038
 
@@ -23546,7 +23546,7 @@ fi
 
 
 
-# Unless this feature is disabled, set compiler flags for strong
+# Unless this feature is disabled, set compiler flags for aggressive
 # optimization.
 { :;
    if test x"${GCC}" = xyes; then
@@ -23595,7 +23595,7 @@ fi
 printf "%s\n" "$ax_cv_check_cflags___O3" >&6; }
 if test "x$ax_cv_check_cflags___O3" = xyes
 then :
-  __strong_optimization_flags="${__strong_optimization_flags} -O3"
+  __aggressive_optimization_flags="${__aggressive_optimization_flags} -O3"
 else case e in #(
   e) : ;;
 esac
@@ -23638,7 +23638,7 @@ fi
 printf "%s\n" "$ax_cv_check_cflags___funroll_loops" >&6; }
 if test "x$ax_cv_check_cflags___funroll_loops" = xyes
 then :
-  __strong_optimization_flags="${__strong_optimization_flags} -funroll-loops"
+  __aggressive_optimization_flags="${__aggressive_optimization_flags} -funroll-loops"
 else case e in #(
   e) : ;;
 esac
@@ -23681,7 +23681,7 @@ fi
 printf "%s\n" "$ax_cv_check_cflags___floop_nest_optimize" >&6; }
 if test "x$ax_cv_check_cflags___floop_nest_optimize" = xyes
 then :
-  __strong_optimization_flags="${__strong_optimization_flags} -floop-nest-optimize"
+  __aggressive_optimization_flags="${__aggressive_optimization_flags} -floop-nest-optimize"
 else case e in #(
   e) : ;;
 esac
@@ -23724,7 +23724,7 @@ fi
 printf "%s\n" "$ax_cv_check_cflags___fgcse_sm" >&6; }
 if test "x$ax_cv_check_cflags___fgcse_sm" = xyes
 then :
-  __strong_optimization_flags="${__strong_optimization_flags} -fgcse-sm"
+  __aggressive_optimization_flags="${__aggressive_optimization_flags} -fgcse-sm"
 else case e in #(
   e) : ;;
 esac
@@ -23767,7 +23767,7 @@ fi
 printf "%s\n" "$ax_cv_check_cflags___fgcse_las" >&6; }
 if test "x$ax_cv_check_cflags___fgcse_las" = xyes
 then :
-  __strong_optimization_flags="${__strong_optimization_flags} -fgcse-las"
+  __aggressive_optimization_flags="${__aggressive_optimization_flags} -fgcse-las"
 else case e in #(
   e) : ;;
 esac
@@ -23783,17 +23783,17 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
    fi
 }
-# Check whether --enable-strong-optimization was given.
-if test ${enable_strong_optimization+y}
+# Check whether --enable-aggressive-optimizations was given.
+if test ${enable_aggressive_optimizations+y}
 then :
-  enableval=$enable_strong_optimization;
+  enableval=$enable_aggressive_optimizations;
 else case e in #(
-  e) enable_strong_optimizations=yes ;;
+  e) enable_aggressive_optimizations=yes ;;
 esac
 fi
 
-if test x"${enable_strong_optimizations}" = xyes; then
-   CFLAGS="${CFLAGS}${CFLAGS+ }${__strong_optimization_flags}"
+if test x"${enable_aggressive_optimizations}" = xyes; then
+   CFLAGS="${CFLAGS}${CFLAGS+ }${__aggressive_optimization_flags}"
 fi
 
 #--------------------------------------------------------------------------

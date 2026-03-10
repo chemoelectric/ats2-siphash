@@ -79,21 +79,21 @@ PKG_INSTALLDIR
 # Enable optional code coverage analysis.
 AX_CODE_COVERAGE
 
-# Unless this feature is disabled, set compiler flags for strong
+# Unless this feature is disabled, set compiler flags for aggressive
 # optimization.
-CHEM_GNU_C_FLAGS([__strong_optimization_flags],[
+CHEM_GNU_C_FLAGS([__aggressive_optimization_flags],[
     -O3
     -funroll-loops
     -floop-nest-optimize
     -fgcse-sm -fgcse-las
     ])
-AC_ARG_ENABLE([strong-optimization],
-  [AS_HELP_STRING([--disable-strong-optimization],
-      [disable strong optimizations that are enabled by default])],
+AC_ARG_ENABLE([aggressive-optimizations],
+  [AS_HELP_STRING([--disable-aggressive-optimizations],
+      [disable aggressive optimizations that are enabled by default])],
   [],
-  [enable_strong_optimizations=yes])
-if test x"${enable_strong_optimizations}" = xyes; then
-   CFLAGS="${CFLAGS}${CFLAGS+ }${__strong_optimization_flags}"
+  [enable_aggressive_optimizations=yes])
+if test x"${enable_aggressive_optimizations}" = xyes; then
+   CFLAGS="${CFLAGS}${CFLAGS+ }${__aggressive_optimization_flags}"
 fi
 
 #--------------------------------------------------------------------------
