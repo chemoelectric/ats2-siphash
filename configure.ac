@@ -1,5 +1,5 @@
 #
-# Copyright © 2021 Barry Schwartz
+# Copyright © 2021, 2026 Barry Schwartz
 #
 # This program is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License, as
@@ -19,7 +19,7 @@
 #--------------------------------------------------------------------------
 
 AC_PREREQ([2.71])
-AC_INIT([ats2-siphash],[1.0.0],[],[ats2-siphash],[])
+AC_INIT([ats2-siphash],[1.0.1],[],[ats2-siphash],[])
 
 AC_CONFIG_SRCDIR([siphash/SATS/siphash.sats])
 
@@ -35,6 +35,13 @@ AM_MAINTAINER_MODE
 LT_INIT
 
 AC_ARG_VAR([PATSHOME],[the home of the ATS2 compiler])
+if test x"${PATSHOME}" = x; then
+  # Find PATSHOME by hacking the patsopt script.
+  awk '/^prog=`basename \$0`/{exit 0}{print}END{print "echo \"${PATSHOME}\""}' \
+    `which patsopt` > tmp.sh
+  PATSHOME=`sh tmp.sh`
+  rm tmp.sh
+fi
 
 AC_ARG_VAR([PKGCONFIG_PATSHOME],
   [The PATSHOME setting to put in the pkg-config file [default="${PATSHOME}"]])
@@ -71,6 +78,23 @@ PKG_INSTALLDIR
 
 # Enable optional code coverage analysis.
 AX_CODE_COVERAGE
+
+# Unless this feature is disabled, set compiler flags for strong
+# optimization.
+CHEM_GNU_C_FLAGS([__strong_optimization_flags],[
+    -O3
+    -funroll-loops
+    -floop-nest-optimize
+    -fgcse-sm -fgcse-las
+    ])
+AC_ARG_ENABLE([strong-optimization],
+  [AS_HELP_STRING([--disable-strong-optimization],
+      [disable strong optimizations that are enabled by default])],
+  [],
+  [enable_strong_optimizations=yes])
+if test x"${enable_strong_optimizations}" = xyes; then
+   CFLAGS="${CFLAGS}${CFLAGS+ }${__strong_optimization_flags}"
+fi
 
 #--------------------------------------------------------------------------
 #

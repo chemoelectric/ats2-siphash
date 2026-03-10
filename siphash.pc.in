@@ -7,7 +7,7 @@ package=@PACKAGE@
 version=@VERSION@
 pkgincludedir="${includedir}/${package}"
 
-CPPFLAGS="-I${pkgincludedir}"
+CPPFLAGS=-I${pkgincludedir}
 
 Name: ${package}
 Description: SipHash for C (written in ATS2)
