@@ -52,6 +52,14 @@ if test -z "${PKGCONFIG_PATSHOME}"; then
   AC_MSG_ERROR([Please set PKGCONFIG_PATSHOME on the configure command line.])
 fi
 
+# Unless this feature is disabled, set compiler flags for aggressive
+# optimization.
+AC_ARG_ENABLE([aggressive-optimizations],
+  [AS_HELP_STRING([--disable-aggressive-optimizations],
+      [disable aggressive optimizations that are enabled by default])],
+  [],
+  [enable_aggressive_optimizations=yes])
+
 #--------------------------------------------------------------------------
 #
 # Checks for programs.
@@ -79,19 +87,12 @@ PKG_INSTALLDIR
 # Enable optional code coverage analysis.
 AX_CODE_COVERAGE
 
-# Unless this feature is disabled, set compiler flags for aggressive
-# optimization.
 CHEM_GNU_C_FLAGS([__aggressive_optimization_flags],[
     -O3
     -funroll-loops
     -floop-nest-optimize
     -fgcse-sm -fgcse-las
     ])
-AC_ARG_ENABLE([aggressive-optimizations],
-  [AS_HELP_STRING([--disable-aggressive-optimizations],
-      [disable aggressive optimizations that are enabled by default])],
-  [],
-  [enable_aggressive_optimizations=yes])
 if test x"${enable_aggressive_optimizations}" = xyes; then
    CFLAGS="${CFLAGS}${CFLAGS+ }${__aggressive_optimization_flags}"
 fi
